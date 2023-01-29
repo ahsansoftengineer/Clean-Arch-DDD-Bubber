@@ -1,11 +1,11 @@
 using Donation.Application;
-using Donation.Application.Servicies.Authentication;
+using Donation.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
   builder.Services
-    .AddApplication();
-    //.AddInfrastructure();
+    .AddApplication()
+    .AddInfrastructure();
   builder.Services.AddControllers();
   builder.Services.AddSwaggerGen();
 }

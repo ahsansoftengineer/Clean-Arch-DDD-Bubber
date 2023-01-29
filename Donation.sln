@@ -13,7 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Donation.Infrastructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Donation.Contracts", "Donation.Contracts\Donation.Contracts.csproj", "{223E2675-0431-4FB9-8736-A534CCF7DB75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Info", "Info\Info.csproj", "{D3CC09BB-8A97-4469-B8A8-C92483371EF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info", "Info\Info.csproj", "{D3CC09BB-8A97-4469-B8A8-C92483371EF0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A2EEEACE-D04F-451B-BBDF-3D6229AEFF46}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
