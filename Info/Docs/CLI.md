@@ -29,4 +29,10 @@
 - start .
 9. dotnet new gitignore
 10. git init
-
+11. Adding Packages to Specific Project
+- dotnet add .\Donation.Infrastructure\ package Microsoft.Extensions.Configuration
+- dotnet add .\Donation.Infrastructure\ package Microsoft.Extensions.Options.ConfigurationExtensions
+12. To Initialize User-Secrets in a Specific Project
+- dotnet user-secrets init --project .\Donation.Api\
+- dotnet user-secrets set --project .\Donation.Api\ "JwtSettings:Secret" "super-secret-key-from-user-secrets"
+- dotnet user-secrets list --project .\Donation.Api\

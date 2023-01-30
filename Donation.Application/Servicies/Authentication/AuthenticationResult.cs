@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Donation.Application.Servicies.Authentication
+﻿namespace Donation.Application.Servicies.Authentication
 {
   public record AuthenticationResult(
     Guid Id,
