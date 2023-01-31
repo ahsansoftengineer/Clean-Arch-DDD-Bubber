@@ -1,10 +1,9 @@
-﻿namespace Donation.Application.Servicies.Authentication
+﻿using Donation.Domain.Entities;
+
+namespace Donation.Application.Servicies.Authentication
 {
   public record AuthenticationResult(
-    Guid Id,
-    string FirstName,
-    string LastName,
-    string Email,
+    User User,
     string Token
     );
 }

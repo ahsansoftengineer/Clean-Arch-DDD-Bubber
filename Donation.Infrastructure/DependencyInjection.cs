@@ -4,6 +4,8 @@ using Donation.Infrastructure.Authentication;
 using Donation.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Donation.Application.Common.Persistence;
+using Donation.Infrastructure.Persistence;
 
 namespace Donation.Infrastructure
 {
@@ -17,8 +19,10 @@ namespace Donation.Infrastructure
       Services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
       // 1. Interface are Coming From Application Layer
       // 2. Classes Coming From Infrastructure
-      Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-      Services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+      Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+      Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+
+      Services.AddScoped<IUserRepository, UserRepository>();
 
       return Services;
     }
