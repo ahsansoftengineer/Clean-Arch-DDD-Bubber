@@ -20,13 +20,21 @@
 - Impl JWT
 - Service Added into Api
 
-#### Donation.Infrastructure
-- Authentication > JwtSettings, JwtTokenGenerator
-- Services > DateTimeProvider
-
 #### Donation.Application
 - Common > 
 - - Interfaces > Authentication > IJwtTokenGenerator
 - - Services > IDateTimeProvider
+- - Persistence > IUserRepository
+- Utilized by Infrastructure
+
+#### Donation.Infrastructure
+- Authentication > JwtSettings, JwtTokenGenerator
+- Services > DateTimeProvider
+- Persistence > UserRepository
+
+#### Donation.Api
+- Utilized in Donation.Api Layer as per old implementation
+
+
 
 
