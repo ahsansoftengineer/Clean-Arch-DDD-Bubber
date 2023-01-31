@@ -28,7 +28,8 @@ namespace Donation.Api.Middleware
       var code = HttpStatusCode.InternalServerError; // 500 if unexpected
       var result = JsonSerializer.Serialize(new
       {
-        error = "An error occurred while processing your request"
+        error = "Middleware Processing Exception : " + ex.Message,
+        //error = ex.Message
       });
 
       context.Response.ContentType = "application/json";
