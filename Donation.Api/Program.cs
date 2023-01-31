@@ -1,3 +1,4 @@
+using Donation.Api.Middleware;
 using Donation.Application;
 using Donation.Infrastructure;
 
@@ -13,16 +14,18 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
 {
+  // To Use this we have to Comment Developer Exception Page
+  app.UseMiddleware<ErrorHandlingMiddleware>();
 
   app.UseHttpsRedirection();
   app.MapControllers();
+
   if (app.Environment.IsDevelopment())
   {
-    app.UseDeveloperExceptionPage();
+    //app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
   }
-    
 
   app.Run();
 }
