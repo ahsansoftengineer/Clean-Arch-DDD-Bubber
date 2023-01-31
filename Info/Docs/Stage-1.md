@@ -1,18 +1,32 @@
 ﻿## Stage 1 
+1. Impl Auth 
+2. Service Added into Api 
 
-### Donation.Application
+####  Donation.Application
 - AuthenticationService, IAuthenticationService, AuthenticationResult has (Register and Login Defined)
 - Utilized by API
 
-### Donation.Contracts
+#### Donation.Contracts
 - AuthenticationResponse
 - LoginResponse
 - RegisterRequest
 - Utilized by API
 
-### Donation.Api 
+#### Donation.Api 
 - Controller with Action (Register, Login)
 - Register and Login Type Defined  Separately
 
 ## Stage 2
-- 
+- Impl JWT
+- Service Added into Api
+
+#### Donation.Infrastructure
+- Authentication > JwtSettings, JwtTokenGenerator
+- Services > DateTimeProvider
+
+#### Donation.Application
+- Common > 
+- - Interfaces > Authentication > IJwtTokenGenerator
+- - Services > IDateTimeProvider
+
+
