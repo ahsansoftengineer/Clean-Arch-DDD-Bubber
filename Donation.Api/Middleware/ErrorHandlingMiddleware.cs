@@ -6,12 +6,10 @@ namespace Donation.Api.Middleware
   public class ErrorHandlingMiddleware
   {
     private readonly RequestDelegate next;
-
     public ErrorHandlingMiddleware(RequestDelegate next)
     {
       this.next = next;
     }
-
     public async Task Invoke(HttpContext context)
     {
       try

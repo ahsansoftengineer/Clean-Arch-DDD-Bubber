@@ -25,6 +25,7 @@
 - dotnet add .\Donation.Api\ reference .\Donation.Infrastructure\
 8. To Run a Specific Project
 - dotnet run --project .\Donation.Api\
+- dotnet watch run --project .\Donation.Api\
 8. To Open a Folder in FileExplorer Windows
 - start .
 9. dotnet new gitignore
