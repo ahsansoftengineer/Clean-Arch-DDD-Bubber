@@ -27,7 +27,7 @@ namespace Donation.Api.Controllers
 
             var (statusCode, message) = exception switch
             {
-                DuplicateEmailException => (StatusCodes.Status409Conflict, "ErrorController Message : Email already exists. | Inner Message : " + exception.Message),
+                DuplicateEmailException => (StatusCodes.Status409Conflict, "ErrorController Message | Inner Message : " + exception.Message),
                 _ => (StatusCodes.Status500InternalServerError, "No expected error occurred.")
             };
             return Problem(title: message, statusCode: statusCode);

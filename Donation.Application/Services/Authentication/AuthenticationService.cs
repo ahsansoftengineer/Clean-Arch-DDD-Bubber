@@ -3,7 +3,7 @@ using Donation.Application.Common.Errors;
 using Donation.Application.Common.Interfaces.Authentication;
 using Donation.Application.Common.Persistence;
 using Donation.Domain.Entities;
-using OneOf;
+using FluentResults;
 
 namespace Donation.Application.Servicies.Authentication
 {
@@ -22,14 +22,20 @@ namespace Donation.Application.Servicies.Authentication
       this.jwtTokenGenerator = jwtTokenGenerator;
       this.userRepository = userRepository;
     }
-    public OneOf<AuthenticationResult, DuplicationEmailError> Register(string firstName, string lastName, string email, string password)
+    public Result<AuthenticationResult> Register(string firstName, string lastName, string email, string password)
     {
       // Check if user already exists
       if (userRepository.GetUserByEmail(email) != null)
       {
         // Old Impl without using OneOf
         //throw new DuplicateEmailException("User with given email already exists");
-        return new DuplicationEmailError();
+        // Old
+        //return new DuplicationEmailError();
+
+        // FluentResult as the ability multiple errors
+        //return Result.Fail<AuthenticationResult>(new DuplicationEmailError());
+        return Result.Fail<AuthenticationResult>(new[] { new DuplicationEmailError() });
+
       }
 
       // Create user (generate unique Id)

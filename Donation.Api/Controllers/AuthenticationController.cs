@@ -1,9 +1,8 @@
 using Donation.Application.Common.Errors;
 using Donation.Application.Servicies.Authentication;
 using Donation.Contracts.Authentication;
+using FluentResults;
 using Microsoft.AspNetCore.Mvc;
-using OneOf;
-using OneOf.Types;
 
 namespace Donation.Api.Controllers;
 
@@ -28,21 +27,38 @@ public class AuthenticationController : ControllerBase
   [HttpPost("register")]
   public IActionResult Register(RegisterRequest request)
   {
-    OneOf<AuthenticationResult, DuplicationEmailError> registerResult = authenticationSvc.Register(
+    Result<AuthenticationResult> registerResult = authenticationSvc.Register(
       request.FirstName,
       request.LastName,
       request.Email,
       request.Password
     );
 
+    if(registerResult.IsSuccess)
+    {
+      return Ok(MapAuthResult(registerResult.Value));
+    }
+    var firstError = registerResult.Errors[0];
+
+    if(firstError is DuplicationEmailError) 
+    {
+      return Problem(
+        statusCode: StatusCodes.Status409Conflict,
+        detail: "Fluent : AuthController : Email already exists"
+
+        );
+    }
+    return Problem();
+
+    // Old Way 2
     // Here we are returning Exception / Data based on Status of Result
-    return registerResult.Match(
-      authResult => Ok(MapAuthResult(authResult)),
-      _ => Problem(
-          statusCode: StatusCodes.Status409Conflict, 
-          title: "Authentication Controller : OneOf Library : Email Already Exists"
-      )
-    );
+    //return registerResult.Match(
+    //  authResult => Ok(MapAuthResult(authResult)),
+    //  _ => Problem(
+    //      statusCode: StatusCodes.Status409Conflict, 
+    //      title: "Authentication Controller : OneOf Library : Email Already Exists"
+    //  )
+    //);
 
   }
 

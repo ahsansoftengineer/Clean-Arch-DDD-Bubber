@@ -74,4 +74,58 @@ _configure?.Invoke(new() { HttpContext = httpContext!, ProblemDetails = problemD
  });
 ```
 
+### Flow Control and Fluent Result
+1. .NET Core FluentResult is a library for creating type-safe, fluent and composable results for .NET Core applications. 
+2. It provides a simple and intuitive way to return and handle errors, exceptions and results from method calls. 
+3. The library is inspired by functional programming and makes it easy to create, compose and chain results, making it ideal for use in complex and error-prone applications. 
+
+```c#
+dotnet add .\Donation.Application\ package FluentResult
+```
+
+```c#
+// 1. Interface Impl
+namespace Donation.Application.Servicies.Authentication.IAuthenticationService
+namespace Donation.Application.Servicies.Authentication.AuthenticationService
+
+// 2. Impl IError for Custom Exception
+namespace Donation.Application.Common.Errors.DuplicationEmailError : IError
+
+// 3. Controller Action Method
+[HttpPost("register")]
+public IActionResult Register(RegisterRequest request)
+{
+  Result<AuthenticationResult> registerResult = authenticationSvc.Register(
+    request.FirstName,
+    request.LastName,
+    request.Email,
+    request.Password
+  );
+
+  if(registerResult.IsSuccess)
+  {
+    return Ok(MapAuthResult(registerResult.Value));
+  }
+  var firstError = registerResult.Errors[0];
+
+  if(firstError is DuplicationEmailError) 
+  {
+    return Problem(
+      statusCode: StatusCodes.Status409Conflict,
+      detail: "Fluent : AuthController : Email already exists"
+
+      );
+  }
+  return Problem();
+}
+```
+
+### Flow Control | ErrorOr Library by Amantinband  
+- ErrorOrhas the ability to Handle both the way (OneOf, FluentResult)
+- It has several Flexibility read the [Error Or](https://github.com/amantinband/error-or)
+
+```c#
+
+
+```
 
