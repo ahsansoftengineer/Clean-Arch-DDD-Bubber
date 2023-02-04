@@ -41,6 +41,9 @@
 13. External Packages for Projects
 - dotnet add .\Donation.Application\ package oneof
 
+14. Extra Commands
+- dotnet format ./solution.sln
+
 ### Git Commands
 - git remote set-url stream https://gitlab.com/starbazaar/admin-panel.git
 - git remote add stream https://gitlab.com/starbazaar/webapp.git

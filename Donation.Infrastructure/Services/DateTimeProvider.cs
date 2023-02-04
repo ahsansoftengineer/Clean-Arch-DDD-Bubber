@@ -2,8 +2,8 @@
 
 namespace Donation.Infrastructure.Services
 {
-  public class DateTimeProvider : IDateTimeProvider
-  {
-    public DateTime UtcNow => DateTime.UtcNow;
-  }
+    public class DateTimeProvider : IDateTimeProvider
+    {
+        public DateTime UtcNow => DateTime.UtcNow;
+    }
 }
