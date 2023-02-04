@@ -121,7 +121,11 @@ public IActionResult Register(RegisterRequest request)
 ```
 
 ### Flow Control | ErrorOr Library by Amantinband  
-- ErrorOrhas the ability to Handle both the way (OneOf, FluentResult)
+- ErrorOr has the ability to Handle both the way (OneOf, FluentResult)
+- It can Categorize the Error
+- Handle Single & List of Errors
+- Manage Error by Error Code
+
 - It has several Flexibility read the [Error Or](https://github.com/amantinband/error-or)
 
 ```c#

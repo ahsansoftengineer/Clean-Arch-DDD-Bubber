@@ -1,63 +1,38 @@
-using Donation.Api.Errors;
+using Donation.Api.Common.Errors;
 using Donation.Application;
 using Donation.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    builder.Services
-      .AddApplication()
-      .AddInfrastructure(builder.Configuration);
+  builder.Services
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration);
 
-    builder.Services.AddControllers();
-    //builder.Services.AddSingleton<ProblemDetailsFactory, DonationOverrideDefaultProblemDetailsFactory>();
-    //builder.Services.AddSwaggerGen();
+  builder.Services.AddControllers();
+  builder.Services.AddSwaggerGen();
+  builder.Services.AddSingleton<ProblemDetailsFactory, DonationOverrideDefaultProblemDetailsFactory>();
 
-    builder.Services.AddControllers(options =>
-    {
-        // 1. Exception Filter Attribute
-        //options.Filters.Add<ErrorHandlingFilterAttribute>();
-    });
+  builder.Services.AddControllers();
 }
 
 var app = builder.Build();
 
 {
+  app.UseHttpsRedirection();
+  app.MapControllers();
 
-    // 2. Exception Middleware
-    // app.UseMiddleware<ErrorHandlingMiddleware>();
+  if (app.Environment.IsDevelopment())
+  {
+    // Developer Exception Page
+    // and Swagger not Work with Exception Filters
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+  }
+  app.UseExceptionHandler("/error");
 
-    // 3. Exception Route
-    app.UseExceptionHandler("/error");
 
-    // 4.Minimal Api Approach this is not usefull
-    //app.Map("/error", (HttpContext context) =>
-    //{
-    //  var code = HttpStatusCode.InternalServerError; // 500 if unexpected
-    //  var result = JsonSerializer.Serialize(new
-    //  {
-
-    //    error = "Minimal API Processing Exception : " + "Any Message of my Choice",
-    //    //error = ex.Message
-    //  });
-
-    //  context.Response.ContentType = "application/json";
-    //  context.Response.StatusCode = (int)code;
-    //  return context.Response.WriteAsync(result);
-    //});
-
-    app.UseHttpsRedirection();
-    app.MapControllers();
-
-    if (app.Environment.IsDevelopment())
-    {
-        // Developer Exception Page
-        // and Swagger not Work with Exception Filters
-        //app.UseDeveloperExceptionPage();
-        //app.UseSwagger();
-        //app.UseSwaggerUI();
-    }
-
-    app.Run();
+  app.Run();
 }
 

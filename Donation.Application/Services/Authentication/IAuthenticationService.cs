@@ -1,16 +1,16 @@
 ﻿using Donation.Application.Common.Errors;
-using FluentResults;
+using ErrorOr;
 
 namespace Donation.Application.Servicies.Authentication
 {
   public interface IAuthenticationService
   {
-    Result<AuthenticationResult> Register(
+    ErrorOr<AuthenticationResult> Register(
       string firstName,
       string lastName,
       string email,
       string password
     );
-    AuthenticationResult Login(string email, string password);
+    ErrorOr<AuthenticationResult> Login(string email, string password);
   }
 }

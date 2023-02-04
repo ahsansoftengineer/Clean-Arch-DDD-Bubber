@@ -39,8 +39,9 @@
 - dotnet user-secrets list --project .\Donation.Api\
 
 13. External Packages for Projects
-- dotnet add .\Donation.Application\ package oneOf // Drawback of Scalability used in Application Layer
-- dotnet add .\Donation.Application\ package fluentResults // 
+- dotnet add .\Donation.Application\ package OneOf // Drawback of Scalability used in Application Layer
+- dotnet add .\Donation.Application\ package FluentResults // It has Lack Some Ability of OneOf used in Application Layer
+- dotnet add .\Donation.Domain\ package ErrorOr // Recommended and Final Approach
 
 14. Extra Commands
 - dotnet format ./solution.sln

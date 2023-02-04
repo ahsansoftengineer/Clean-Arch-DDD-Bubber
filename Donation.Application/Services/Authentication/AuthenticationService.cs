@@ -1,9 +1,9 @@
-﻿using Donation.Application.Common.DuplicateEmailException;
-using Donation.Application.Common.Errors;
-using Donation.Application.Common.Interfaces.Authentication;
+﻿using Donation.Application.Common.Interfaces.Authentication;
 using Donation.Application.Common.Persistence;
 using Donation.Domain.Entities;
-using FluentResults;
+using Donation.Domain.Common;
+using ErrorOr;
+using System.ComponentModel;
 
 namespace Donation.Application.Servicies.Authentication
 {
@@ -22,20 +22,11 @@ namespace Donation.Application.Servicies.Authentication
       this.jwtTokenGenerator = jwtTokenGenerator;
       this.userRepository = userRepository;
     }
-    public Result<AuthenticationResult> Register(string firstName, string lastName, string email, string password)
+    public ErrorOr<AuthenticationResult> Register(string firstName, string lastName, string email, string password)
     {
-      // Check if user already exists
       if (userRepository.GetUserByEmail(email) != null)
       {
-        // Old Impl without using OneOf
-        //throw new DuplicateEmailException("User with given email already exists");
-        // Old
-        //return new DuplicationEmailError();
-
-        // FluentResult as the ability multiple errors
-        //return Result.Fail<AuthenticationResult>(new DuplicationEmailError());
-        return Result.Fail<AuthenticationResult>(new[] { new DuplicationEmailError() });
-
+        return Domain.Common.Errors.User.DuplicateEmail; 
       }
 
       // Create user (generate unique Id)
@@ -56,17 +47,20 @@ namespace Donation.Application.Servicies.Authentication
         token
       );
     }
-    public AuthenticationResult Login(string email, string password)
+    public ErrorOr<AuthenticationResult> Login(string email, string password)
     {
       // 1. Validate the User exists 
       if (userRepository.GetUserByEmail(email) is not User user)
       {
-        throw new Exception("User with given email not exists");
+        return new[] {
+          Domain.Common.Errors.Authentication.InvalidEmail,
+          Domain.Common.Errors.Authentication.InvalidPassword,
+        };
       }
       // 2. Validate the Password is Correct
       if (user.Password != password)
       {
-        throw new Exception("Invalid Password.");
+        return Domain.Common.Errors.Authentication.InvalidPassword;
       }
       // 3. Create JWT token
 
