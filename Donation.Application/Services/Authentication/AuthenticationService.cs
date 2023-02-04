@@ -1,4 +1,5 @@
-﻿using Donation.Application.Common.Interfaces.Authentication;
+﻿using Donation.Application.Common.DuplicateEmailException;
+using Donation.Application.Common.Interfaces.Authentication;
 using Donation.Application.Common.Persistence;
 using Donation.Domain.Entities;
 
@@ -24,7 +25,7 @@ namespace Donation.Application.Servicies.Authentication
       // Check if user already exists
       if(userRepository.GetUserByEmail(email) != null)
       {
-        throw new Exception("User with given email already exists");
+        throw new DuplicateEmailException("User with given email already exists");
       }
 
       // Create user (generate unique Id)

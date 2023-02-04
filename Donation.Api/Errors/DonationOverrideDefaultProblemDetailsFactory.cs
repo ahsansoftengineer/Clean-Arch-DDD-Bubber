@@ -99,7 +99,7 @@ public sealed class DonationOverrideDefaultProblemDetailsFactory: ProblemDetails
     }
 
     // Here we are adding a Property when for Error
-    problemDetails.Extensions.Add("customeProperty", "Custom Value"); // <=
+    problemDetails.Extensions.Add("customeProperty", "Custom Value added by DonationOverrideDefaultProblemDetailsFactory"); // <=
 
     _configure?.Invoke(new() { HttpContext = httpContext!, ProblemDetails = problemDetails });
   }

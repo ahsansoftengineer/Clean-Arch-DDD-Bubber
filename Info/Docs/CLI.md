@@ -2,7 +2,7 @@
 - Note: For Bash You can Revert BackSlash \ to ForwardSlash /
 - Create a Folder for your project with that folder run the following commands
 
-### Commands
+### Dotnet Commands
 1. Creating a Solution
 - dotnet new sln -o SolutionName
 2. Creating WEB API
@@ -37,3 +37,15 @@
 - dotnet user-secrets init --project .\Donation.Api\
 - dotnet user-secrets set --project .\Donation.Api\ "JwtSettings:Secret" "super-secret-key-from-user-secrets"
 - dotnet user-secrets list --project .\Donation.Api\
+
+13. External Packages for Projects
+- dotnet add .\Donation.Application\ package oneof
+
+### Git Commands
+- git remote set-url stream https://gitlab.com/starbazaar/admin-panel.git
+- git remote add stream https://gitlab.com/starbazaar/webapp.git
+- git remote -v
+- origin  https://gitlab.com/m.ahsan.saifi/webapp.git (fetch)
+- origin  https://gitlab.com/m.ahsan.saifi/webapp.git (push)
+- stream  https://gitlab.com/starbazaar/webapp.git (fetch)
+- stream  https://gitlab.com/starbazaar/webapp.git (push)

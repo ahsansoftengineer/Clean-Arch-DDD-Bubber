@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
   builder.Services.AddControllers();
   builder.Services.AddSingleton<ProblemDetailsFactory, DonationOverrideDefaultProblemDetailsFactory>();
-  builder.Services.AddSwaggerGen();
+  //builder.Services.AddSwaggerGen();
 
   builder.Services.AddControllers(options =>
   {
