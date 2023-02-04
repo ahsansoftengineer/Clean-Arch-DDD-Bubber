@@ -47,6 +47,7 @@
 - dotnet format ./solution.sln
 
 ### Git Commands
+- git push --set-upstream origin BranchNameHere
 - git remote set-url stream https://gitlab.com/starbazaar/admin-panel.git
 - git remote add stream https://gitlab.com/starbazaar/webapp.git
 - git remote -v

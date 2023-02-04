@@ -128,8 +128,17 @@ public IActionResult Register(RegisterRequest request)
 
 - It has several Flexibility read the [Error Or](https://github.com/amantinband/error-or)
 
-```c#
-
-
-```
+### Project Layers, Folders and Files Involvement
+#### Donation.Api
+- Common > 
+- - Errors > DonationOverrideDefaultProblem
+- - Http > HttpContextItemKeys
+- Controllers
+- - ApiController
+- - ErrorsController
+- - AuthenticationController
+- Program.cs
+#### Donation.Domain
+- Common
+- - Errors > Errors.Authentication.cs, Errors.User.cs
 

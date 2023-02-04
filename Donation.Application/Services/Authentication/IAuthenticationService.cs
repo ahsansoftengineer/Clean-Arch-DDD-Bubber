@@ -1,5 +1,4 @@
-﻿using Donation.Application.Common.Errors;
-using ErrorOr;
+﻿using ErrorOr;
 
 namespace Donation.Application.Servicies.Authentication
 {

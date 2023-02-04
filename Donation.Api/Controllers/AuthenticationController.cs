@@ -57,13 +57,13 @@ public class AuthenticationController : ApiController
     );
     // This Approach has the ability we still add more exception handling here
 
-    if(authResult.IsError && authResult.FirstError == Donation.Domain.Common.Errors.Authentication.InvalidEmail)
-    {
-      return Problem(
-        statusCode: StatusCodes.Status203NonAuthoritative,
-        title: "ErrorOr : AuthController : Invalid Email from Controller"
-        );
-    }
+    //if(authResult.IsError && authResult.FirstError == Donation.Domain.Common.Errors.Authentication.InvalidEmail)
+    //{
+    //  return Problem(
+    //    statusCode: StatusCodes.Status203NonAuthoritative,
+    //    title: "ErrorOr : AuthController : Invalid Email from Controller"
+    //    );
+    //}
 
     // This is for Handling List<Errors>
     return authResult.Match(
