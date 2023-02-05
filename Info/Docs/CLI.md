@@ -42,6 +42,8 @@
 - dotnet add .\Donation.Application\ package OneOf // Drawback of Scalability used in Application Layer
 - dotnet add .\Donation.Application\ package FluentResults // It has Lack Some Ability of OneOf used in Application Layer
 - dotnet add .\Donation.Domain\ package ErrorOr // Recommended and Final Approach
+- dotnet add .\Donation.Application\ package MediatR
+
 
 14. Extra Commands
 - dotnet format ./solution.sln

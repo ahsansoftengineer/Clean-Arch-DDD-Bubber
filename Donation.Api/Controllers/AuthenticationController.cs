@@ -1,4 +1,6 @@
-using Donation.Application.Servicies.Authentication;
+using Donation.Application.Services.Authentication.Command;
+using Donation.Application.Services.Authentication.Common;
+using Donation.Application.Services.Authentication.Query;
 using Donation.Contracts.Authentication;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
@@ -8,11 +10,15 @@ namespace Donation.Api.Controllers;
 [Route("auth")]
 public class AuthenticationController : ApiController
 {
-  private readonly IAuthenticationService authenticationSvc;
+  private readonly IAuthenticationCommandService authenticationCommandService;
+  private readonly IAuthenticationQueryService authenticationQueryService;
 
-  public AuthenticationController(IAuthenticationService authenticationSvc)
+  public AuthenticationController(
+    IAuthenticationCommandService authenticationCommandService, 
+    IAuthenticationQueryService authenticationQueryService)
   {
-    this.authenticationSvc = authenticationSvc;
+    this.authenticationCommandService = authenticationCommandService;
+    this.authenticationQueryService = authenticationQueryService;
   }
 
 
@@ -25,25 +31,15 @@ public class AuthenticationController : ApiController
   [HttpPost("register")]
   public IActionResult Register(RegisterRequest request)
   {
-    ErrorOr<AuthenticationResult> authResult = authenticationSvc.Register(
+    ErrorOr<AuthenticationResult> authResult = authenticationCommandService.Register(
       request.FirstName,
       request.LastName,
       request.Email,
       request.Password
     );
-    // Way 1 : ErrorOr Match
     return authResult.Match(
       authResult => Ok(MapAuthResult(authResult)),
       errors => Problem(errors));
-
-    // Way 2 : ErrorOr MatchFirst
-    //return authResult.MatchFirst(
-    //  authResult => Ok(MapAuthResult(authResult)),
-    //  firstResult => Problem(
-    //    statusCode: StatusCodes.Status409Conflict,
-    //    title: firstResult.Description
-    //  )
-    //);
   }
 
 
@@ -51,33 +47,13 @@ public class AuthenticationController : ApiController
   public IActionResult Login(LoginRequest request)
   {
 
-    var authResult = authenticationSvc.Login(
+    var authResult = authenticationQueryService.Login(
       request.Email,
       request.Password
     );
-    // This Approach has the ability we still add more exception handling here
-
-    //if(authResult.IsError && authResult.FirstError == Donation.Domain.Common.Errors.Authentication.InvalidEmail)
-    //{
-    //  return Problem(
-    //    statusCode: StatusCodes.Status203NonAuthoritative,
-    //    title: "ErrorOr : AuthController : Invalid Email from Controller"
-    //    );
-    //}
-
-    // This is for Handling List<Errors>
     return authResult.Match(
       authResult => Ok(MapAuthResult(authResult)),
       errors => Problem(errors));
-
-    // When Single Error
-    //return result.MatchFirst(
-    //  authResult => Ok(MapAuthResult(authResult)),
-    //  firstResult => Problem(
-    //    statusCode: StatusCodes.Status409Conflict,
-    //    title: firstResult.Description
-    // )
-    //);
   }
 
   private static AuthenticationResponse MapAuthResult(AuthenticationResult result)

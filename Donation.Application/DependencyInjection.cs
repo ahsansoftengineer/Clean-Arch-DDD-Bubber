@@ -1,4 +1,5 @@
-﻿using Donation.Application.Servicies.Authentication;
+﻿using Donation.Application.Services.Authentication.Command;
+using Donation.Application.Services.Authentication.Query;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Donation.Application
@@ -7,7 +8,8 @@ namespace Donation.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection Services)
         {
-            Services.AddScoped<IAuthenticationService, AuthenticationService>();
+            Services.AddScoped<IAuthenticationCommandService, AuthenticationCommandService>();
+            Services.AddScoped<IAuthenticationQueryService, AuthenticationQueryService>();
 
             return Services;
         }
