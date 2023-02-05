@@ -43,6 +43,7 @@
 - dotnet add .\Donation.Application\ package FluentResults // It has Lack Some Ability of OneOf used in Application Layer
 - dotnet add .\Donation.Domain\ package ErrorOr // Recommended and Final Approach
 - dotnet add .\Donation.Application\ package MediatR
+- dotnet add .\Donation.Application\ package MediatR.Extension.Microsoft.DependencyInjection
 
 
 14. Extra Commands

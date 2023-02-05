@@ -1,8 +1,9 @@
-using Donation.Application.Services.Authentication.Command;
-using Donation.Application.Services.Authentication.Common;
-using Donation.Application.Services.Authentication.Query;
+using Donation.Application.Authentication.Commands.Register;
+using Donation.Application.Authentication.Common;
+using Donation.Application.Authentication.Query.Login;
 using Donation.Contracts.Authentication;
 using ErrorOr;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Donation.Api.Controllers;
@@ -10,15 +11,11 @@ namespace Donation.Api.Controllers;
 [Route("auth")]
 public class AuthenticationController : ApiController
 {
-  private readonly IAuthenticationCommandService authenticationCommandService;
-  private readonly IAuthenticationQueryService authenticationQueryService;
+  private readonly IMediator mediator;
 
-  public AuthenticationController(
-    IAuthenticationCommandService authenticationCommandService, 
-    IAuthenticationQueryService authenticationQueryService)
+  public AuthenticationController(IMediator mediator)
   {
-    this.authenticationCommandService = authenticationCommandService;
-    this.authenticationQueryService = authenticationQueryService;
+   this.mediator = mediator;
   }
 
 
@@ -29,14 +26,15 @@ public class AuthenticationController : ApiController
   }
 
   [HttpPost("register")]
-  public IActionResult Register(RegisterRequest request)
+  public async Task<IActionResult> Register(RegisterRequest request)
   {
-    ErrorOr<AuthenticationResult> authResult = authenticationCommandService.Register(
-      request.FirstName,
+    var command = new RegisterCommand(
+    request.FirstName,
       request.LastName,
       request.Email,
       request.Password
-    );
+      );
+    ErrorOr<AuthenticationResult> authResult = await mediator.Send(command);
     return authResult.Match(
       authResult => Ok(MapAuthResult(authResult)),
       errors => Problem(errors));
@@ -44,13 +42,12 @@ public class AuthenticationController : ApiController
 
 
   [HttpPost("login")]
-  public IActionResult Login(LoginRequest request)
+  public async Task<IActionResult> Login(LoginRequest request)
   {
+    var query =  new LoginQuery(request.Email, request.Password);
 
-    var authResult = authenticationQueryService.Login(
-      request.Email,
-      request.Password
-    );
+    var authResult = await mediator.Send(query);
+
     return authResult.Match(
       authResult => Ok(MapAuthResult(authResult)),
       errors => Problem(errors));
@@ -59,11 +56,11 @@ public class AuthenticationController : ApiController
   private static AuthenticationResponse MapAuthResult(AuthenticationResult result)
   {
     return new AuthenticationResponse(
-          result.User.Id,
-             result.User.FirstName,
-             result.User.LastName,
-             result.User.Email,
-             result.Token
+          result.user.Id,
+             result.user.FirstName,
+             result.user.LastName,
+             result.user.Email,
+             result.token
            );
   }
 

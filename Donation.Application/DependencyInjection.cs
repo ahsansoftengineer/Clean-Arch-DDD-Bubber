@@ -1,17 +1,14 @@
-﻿using Donation.Application.Services.Authentication.Command;
-using Donation.Application.Services.Authentication.Query;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Donation.Application
 {
-    public static class DependencyInjection
+  public static class DependencyInjection
+  {
+    public static IServiceCollection AddApplication(this IServiceCollection Services)
     {
-        public static IServiceCollection AddApplication(this IServiceCollection Services)
-        {
-            Services.AddScoped<IAuthenticationCommandService, AuthenticationCommandService>();
-            Services.AddScoped<IAuthenticationQueryService, AuthenticationQueryService>();
-
-            return Services;
-        }
+      Services.AddMediatR(typeof(DependencyInjection).Assembly);
+      return Services;
     }
+  }
 }
