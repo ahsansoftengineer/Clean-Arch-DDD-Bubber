@@ -3,6 +3,7 @@ using Donation.Application.Authentication.Common;
 using Donation.Application.Authentication.Query.Login;
 using Donation.Contracts.Authentication;
 using ErrorOr;
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +13,12 @@ namespace Donation.Api.Controllers;
 public class AuthenticationController : ApiController
 {
   private readonly IMediator mediator;
+  private readonly IMapper mapper;
 
-  public AuthenticationController(IMediator mediator)
+  public AuthenticationController(IMediator mediator, IMapper mapper)
   {
    this.mediator = mediator;
+    this.mapper = mapper;
   }
 
 
@@ -28,15 +31,10 @@ public class AuthenticationController : ApiController
   [HttpPost("register")]
   public async Task<IActionResult> Register(RegisterRequest request)
   {
-    var command = new RegisterCommand(
-    request.FirstName,
-      request.LastName,
-      request.Email,
-      request.Password
-      );
+    var command = mapper.Map<RegisterCommand>(request);
     ErrorOr<AuthenticationResult> authResult = await mediator.Send(command);
     return authResult.Match(
-      authResult => Ok(MapAuthResult(authResult)),
+      authResult => Ok(mapper.Map<AuthenticationResponse>(authResult)),
       errors => Problem(errors));
   }
 
@@ -44,26 +42,14 @@ public class AuthenticationController : ApiController
   [HttpPost("login")]
   public async Task<IActionResult> Login(LoginRequest request)
   {
-    var query =  new LoginQuery(request.Email, request.Password);
+    var query =  mapper.Map<LoginQuery>(request);
 
     var authResult = await mediator.Send(query);
 
     return authResult.Match(
-      authResult => Ok(MapAuthResult(authResult)),
+      authResult => Ok(mapper.Map<AuthenticationResponse>(authResult)),
       errors => Problem(errors));
   }
-
-  private static AuthenticationResponse MapAuthResult(AuthenticationResult result)
-  {
-    return new AuthenticationResponse(
-          result.user.Id,
-             result.user.FirstName,
-             result.user.LastName,
-             result.user.Email,
-             result.token
-           );
-  }
-
 }
 
 

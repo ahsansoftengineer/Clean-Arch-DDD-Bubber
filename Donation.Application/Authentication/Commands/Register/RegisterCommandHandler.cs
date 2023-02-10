@@ -23,6 +23,8 @@ namespace Donation.Application.Authentication.Commands.Register
     }
     public async Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
     {
+      await Task.CompletedTask;
+
       if (userRepository.GetUserByEmail(command.Email) != null)
       {
         return Domain.Common.Errors.User.DuplicateEmail;

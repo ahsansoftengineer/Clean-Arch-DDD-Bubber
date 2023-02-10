@@ -10,6 +10,8 @@
 4. It provides a fast and efficient way to perform object mapping and can be useful in scenarios where data needs to be transformed between different representations.
 ```c#
 dotnet add .\Donation.PlayGround\ package Mapster
+dotnet add .\Donation.Api\ package Mapster
+dotnet add .\Donation.Api\ package Mapster.DependencyInjection
 ```
 
 

@@ -24,6 +24,7 @@ namespace Donation.Application.Authentication.Query.Login
 
     public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
     {
+      await Task.CompletedTask;
       // 1. Validate the User exists 
       if (userRepository.GetUserByEmail(query.Email) is not User user)
       {

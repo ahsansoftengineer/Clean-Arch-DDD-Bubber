@@ -1,19 +1,14 @@
-using Donation.Api.Common.Errors;
+using Donation.Api;
 using Donation.Application;
 using Donation.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
   builder.Services
+    .AddPresentation() // Api Layer
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
 
-  builder.Services.AddControllers();
-  builder.Services.AddSwaggerGen();
-  builder.Services.AddSingleton<ProblemDetailsFactory, DonationOverrideDefaultProblemDetailsFactory>();
-
-  builder.Services.AddControllers();
 }
 
 var app = builder.Build();

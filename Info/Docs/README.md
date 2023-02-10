@@ -19,3 +19,4 @@
 - 403 Forbidden: The server understands the request, but it refuses to authorize it
 - 404 Not Found: The requested resource could not be found
 - 500 Internal Server Error: An unexpected condition was encountered by the server.
+
