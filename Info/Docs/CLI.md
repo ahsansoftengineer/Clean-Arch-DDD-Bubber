@@ -44,6 +44,7 @@
 - dotnet add .\Donation.Domain\ package ErrorOr // Recommended and Final Approach
 - dotnet add .\Donation.Application\ package MediatR
 - dotnet add .\Donation.Application\ package MediatR.Extension.Microsoft.DependencyInjection
+- dotnet add .\Donation.Application\ package Mapster
 
 
 14. Extra Commands
