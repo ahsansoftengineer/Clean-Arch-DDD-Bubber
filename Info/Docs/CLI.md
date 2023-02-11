@@ -31,20 +31,27 @@
 9. dotnet new gitignore
 10. git init
 11. Adding Packages to Specific Project
-- dotnet add .\Donation.Infrastructure\ package Microsoft.Extensions.Configuration
-- dotnet add .\Donation.Infrastructure\ package Microsoft.Extensions.Options.ConfigurationExtensions
-12. To Initialize User-Secrets in a Specific Project
-- dotnet user-secrets init --project .\Donation.Api\
-- dotnet user-secrets set --project .\Donation.Api\ "JwtSettings:Secret" "super-secret-key-from-user-secrets"
-- dotnet user-secrets list --project .\Donation.Api\
 
-13. External Packages for Projects
-- dotnet add .\Donation.Application\ package OneOf // Drawback of Scalability used in Application Layer
-- dotnet add .\Donation.Application\ package FluentResults // It has Lack Some Ability of OneOf used in Application Layer
-- dotnet add .\Donation.Domain\ package ErrorOr // Recommended and Final Approach
-- dotnet add .\Donation.Application\ package MediatR
-- dotnet add .\Donation.Application\ package MediatR.Extension.Microsoft.DependencyInjection
-- dotnet add .\Donation.Application\ package Mapster
+### User Secrets
+```c# 
+dotnet user-secrets init --project .\Donation.Api\
+dotnet user-secrets set --project .\Donation.Api\ "JwtSettings:Secret" "super-secret-key-from-user-secrets"
+dotnet user-secrets list --project .\Donation.Api\
+```
+### 13. External Packages for Projects
+```c#
+dotnet add .\Donation.Infrastructure\ package Microsoft.Extensions.Configuration
+dotnet add .\Donation.Infrastructure\ package Microsoft.Extensions.Options.ConfigurationExtensions
+dotnet add .\Donation.Application\ package OneOf // Drawback of Scalability used in Application Layer
+dotnet add .\Donation.Application\ package FluentResults // It has Lack Some Ability of OneOf used in Application Layer
+dotnet add .\Donation.Domain\ package ErrorOr // Recommended and Final Approach
+dotnet add .\Donation.Application\ package MediatR
+dotnet add .\Donation.Application\ package MediatR.Extension.Microsoft.DependencyInjection
+dotnet add .\Donation.Application\ package Mapster
+dotnet add .\Donation.Application\ package FluentValidation
+dotnet add .\Donation.Application\ package FluentValidation.AspNetCore
+```
+
 
 
 14. Extra Commands

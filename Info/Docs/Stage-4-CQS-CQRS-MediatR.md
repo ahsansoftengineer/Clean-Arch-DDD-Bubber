@@ -1,5 +1,8 @@
 ﻿## CQS CQRS & MediatR
 
+### How does MediatR actually works
+1. MediatR works like pipeline behavior
+
 ### CQS vs CQRS
 1. CQS (Command Query Separation) and CQRS (Command Query Responsibility Segregation) are both software design patterns that aim to separate the responsibilities of data modification (commands) and data retrieval (queries).
 
