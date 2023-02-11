@@ -1,33 +1,32 @@
-﻿using Donation.Application.Authentication.Commands.Register;
-using Donation.Application.Authentication.Common;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
-using FluentValidation.Results;
 using MediatR;
 
 namespace Donation.Application.Common.Behaviours
 {
 
-  public class ValidationRegisterCommandBehavior :
-    IPipelineBehavior<RegisterCommand, ErrorOr<AuthenticationResult>>
+  public class ValidationBehavior<TRequest, TResponse> :
+    IPipelineBehavior<TRequest, TResponse> 
+      where TRequest : IRequest<TResponse>
+      where TResponse : IErrorOr
   {
-    private readonly IValidator<RegisterCommand> validator;
+    private readonly IValidator<TRequest>? validator;
 
-    public ValidationRegisterCommandBehavior(IValidator<RegisterCommand> validator)
+    public ValidationBehavior(IValidator<TRequest>? validator = null)
     {
       this.validator = validator;
     }
-    public async Task<ErrorOr<AuthenticationResult>> Handle(
-      RegisterCommand request,
-      RequestHandlerDelegate<ErrorOr<AuthenticationResult>> next, 
-      CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(
+      TRequest request,
+      RequestHandlerDelegate<TResponse> next,
+      CancellationToken cancellationToken
+      )
     {
+      if (validator is null) return await next();
+
       var valResult = await validator.ValidateAsync(request, cancellationToken);
 
-      if (valResult.IsValid)
-      {
-        return await next();
-      }
+      if (valResult.IsValid)  return await next();
 
       var errors = valResult.Errors
         .ConvertAll(
@@ -37,7 +36,9 @@ namespace Donation.Application.Common.Behaviours
           )
          );
 
-      return errors;
+      // Compiler Doesn't know there is implicit converter to ErrorOr Object
+      // dynamic use runtime to check to convert list of object to ErrorOr Object
+      return (dynamic)errors;
     }
   }
 }
