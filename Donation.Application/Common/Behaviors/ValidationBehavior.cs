@@ -30,10 +30,12 @@ namespace Donation.Application.Common.Behaviours
       }
 
       var errors = valResult.Errors
-        .ConvertAll(valFailure => Error.Validation(
+        .ConvertAll(
+          valFailure => Error.Validation(
             valFailure.PropertyName,
             valFailure.ErrorMessage
-          ));
+          )
+         );
 
       return errors;
     }
