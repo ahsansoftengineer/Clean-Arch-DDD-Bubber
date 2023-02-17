@@ -262,5 +262,5 @@ var app = builder.Build();
 ```
 
 ### Images
-![JWT Claims](https://github.com/ahsansoftengineer/donation-DDD/blob/main/Info/Images/Stage 7 - JWT Bearer Token Claims.png)
+![JWT Claims](https://github.com/ahsansoftengineer/donation-DDD/blob/7-JWT_Token_Bearear/Info/Images/Stage%207%20-%20JWT%20Bearer%20Token%20Claims.png)
 ![JWT Token Flow](https://github.com/ahsansoftengineer/donation-DDD/blob/main/Info/Images/Stage 7 - JWT Bearer Token.png 112)
