@@ -144,3 +144,7 @@ public class ApiController : ControllerBase
 }
 
 ```
+### IMAGES
+[Validation Behavior](https://github.com/ahsansoftengineer/donation-DDD/blob/6-ValidationBeheviorGeneric/Info/Images/Stage%206%20-%20Validation%20Behavior.png)
+[Global Error Handling Draw Back](https://github.com/ahsansoftengineer/donation-DDD/blob/6-ValidationBeheviorGeneric/Info/Images/Stage%203-%20Global%20Error%20Handling%20Draw%20Back.png)
+[Global Error Handling](https://github.com/ahsansoftengineer/donation-DDD/blob/6-ValidationBeheviorGeneric/Info/Images/Stage%203-%20Global%20Error%20Handling.png)
