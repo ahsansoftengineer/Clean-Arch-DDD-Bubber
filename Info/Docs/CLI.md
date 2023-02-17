@@ -18,12 +18,12 @@
 - dotnet sln add (ls -r **\*.csproj) // Powershell Command
 - dotnet sln remove .\Donation.Contacts\Donation.Contacts.csproj
 6. dotnet build
-7. Adding Projects to Solution
+#### 7 Adding Projects to Solution
 - dotnet add .\Donation.Api\ reference .\Donation.Contracts\ .\Donation.Application\
 - dotnet add .\Donation.Infrastructure\ reference .\Donation.Application\
 - dotnet add .\Donation.Application\ reference .\Donation.Domain\
 - dotnet add .\Donation.Api\ reference .\Donation.Infrastructure\
-8. To Run a Specific Project
+#### 8 To Run a Specific Project
 - dotnet run --project .\Donation.Api\
 - dotnet watch run --project .\Donation.Api\
 8. To Open a Folder in FileExplorer Windows
@@ -32,16 +32,18 @@
 10. git init
 11. Adding Packages to Specific Project
 
-### User Secrets
+#### User Secrets
 ```c# 
 dotnet user-secrets init --project .\Donation.Api\
 dotnet user-secrets set --project .\Donation.Api\ "JwtSettings:Secret" "super-secret-key-from-user-secrets"
 dotnet user-secrets list --project .\Donation.Api\
 ```
-### 13. External Packages for Projects
+#### 13. External Packages for Projects
 ```c#
 dotnet add .\Donation.Infrastructure\ package Microsoft.Extensions.Configuration
 dotnet add .\Donation.Infrastructure\ package Microsoft.Extensions.Options.ConfigurationExtensions
+dotnet add .\Donation.Infrastructure\ package Microsoft.AspNetCore.Authentication.JwtBearer
+
 dotnet add .\Donation.Application\ package OneOf // Drawback of Scalability used in Application Layer
 dotnet add .\Donation.Application\ package FluentResults // It has Lack Some Ability of OneOf used in Application Layer
 dotnet add .\Donation.Domain\ package ErrorOr // Recommended and Final Approach
@@ -66,3 +68,11 @@ dotnet add .\Donation.Application\ package FluentValidation.AspNetCore
 - origin  https://gitlab.com/m.ahsan.saifi/webapp.git (push)
 - stream  https://gitlab.com/starbazaar/webapp.git (fetch)
 - stream  https://gitlab.com/starbazaar/webapp.git (push)
+
+### How to Use Curl Command
+- Undermentioned Commands only works with Bash
+- Before Using that you have to Stop Https Middleware
+- Running your app with http in Visual Studio
+curl -X 'POST' 'http://localhost:5294/auth/register' -H 'accept: */*' -H 'Content-Type: application/json' -d '{   "firstName": "string", "lastName": "string", "email": "string", "password": "string" }'
+curl -X 'POST' 'http://localhost:5294/auth/login' -H 'accept: */*' -H 'Content-Type: application/json' -d '{ "email": "string", "password": "string" }'
+curl -X 'GET' 'http://localhost:5294/api/Dinners' -H 'accept: */*' -H 'Authorization: Bearer token.full.goeshere'

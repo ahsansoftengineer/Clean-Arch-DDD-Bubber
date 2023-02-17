@@ -5,11 +5,13 @@ using Donation.Contracts.Authentication;
 using ErrorOr;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Donation.Api.Controllers;
 
 [Route("auth")]
+[AllowAnonymous] // This will authorize this end point with authorization
 public class AuthenticationController : ApiController
 {
   private readonly IMediator mediator;
@@ -17,10 +19,15 @@ public class AuthenticationController : ApiController
 
   public AuthenticationController(IMediator mediator, IMapper mapper)
   {
-   this.mediator = mediator;
+    this.mediator = mediator;
     this.mapper = mapper;
   }
 
+  [NonAction]
+  public string myLocalFuncation()
+  {
+    return "No Action Counted in Swagger";
+  }
 
   [HttpGet("check")]
   public IActionResult Check()
@@ -42,7 +49,7 @@ public class AuthenticationController : ApiController
   [HttpPost("login")]
   public async Task<IActionResult> Login(LoginRequest request)
   {
-    var query =  mapper.Map<LoginQuery>(request);
+    var query = mapper.Map<LoginQuery>(request);
 
     var authResult = await mediator.Send(query);
 
