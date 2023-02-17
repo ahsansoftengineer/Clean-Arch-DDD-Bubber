@@ -35,6 +35,11 @@
 #### Donation.Api
 - Utilized in Donation.Api Layer as per old implementation
 
+### Images
+![Design 1](https://github.com/ahsansoftengineer/donation-DDD/blob/5-Mapster-ObjectMapping/Info/Images/Domain%20Driven%20Design.png)
+![Design 2](https://github.com/ahsansoftengineer/donation-DDD/blob/5-Mapster-ObjectMapping/Info/Images/Domain%20Driven%20Design%202.png)
+![Design 3](https://github.com/ahsansoftengineer/donation-DDD/blob/5-Mapster-ObjectMapping/Info/Images/Domain%20Driven%20Design%203.png)
+
 
 
 
