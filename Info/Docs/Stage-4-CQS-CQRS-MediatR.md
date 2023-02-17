@@ -43,3 +43,9 @@
 - - - Authentication
 - - - - AutehnticationQueryService
 - - - - IAutehnticationQueryService
+
+
+### Images
+![CQS & CQRS](https://github.com/ahsansoftengineer/donation-DDD/blob/5-Mapster-ObjectMapping/Info/Images/Stage%204%20CQS%20CQRS%20MediatR.png)
+
+![CQS & CQRS](https://github.com/ahsansoftengineer/donation-DDD/blob/5-Mapster-ObjectMapping/Info/Images/Stage%204%20CQS%20CQRS%20MediatR%20II.png)
