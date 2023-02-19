@@ -1,17 +1,17 @@
 ﻿using Donation.Domain.Common.Models;
 
-namespace Donation.Domain.Menu.ValueObjects
+namespace Donation.Domain.Dinner.ValueObjects
 {
-  public sealed class MenuItemId : ValueObject
+  public sealed class ReservationId : ValueObject
   {
     public Guid Value { get; }
-    private MenuItemId(Guid value) 
+    private ReservationId(Guid value)
     {
       Value = value;
     }
-    public static MenuItemId CreateUnique()
+    public static ReservationId CreateUnique()
     {
-      return new (Guid.NewGuid());
+      return new(Guid.NewGuid());
     }
     public override IEnumerable<object> GetEqualityComponents()
     {

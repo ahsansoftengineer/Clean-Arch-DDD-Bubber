@@ -4,15 +4,15 @@ namespace Donation.Domain.Common.ValueObjects
 {
   public sealed class Rating : ValueObject
   {
-    public Guid Value { get; }
+    public int Value { get; }
 
-    private Rating(Guid value)
+    private Rating(int value)
     {
       Value = value;
     }
-    public static Rating CreateUnique()
+    public static Rating CreateUnique(int value)
     {
-      return new(Guid.NewGuid());
+      return new(value);
     }
     public override IEnumerable<object> GetEqualityComponents()
     {

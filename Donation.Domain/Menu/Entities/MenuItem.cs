@@ -23,6 +23,5 @@ namespace Donation.Domain.Menu.Entities
     {
       return new(MenuItemId.CreateUnique(), name, description);
     }
-
   }
 }

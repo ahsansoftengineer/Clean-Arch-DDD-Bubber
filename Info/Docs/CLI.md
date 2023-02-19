@@ -2,6 +2,12 @@
 - Note: For Bash You can Revert BackSlash \ to ForwardSlash /
 - Create a Folder for your project with that folder run the following commands
 
+### VS Code Specific
+```csharp
+dotnet new editorconfig
+// create a .editorconfig file for vs code something something
+```
+
 ### Dotnet Commands
 1. Creating a Solution
 - dotnet new sln -o SolutionName

@@ -23,7 +23,7 @@ namespace Donation.Domain.Common.ValueObjects
     }
     public void AddNewRating(Rating rating)
     {
-      Value = ((Value * NumRatings) + rating.Value) / ++NumRatings;
+      Value = ((Value * NumRatings) + rating.Value) / (++NumRatings);
     }
     public override IEnumerable<object> GetEqualityComponents()
     {

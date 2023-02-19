@@ -17,3 +17,4 @@
 3. One important aspect of Value Objects is that they should be defined based on the characteristics that are important within the domain context. For example, a person's name and date of birth could be considered as separate Value Objects within a human resources domain, while in a social media domain, a user's name and profile picture could be considered as part of a single Value Object representing the user's profile.
 
 4. Value Objects can help to improve the expressiveness, robustness, and maintainability of a domain model by providing a way to represent and reason about concepts that are important within the domain. They can also help to reduce the complexity of entities and aggregates by encapsulating domain logic within self-contained objects that can be reused across different parts of the domain model.
+
