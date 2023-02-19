@@ -60,23 +60,23 @@ namespace Donation.Infrastructure
           options.TokenValidationParameters = new TokenValidationParameters()
           {
             // Here we are saying what to Validate Issuer & Audience
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
+            //ValidateIssuer = true,
+            //ValidateAudience = true,
+            //ValidateLifetime = true,
 
             // Here we are telling what is Issuer & Audience
-            ValidIssuer = jwtSettings.Issuer,
-            ValidAudience = jwtSettings.Audience,
+            //ValidIssuer = jwtSettings.Issuer,
+            //ValidAudience = jwtSettings.Audience,
 
             // To Help other component how to validate the signature of the Token
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
 
             // Swagger Causing Problem with it for time being we have to set Issuer & Audience like so
-            //ValidateIssuer = false,
-            //ValidateAudience = false,
-            //ValidAudience = "https://localhost:7228",
-            //ValidIssuer = "https://localhost:7228",
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidAudience = "https://localhost:7228",
+            ValidIssuer = "https://localhost:7228",
 
           };
         });

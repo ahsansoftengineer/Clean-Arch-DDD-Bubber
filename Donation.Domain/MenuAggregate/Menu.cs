@@ -10,48 +10,56 @@ namespace Donation.Domain.Menu
 {
   public sealed class Menu : AggregateRoot<MenuId>
   {
-    private readonly List<MenuSection> sections = new();
-    private readonly List<DinnerId> dinners = new();
-    private readonly List<MenuReviewId> menuReview = new();
-    public string Name { get; }
-    public string Description { get; }
-    public AverageRating AverageRating { get;}
-    public DateTime CreatedDateTime { get; }  
-    public DateTime UpdatedDateTime { get; }
+    private readonly List<MenuSection> _sections = new();
+    private readonly List<DinnerId> _dinnerIds = new();
+    private readonly List<MenuReviewId> _menuReviewIds = new();
+    public string Name { get; private set; }
+    public string Description { get; private set; }
+    public AverageRating AverageRating { get; }
 
-    public HostId HostId { get; }
-    public IReadOnlyList<MenuSection> Sections => sections.AsReadOnly();
-    public IReadOnlyList<DinnerId> DinnersIds => dinners.AsReadOnly();
-    public IReadOnlyList<MenuReviewId> MenuReviewIds => menuReview.AsReadOnly();
-    // Constructor
+    public IReadOnlyList<MenuSection> Sections => _sections.AsReadOnly();
+
+    public HostId HostId { get; private set; }
+    public IReadOnlyList<DinnerId> DinnerIds => _dinnerIds.AsReadOnly();
+    public IReadOnlyList<MenuReviewId> MenuReviewIds => _menuReviewIds.AsReadOnly();
+
+    public DateTime CreatedDateTime { get; private set; }
+    public DateTime UpdatedDateTime { get; private set; }
+
     private Menu(
-      MenuId menuId,
-      string name,
-      string description, 
-      HostId hostId,
-      DateTime createdDateTime, 
-      DateTime updatedDateTime) : base(menuId)
+        MenuId menuId,
+        HostId hostId,
+        string name,
+        string description,
+        AverageRating averageRating,
+        List<MenuSection>? sections)
+        : base(menuId)
     {
+      HostId = hostId;
       Name = name;
       Description = description;
-      HostId = hostId;
-      CreatedDateTime = createdDateTime;
-      UpdatedDateTime = updatedDateTime;
+      _sections = sections;
+      AverageRating = averageRating;
     }
-    // Factory Method
+
     public static Menu Create(
-      string name,
-      string description,
-      HostId hostId)
+        HostId hostId,
+        string name,
+        string description,
+        List<MenuSection>? sections)
     {
       return new(
-        MenuId.CreateUnique(),
-        name,
-        description,
-        hostId,
-        DateTime.UtcNow,
-        DateTime.UtcNow);
+          MenuId.CreateUnique(),
+          hostId,
+          name,
+          description,
+          AverageRating.CreateNew(0),
+          sections);
     }
+
+#pragma warning disable CS8618
+    //private Menu() { }
+#pragma warning restore CS8618
   }
 }
 /*
