@@ -21,18 +21,25 @@ namespace Donation.Infrastructure
       ConfigurationManager Configuration
     )
     {
-      Services.AddAuth(Configuration);
+      Services
+        .AddAuth(Configuration)
+        .AddPersistence();
       Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-
-      Services.AddScoped<IUserRepository, UserRepository>();
 
       return Services;
     }
-
+    public static IServiceCollection AddPersistence(
+  this IServiceCollection Services
+  )
+    {
+      Services.AddScoped<IUserRepository, UserRepository>();
+      Services.AddScoped<IMenuRepository, MenuRepository>();
+      return Services;
+    }
     public static IServiceCollection AddAuth(
-      this IServiceCollection Services,
-      ConfigurationManager Configuration
-      )
+    this IServiceCollection Services,
+    ConfigurationManager Configuration
+    )
     {
       var jwtSettings = new JwtSettings();
       Configuration.Bind(JwtSettings.SectionName, jwtSettings);

@@ -1,4 +1,5 @@
-﻿using Donation.Domain.Host.ValueObjects;
+﻿using Donation.Application.Common.Persistence;
+using Donation.Domain.Host.ValueObjects;
 using Donation.Domain.Menu;
 using Donation.Domain.Menu.Entities;
 using ErrorOr;
@@ -8,10 +9,17 @@ namespace Donation.Application.Menus.Commands.CreateMenu
 {
   public class CreateMenuCommandHandler : IRequestHandler<CreateMenuCommand, ErrorOr<Menu>>
   {
+    private readonly IMenuRepository _menuRepository;
+
+    public CreateMenuCommandHandler(IMenuRepository menuRepository)
+    {
+      _menuRepository = menuRepository;
+    }
+
     public async Task<ErrorOr<Menu>> Handle(CreateMenuCommand request, CancellationToken cancellationToken)
     {
       await Task.CompletedTask;
-
+      // 1. Create Menu
       var menu = Menu.Create(
           hostId: HostId.CreateUnique(),//HostId.Create(request.HostId),
           name: request.Name,
@@ -22,9 +30,9 @@ namespace Donation.Application.Menus.Commands.CreateMenu
               items: sections.Items.ConvertAll(items => MenuItem.Create(
                   name: items.Name,
                   description: items.Description)))));
-
-      //_menuRepository.Add(menu);
-
+      // 2. Persist Menu
+      _menuRepository.Add(menu);
+      // 3. Return Menu
       return menu;
     }
   }

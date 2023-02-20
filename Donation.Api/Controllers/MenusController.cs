@@ -21,7 +21,12 @@ namespace Donation.Api.Controllers
     {
       var command = mapper.Map<CreateMenuCommand>((request, hostId));
       var createMenuResult = await mediator.Send(command);
-      return Ok(request);
+      return createMenuResult.Match(
+        menu => Ok(mapper.Map<MenuResponse>(menu)),
+        errors => Problem(errors)
+      );
+
+          //CreatedAtAction(nameof(GetMenu), new {hostId, menu}) ,
     }
 
   }
