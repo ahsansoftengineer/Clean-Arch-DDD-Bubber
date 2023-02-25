@@ -1,7 +1,7 @@
 ﻿using Donation.Application.Common.Persistence;
 using Donation.Domain.Entities;
 
-namespace Donation.Infrastructure.Persistence
+namespace Donation.Infrastructure.Persistence.Repositories
 {
     public class UserRepository : IUserRepository
     {

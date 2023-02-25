@@ -11,15 +11,14 @@ using Donation.Application.Common.Persistence;
 using Donation.Infrastructure.Authentication;
 using Donation.Infrastructure.Services;
 using Donation.Infrastructure.Persistence;
+using Donation.Infrastructure.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Donation.Infrastructure
 {
   public static class DependencyInjection
   {
-    public static IServiceCollection AddInfrastructure(
-      this IServiceCollection Services,
-      ConfigurationManager Configuration
-    )
+    public static IServiceCollection AddInfrastructure(this IServiceCollection Services, ConfigurationManager Configuration)
     {
       Services
         .AddAuth(Configuration)
@@ -28,18 +27,18 @@ namespace Donation.Infrastructure
 
       return Services;
     }
-    public static IServiceCollection AddPersistence(
-  this IServiceCollection Services
-  )
+    public static IServiceCollection AddPersistence(this IServiceCollection Services)
     {
+      Services.AddDbContext<DonationDbContext>(options =>
+      {
+        // TrustServerCertificate=true | Encrypt=false
+        options.UseSqlServer("SERVER=localhost;DATABASE=Donation;USER=sa;PASSWORD=asdf1234;Encrypt=false");
+      });
       Services.AddScoped<IUserRepository, UserRepository>();
       Services.AddScoped<IMenuRepository, MenuRepository>();
       return Services;
     }
-    public static IServiceCollection AddAuth(
-    this IServiceCollection Services,
-    ConfigurationManager Configuration
-    )
+    public static IServiceCollection AddAuth(this IServiceCollection Services, ConfigurationManager Configuration)
     {
       var jwtSettings = new JwtSettings();
       Configuration.Bind(JwtSettings.SectionName, jwtSettings);

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Donation.Domain.Common.Models
 {
@@ -35,5 +32,9 @@ namespace Donation.Domain.Common.Models
     {
       return Equals((object?)other);
     }
+#pragma warning disable CS8618
+    protected Entity() { }
+#pragma warning restore CS8618
+
   }
 }

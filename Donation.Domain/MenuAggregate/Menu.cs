@@ -13,9 +13,10 @@ namespace Donation.Domain.Menu
     private readonly List<MenuSection> _sections = new();
     private readonly List<DinnerId> _dinnerIds = new();
     private readonly List<MenuReviewId> _menuReviewIds = new();
+    // Private Set is Required for EF Core
     public string Name { get; private set; }
     public string Description { get; private set; }
-    public AverageRating AverageRating { get; }
+    public AverageRating AverageRating { get; private set; }
 
     public IReadOnlyList<MenuSection> Sections => _sections.AsReadOnly();
 
@@ -57,8 +58,9 @@ namespace Donation.Domain.Menu
           sections);
     }
 
+// Private Constructor is Required for EF Core
 #pragma warning disable CS8618
-    //private Menu() { }
+    private Menu() { }
 #pragma warning restore CS8618
   }
 }

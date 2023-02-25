@@ -58,12 +58,44 @@ dotnet add .\Donation.Application\ package MediatR.Extension.Microsoft.Dependenc
 dotnet add .\Donation.Application\ package Mapster
 dotnet add .\Donation.Application\ package FluentValidation
 dotnet add .\Donation.Application\ package FluentValidation.AspNetCore
+
+
+dotnet add Donation.Infrastructure package Microsoft.EntityFrameworkCore 
+dotnet add Donation.Infrastructure package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add Donation.Infrastructure package Microsoft.EntityFrameworkCore.Design
+dotnet add Donation.Api package Microsoft.EntityFrameworkCore.Design
+
+dotnet tool list --global
+dotnet tool install --global dotnet-ef
 ```
-
-
 
 14. Extra Commands
 - dotnet format ./solution.sln
+
+
+#### 15. Migrations
+```csharp
+dotnet ef migrations add InitialCreate --project Donation.Infrastructure --startup-project Donation.Api
+dotnet ef migrations add InitialCreate -p Donation.Infrastructure -s Donation.Api
+dotnet ef migrations remove  -p Donation.Infrastructure -s Donation.Api
+// Below Command Run After Sql Container Started
+dotnet ef database update -p Donation.Infrastructure -s Donation.Api --connection "Server=localhost;Database=Donation;User Id=sa;Password=asdf1234;Encrypt=false"
+```
+
+#### Docker 
+```csharp
+docker pull mcr.microsoft.com/mssql/server:2022-latest
+docker image ls
+docker run -e 'HOMEBREW_NO_ENV_FILTERING=1' -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=asdf1234' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
+docker container ls
+docker ps
+// Below Command Run After SQL Container Runs (Keys are Case Insensitive & their alternatives are available)
+dotnet ef database update -p Donation.Infrastructure -s Donation.Api --connection "SERVER=localhost;DATABASE=Donation;USER=sa;PASSWORD=asdf1234;Encrypt=false"
+dotnet ef database update -p Donation.Infrastructure -s Donation.Api --connection "SERVER=127.0.0.1,1433;DATABASE=Donation;USER=sa;PASSWORD=asdf1234;Encrypt=false"
+dotnet ef database update -p Donation.Infrastructure -s Donation.Api --connection "server=localhost;Database=Donation;User Id=sa;password=asdf1234;TrustServerCertificate=true"
+dotnet run --project Donation.Api // This Command won't work b/c of Certificate & Swagger (Run using f5)
+````
+
 
 ### Git Commands
 - git push --set-upstream origin BranchNameHere

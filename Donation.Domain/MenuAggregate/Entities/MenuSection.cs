@@ -25,7 +25,7 @@ namespace Donation.Domain.Menu.Entities
     }
 
 #pragma warning disable CS8618
-    //private MenuSection() { }
+    private MenuSection() { }
 #pragma warning restore CS8618
   }
 }
