@@ -102,3 +102,15 @@ docker ps
 dotnet ef database update -p Donation.Infrastructure -s Donation.Api --connection "Server=localhost;Database=Donation;User Id=sa;Password=asdf1234;Encrypt=false"
 dotnet run --project Donation.Api
 ````
+
+### Images
+![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/7-JWT_Token_Bearear/Info/Images/StageA2-EF-Core-DDD.png)
+![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/7-JWT_Token_Bearear/Info/Images/StageA2-EF-Core-DDD-1.png)
+![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/7-JWT_Token_Bearear/Info/Images/StageA2-EF-Core-Full-Diagram.png)
+![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/7-JWT_Token_Bearear/Info/Images/StageA2-EF-Core-Z-DB-Diagram.png)
+![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/7-JWT_Token_Bearear/Info/Images/StageA2-EF-Core-Z-DB-Diagram-II.png)
+![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/7-JWT_Token_Bearear/Info/Images/StageA2-EF-Core-Z-DB-Diagram-III.png)
+![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/7-JWT_Token_Bearear/Info/Images/StageA2-EF-Core-Z-DB-Diagram-IV.png)
+![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/7-JWT_Token_Bearear/Info/Images/StageA2-EF-Core-Z-DB-Diagram-V.png)
+![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/7-JWT_Token_Bearear/Info/Images/StageA2-EF-Core-Z-DB-Diagram-VI.png)
+![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/7-JWT_Token_Bearear/Info/Images/StageA2-EF-Core-Z-DB-Diagram-VII.png)
