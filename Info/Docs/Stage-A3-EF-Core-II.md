@@ -104,7 +104,7 @@ dotnet run --project Donation.Api
 ````
 
 ### Images
-![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/A2-EF-Core-DDD-CleanArchetecture/Info/Images/StageA2-EF-Core-DDD.png)
+![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/[reponame]/Info/Images/StageA2-EF-Core-DDD.png)
 ![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/A2-EF-Core-DDD-CleanArchetecture/Info/Images/StageA2-EF-Core-DDD-1.png)
 ![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/A2-EF-Core-DDD-CleanArchetecture/Info/Images/StageA2-EF-Core-Full-Diagram.png)
 ![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/A2-EF-Core-DDD-CleanArchetecture/Info/Images/StageA2-EF-Core-Z-DB-Diagram.png)
@@ -115,3 +115,4 @@ dotnet run --project Donation.Api
 ![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/A2-EF-Core-DDD-CleanArchetecture/Info/Images/StageA2-EF-Core-Z-DB-Diagram-VI.png)
 ![EF Core](https://github.com/ahsansoftengineer/donation-DDD/blob/A2-EF-Core-DDD-CleanArchetecture/Info/Images/StageA2-EF-Core-Z-DB-Diagram-VII.png)
 
+![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
