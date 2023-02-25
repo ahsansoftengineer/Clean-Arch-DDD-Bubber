@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Donation.Domain.Common.Models
+﻿namespace Donation.Domain.Common.Models
 {
   public abstract class Entity<TId> : IEquatable<Entity<TId>>
     where TId : notnull
