@@ -1,20 +1,33 @@
-using Donation.Application.Servicies.Authentication;
+using Donation.Application.Authentication.Commands.Register;
+using Donation.Application.Authentication.Common;
+using Donation.Application.Authentication.Query.Login;
 using Donation.Contracts.Authentication;
+using ErrorOr;
+using MapsterMapper;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Donation.Api.Controllers;
 
-[ApiController]
 [Route("auth")]
-public class AuthenticationController : ControllerBase
+[AllowAnonymous] // This will authorize this end point with authorization
+public class AuthenticationController : ApiController
 {
-  private readonly IAuthenticationService authenticationSvc;
+  private readonly IMediator mediator;
+  private readonly IMapper mapper;
 
-  public AuthenticationController(IAuthenticationService authenticationSvc)
+  public AuthenticationController(IMediator mediator, IMapper mapper)
   {
-    this.authenticationSvc = authenticationSvc;
+    this.mediator = mediator;
+    this.mapper = mapper;
   }
 
+  [NonAction]
+  public string myLocalFuncation()
+  {
+    return "No Action Counted in Swagger";
+  }
 
   [HttpGet("check")]
   public IActionResult Check()
@@ -23,42 +36,26 @@ public class AuthenticationController : ControllerBase
   }
 
   [HttpPost("register")]
-  public IActionResult Register(RegisterRequest request)
+  public async Task<IActionResult> Register(RegisterRequest request)
   {
-    var result = authenticationSvc.Register(
-      request.FirstName,
-      request.LastName,
-      request.Email,
-      request.Password
-    );
-
-    var response = new AuthenticationResponse(
-      result.User.Id,
-      result.User.FirstName,
-      result.User.LastName,
-      result.User.Email,
-      result.Token
-    );
-    return Ok(response);
-
+    var command = mapper.Map<RegisterCommand>(request);
+    ErrorOr<AuthenticationResult> authResult = await mediator.Send(command);
+    return authResult.Match(
+      authResult => Ok(mapper.Map<AuthenticationResponse>(authResult)),
+      errors => Problem(errors));
   }
 
-  [HttpPost("login")]
-  public IActionResult Login(LoginRequest request)
-  {
-    var result = authenticationSvc.Login(
-      request.Email,
-      request.Password
-    );
 
-    var response = new AuthenticationResponse(
-      result.User.Id,
-      result.User.FirstName,
-      result.User.LastName,
-      result.User.Email,
-      result.Token
-    );
-    return Ok(response);
+  [HttpPost("login")]
+  public async Task<IActionResult> Login(LoginRequest request)
+  {
+    var query = mapper.Map<LoginQuery>(request);
+
+    var authResult = await mediator.Send(query);
+
+    return authResult.Match(
+      authResult => Ok(mapper.Map<AuthenticationResponse>(authResult)),
+      errors => Problem(errors));
   }
 }
 

@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Donation.Domain.Entities
+﻿namespace Donation.Domain.Entities
 {
-  public class User
-  {
-    public Guid Id { get; set; } = Guid.NewGuid();
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
-    public string? Email { get; set; }
-    public string? Password { get; set; }
+    // I Think that is Replace with User/User and User/ValueObjects/UserId
+    public class User
+    {
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
 
-  }
+    }
 }
