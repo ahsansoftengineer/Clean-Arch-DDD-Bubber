@@ -24,7 +24,7 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
   }
 }
 ```
-2. Validation Register Command Behaviour
+2. Validation Register Command Behavior
 ```c#
 namespace Donation.Application.Common.Behaviours
 public class ValidationRegisterCommandBehavior :

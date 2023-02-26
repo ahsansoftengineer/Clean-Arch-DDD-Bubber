@@ -88,7 +88,5 @@ namespace Donation.Infrastructure
         });
       return Services;
     }
-
-
   }
 }

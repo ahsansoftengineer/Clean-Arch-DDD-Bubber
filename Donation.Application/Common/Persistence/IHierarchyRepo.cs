@@ -1,5 +1,4 @@
 ﻿using Donation.Domain.Hierarchy;
-using Donation.Domain.Menu;
 
 namespace Donation.Application.Common.Persistence
 {
