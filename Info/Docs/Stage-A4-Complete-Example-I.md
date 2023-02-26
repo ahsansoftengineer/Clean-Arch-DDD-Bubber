@@ -120,7 +120,7 @@ namespace Donation.Domain.Common.Models
   }
 }
 ```
-1. MenuId
+### MenuId
 ```csharp
 namespace Donation.Domain.Menu.ValueObjects
 {
@@ -142,7 +142,7 @@ namespace Donation.Domain.Menu.ValueObjects
   }
 }
 ```
-4. MenuSectionId
+### MenuSectionId
 ```csharp
  public sealed class MenuSectionId : ValueObject
   {
@@ -161,7 +161,7 @@ namespace Donation.Domain.Menu.ValueObjects
     }
   }
 ```
-2. MenuItemId
+### MenuItemId
 ```csharp
 namespace Donation.Domain.Menu.ValueObjects
 {
@@ -183,7 +183,7 @@ namespace Donation.Domain.Menu.ValueObjects
   }
 }
 ```
-3. Value Object Rating
+### Value Object Rating
 ```csharp
 namespace Donation.Domain.Common.ValueObjects
 {
@@ -304,8 +304,7 @@ namespace Donation.Domain.Hierarchy
   }
 }
 ```
-
-5. MenuItem
+### MenuItem
 ```csharp
 public sealed class MenuItem : Entity<MenuItemId>
 {
@@ -328,7 +327,7 @@ public sealed class MenuItem : Entity<MenuItemId>
   }
 }
 ```
-5. MenuSection
+### MenuSection
 ```csharp
 public sealed class MenuSection : Entity<MenuSectionId>
 {
@@ -355,7 +354,7 @@ public sealed class MenuSection : Entity<MenuSectionId>
   }
 }
 ```
-2. Menu
+### Menu
 ```csharp
 namespace Donation.Domain.Menu
 {
