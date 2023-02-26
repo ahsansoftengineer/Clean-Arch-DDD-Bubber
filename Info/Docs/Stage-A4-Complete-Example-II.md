@@ -148,6 +148,25 @@ namespace Donation.Application.Menus.Commands.CreateMenu
   }
 }
 ```
+### DB Context
+```csharp
+namespace Donation.Infrastructure.Persistence
+{
+  public class DonationDbContext : DbContext
+  {
+    public DonationDbContext(DbContextOptions<DonationDbContext> options) : base(options) { }
+    
+    public DbSet<Menu> Menus { get; set; } = null!;
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+      modelBuilder.ApplyConfigurationsFromAssembly(
+        typeof(DonationDbContext).Assembly
+      );
+      base.OnModelCreating(modelBuilder);
+    }
+  }
+}
+```
 ### IMenu Repo
 ```csharp
 namespace Donation.Application.Common.Persistence
@@ -175,25 +194,6 @@ namespace Donation.Infrastructure.Persistence.Repositories
       //dbContext.Menus.Add(menu);
       dbContext.Add(menu);
       dbContext.SaveChanges();
-    }
-  }
-}
-```
-### DB Context
-```csharp
-namespace Donation.Infrastructure.Persistence
-{
-  public class DonationDbContext : DbContext
-  {
-    public DonationDbContext(DbContextOptions<DonationDbContext> options) : base(options) { }
-    
-    public DbSet<Menu> Menus { get; set; } = null!;
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-      modelBuilder.ApplyConfigurationsFromAssembly(
-        typeof(DonationDbContext).Assembly
-      );
-      base.OnModelCreating(modelBuilder);
     }
   }
 }
