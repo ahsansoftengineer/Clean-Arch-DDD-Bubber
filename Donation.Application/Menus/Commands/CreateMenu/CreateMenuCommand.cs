@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Donation.Application.Menus.Commands.CreateMenu
 {
-  public record CreateMenuCommand(
+  public record CreateHierarchyCommand(
     string HostId,
     string Name,
     string Description,

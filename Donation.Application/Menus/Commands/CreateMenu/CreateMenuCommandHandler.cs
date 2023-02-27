@@ -7,16 +7,16 @@ using MediatR;
 
 namespace Donation.Application.Menus.Commands.CreateMenu
 {
-  public class CreateMenuCommandHandler : IRequestHandler<CreateMenuCommand, ErrorOr<Menu>>
+  public class CreateHierarchyCommandHandler : IRequestHandler<CreateHierarchyCommand, ErrorOr<Menu>>
   {
     private readonly IMenuRepository _menuRepository;
 
-    public CreateMenuCommandHandler(IMenuRepository menuRepository)
+    public CreateHierarchyCommandHandler(IMenuRepository menuRepository)
     {
       _menuRepository = menuRepository;
     }
 
-    public async Task<ErrorOr<Menu>> Handle(CreateMenuCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Menu>> Handle(CreateHierarchyCommand request, CancellationToken cancellationToken)
     {
       await Task.CompletedTask;
       // 1. Create Menu

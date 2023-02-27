@@ -2,9 +2,9 @@
 
 namespace Donation.Application.Menus.Commands.CreateMenu
 {
-  public class CreateMenuCommandValidator : AbstractValidator<CreateMenuCommand>
+  public class CreateHierarchyCommandValidator : AbstractValidator<CreateHierarchyCommand>
   {
-    public CreateMenuCommandValidator() {
+    public CreateHierarchyCommandValidator() {
       RuleFor(x => x.Name).NotEmpty();
       RuleFor(x => x.Description).NotEmpty();
       RuleFor(x => x.Sections).NotEmpty();

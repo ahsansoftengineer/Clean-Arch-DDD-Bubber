@@ -14,7 +14,7 @@ namespace Donation.Api.Common.Mapping
     {
       config.NewConfig<
         (CreateMenuRequest Request, string HostId),  // src area
-        CreateMenuCommand>() // dest area
+        CreateHierarchyCommand>() // dest area
         .Map(dest => dest.HostId, src => src.HostId)
         .Map(dest => dest, src => src.Request);
 
