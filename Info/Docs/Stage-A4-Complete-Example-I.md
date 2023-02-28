@@ -135,6 +135,10 @@ namespace Donation.Domain.Menu.ValueObjects
     {
       return new (Guid.NewGuid());
     }
+    public static MenuId Create(Guid value)
+    {
+      return new MenuId(value);
+    }
     public override IEnumerable<object> GetEqualityComponents()
     {
       yield return Value;
@@ -154,6 +158,10 @@ namespace Donation.Domain.Menu.ValueObjects
     public static MenuSectionId CreateUnique()
     {
       return new(Guid.NewGuid());
+    }
+    public static MenuSectionId Create(Guid value)
+    {
+      return new MenuSectionId(value);
     }
     public override IEnumerable<object> GetEqualityComponents()
     {
@@ -176,12 +184,71 @@ namespace Donation.Domain.Menu.ValueObjects
     {
       return new (Guid.NewGuid());
     }
+    public static MenuItemId Create(Guid value)
+    {
+      return new MenuItemId(value);
+    }
     public override IEnumerable<object> GetEqualityComponents()
     {
       yield return Value;
     }
   }
 }
+```
+### DinnerIds Value Object
+```csharp
+namespace Donation.Domain.Dinner.ValueObjects
+{
+  public sealed class DinnerId : ValueObject
+  {
+    public Guid Value { get; }
+
+    private DinnerId(Guid value)
+    {
+      Value = value;
+    }
+    public static DinnerId CreateUnique()
+    {
+      return new(Guid.NewGuid());
+    }
+    public static DinnerId Create(Guid value)
+    {
+      return new DinnerId(value);
+    }
+    public override IEnumerable<object> GetEqualityComponents()
+    {
+      yield return Value;
+    }
+  }
+}
+```
+### MenuReviewIds Value Object
+```csharp
+namespace Donation.Domain.MenuReview.ValueObjects
+{
+  public sealed class MenuReviewId: ValueObject
+  {
+    public Guid Value { get; }
+
+    private MenuReviewId(Guid value)
+    {
+      Value = value;
+    }
+    public static MenuReviewId CreateUnique()
+    {
+      return new(Guid.NewGuid());
+    }
+    public static MenuReviewId Create(Guid value)
+    {
+      return new MenuReviewId(value);
+    }
+    public override IEnumerable<object> GetEqualityComponents()
+    {
+      yield return Value;
+    }
+  }
+}
+
 ```
 ### Value Object Rating
 ```csharp
@@ -400,6 +467,82 @@ namespace Donation.Domain.Menu
         name,
         description,
         hostId,
+        DateTime.UtcNow,
+        DateTime.UtcNow);
+    }
+  }
+}
+```
+### Dinners (Only to See MenuId)
+```csharp
+namespace Donation.Domain.Dinner
+{
+  public sealed class Dinner : AggregateRoot<DinnerId>
+  {
+    private readonly List<Reservation> reservations = new();
+
+    public string Name { get; }
+    public string Description { get; }
+    public DinnerStatus DinnerStatus { get; }
+    public bool IsPublic { get; }
+    public int MaxGuests { get; } 
+    public string ImageUrl { get; }
+
+    public DateTime StartedDateTime { get; }
+    public DateTime EndedDateTime { get; }
+    public DateTime CreatedDateTime { get; }
+    public DateTime UpdatedDateTime { get; }
+    public HostId HostId{ get; }
+    public MenuId MenuId { get; }
+    public Location Location { get; } // Name, Address, Latitude, Longitude
+    public Price Price { get; } // Amount, Currency
+    public IReadOnlyList<Reservation> Reservations => reservations.AsReadOnly();
+
+    public Dinner(
+      DinnerId dinnerId,
+      string name,
+      string description,
+      DateTime startedDateTime,
+      DateTime endedDateTime,
+      HostId hostId,
+      MenuId menuId,
+      Location location,
+      Price price,
+      DateTime createdDateTime,
+      DateTime updatedDateTime) : base(dinnerId)
+    {
+      Name = name;
+      Description = description;
+      StartedDateTime = startedDateTime;
+      EndedDateTime= endedDateTime;
+      HostId = hostId;
+      MenuId = menuId;
+      Location = location;
+      Price = price;
+      CreatedDateTime = createdDateTime;
+      UpdatedDateTime = updatedDateTime;
+    }
+    
+    public static Dinner Create(
+      string name,
+      string description,
+      DateTime startedDateTime,
+      DateTime endedDateTime,
+      HostId hostId,
+      MenuId menuId,
+      Location location,
+      Price price)
+    {
+      return new(
+        DinnerId.CreateUnique(),
+        name,
+        description,
+        startedDateTime,
+        endedDateTime,
+        hostId,
+        menuId,
+        location,
+        price,
         DateTime.UtcNow,
         DateTime.UtcNow);
     }
