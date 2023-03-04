@@ -1,12 +1,11 @@
 ﻿
-using Donation.Domain.Host.ValueObjects;
 using Donation.Domain.Menu;
 using ErrorOr;
 using MediatR;
 
 namespace Donation.Application.Menus.Commands.CreateMenu
 {
-  public record CreateHierarchyCommand(
+  public record CreateMenuCommand(
     string HostId,
     string Name,
     string Description,

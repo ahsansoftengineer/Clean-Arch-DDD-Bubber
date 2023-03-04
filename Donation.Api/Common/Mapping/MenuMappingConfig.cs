@@ -1,10 +1,10 @@
-﻿using Donation.Application.Menus.Commands.CreateMenu;
-using Donation.Contracts.Menus;
+﻿using Donation.Contracts.Menus;
 using Donation.Domain.Menu;
 using Mapster;
 // MenuAggregate
 using MenuSection = Donation.Domain.Menu.Entities.MenuSection;
 using MenuItem = Donation.Domain.Menu.Entities.MenuItem;
+using Donation.Application.Menus.Commands.CreateMenu;
 
 namespace Donation.Api.Common.Mapping
 {
@@ -14,7 +14,7 @@ namespace Donation.Api.Common.Mapping
     {
       config.NewConfig<
         (CreateMenuRequest Request, string HostId),  // src area
-        CreateHierarchyCommand>() // dest area
+        CreateMenuCommand>() // dest area
         .Map(dest => dest.HostId, src => src.HostId)
         .Map(dest => dest, src => src.Request);
 

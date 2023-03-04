@@ -2,28 +2,26 @@
 
 namespace Donation.Application.Common.Persistence
 {
-  public interface IOrgRepo
+  public interface IGenericRepo<IEntityz>
   {
-    void Add(Org me);
+    void Add(IEntityz me);
   }
-  public interface ISystemzRepo
+  public interface IOrgRepo : IGenericRepo<Org>
   {
-    void Add(Systemz me);
   }
-  public interface IBusinessGroupRepo
+  public interface ISystemzRepo : IGenericRepo<Systemz>
   {
-    void Add(BusinessGroup me);
   }
-  public interface ILegalEntityRepo
+  public interface IBGRepo : IGenericRepo<BG>
   {
-    void Add(LegalEntity me);
   }
-  public interface IOperatingUnitRepo
+  public interface ILERepo : IGenericRepo<LE>
   {
-    void Add(OperatingUnit me);
   }
-  public interface ISubUnitRepo
+  public interface IOURepo : IGenericRepo<OU>
   {
-    void Add(SubUnit me);
+  }
+  public interface ISURepo : IGenericRepo<SU>
+  {
   }
 }

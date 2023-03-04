@@ -89,7 +89,6 @@ dotnet tool list --global
 dotnet tool install --global dotnet-ef
 Install-Package Microsoft.EntityFrameworkCore.Tools // Power Shell
 dotnet ef migrations add InitialCreate -p Donation.Infrastructure -s Donation.Api
-dotnet ef migrations remove  -p Donation.Infrastructure -s Donation.Api
 ```
 
 #### Docker 

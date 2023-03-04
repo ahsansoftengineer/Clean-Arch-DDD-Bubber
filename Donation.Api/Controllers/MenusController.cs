@@ -19,7 +19,7 @@ namespace Donation.Api.Controllers
     [HttpPost]
     public async Task<IActionResult> CreateMenu(CreateMenuRequest request, string hostId)
     {
-      var command = mapper.Map<CreateHierarchyCommand>((request, hostId));
+      var command = mapper.Map<CreateMenuCommand>((request, hostId));
       var createMenuResult = await mediator.Send(command);
       return createMenuResult.Match(
         menu => Ok(mapper.Map<MenuResponse>(menu)),

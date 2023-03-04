@@ -1,92 +1,29 @@
-﻿using Donation.Application.Common.Persistence;
-using Donation.Domain.Hierarchy;
+﻿using Donation.Domain.Hierarchy;
 
 namespace Donation.Infrastructure.Persistence.Repositories
 {
-  public class OrgRepository : IOrgRepo
+  public class OrgRepository : SimpleRepository<Org>
   {
-    private readonly DonationDbContext dbContext;
-
-    public OrgRepository(DonationDbContext dbContext)
-    {
-      this.dbContext = dbContext;
-    }
-    public void Add(Org menu)
-    {
-      //dbContext.Menus.Add(menu);
-      dbContext.Add(menu);
-      dbContext.SaveChanges();
-    }
+    public OrgRepository(DonationDbContext dbContext) :base(dbContext) { }
   }
-  public class SystemzRepo : ISystemzRepo
+  public class SystemzRepo : SimpleRepository<Systemz>
   {
-    private readonly DonationDbContext dbContext;
-
-    public SystemzRepo(DonationDbContext dbContext)
-    {
-      this.dbContext = dbContext;
-    }
-    public void Add(Systemz bg)
-    {
-      dbContext.Add(bg);
-      dbContext.SaveChanges();
-    }
+    public SystemzRepo(DonationDbContext dbContext): base(dbContext) { }
   }
-  public class BusinessGroupRepo : IBusinessGroupRepo
+  public class BGRepo : SimpleRepository<BG>
   {
-    private readonly DonationDbContext dbContext;
-
-    public BusinessGroupRepo(DonationDbContext dbContext)
-    {
-      this.dbContext = dbContext;
-    }
-    public void Add(BusinessGroup bg)
-    {
-      dbContext.Add(bg);
-      dbContext.SaveChanges();
-    }
+    public BGRepo(DonationDbContext dbContext) : base(dbContext) { }
   }
-
-  public class LegalEntityRepo : ILegalEntityRepo
+  public class LERepo : SimpleRepository<LE>
   {
-    private readonly DonationDbContext dbContext;
-
-    public LegalEntityRepo(DonationDbContext dbContext)
-    {
-      this.dbContext = dbContext;
-    }
-    public void Add(LegalEntity le)
-    {
-      dbContext.Add(le);
-      dbContext.SaveChanges();
-    }
+    public LERepo(DonationDbContext dbContext): base(dbContext) { }
   }
-  public class OperatinUnitRepo : IOperatingUnitRepo
+  public class OURepo : SimpleRepository<OU>
   {
-    private readonly DonationDbContext dbContext;
-
-    public OperatinUnitRepo(DonationDbContext dbContext)
-    {
-      this.dbContext = dbContext;
-    }
-    public void Add(OperatingUnit ou)
-    {
-      dbContext.Add(ou);
-      dbContext.SaveChanges();
-    }
+    public OURepo(DonationDbContext dbContext): base(dbContext) { }
   }
-  public class SubUnitRepo : ISubUnitRepo
+  public class SURepo : SimpleRepository<SU>
   {
-    private readonly DonationDbContext dbContext;
-
-    public SubUnitRepo(DonationDbContext dbContext)
-    {
-      this.dbContext = dbContext;
-    }
-    public void Add(SubUnit su)
-    {
-      dbContext.Add(su);
-      dbContext.SaveChanges();
-    }
+    public SURepo(DonationDbContext dbContext) : base(dbContext) { }
   }
 }

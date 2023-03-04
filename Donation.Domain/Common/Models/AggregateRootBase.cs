@@ -1,15 +1,13 @@
-﻿using Donation.Domain.Common.Models;
-
-namespace Donation.Domain.Hierarchy
+﻿namespace Donation.Domain.Common.Models.Hierarchy
 {
   public class AggregateRootBase : AggregateRoot<GenericValueObjectId>
   {
     public string Title { get; private set; }
     public string Description { get; private set; }
-    public DateTime CreatedAt { get; private set; }
-    public DateTime UPdatedAt { get; private set; }
+    public DateTime CreatedAt { get; protected set; }
+    public DateTime UpdatedAt { get; protected set; }
 
-    protected AggregateRootBase(
+    public AggregateRootBase(
         GenericValueObjectId valueObject,
         string title,
         string description)
@@ -31,7 +29,7 @@ namespace Donation.Domain.Hierarchy
 
     // Private Constructor is Required for EF Core
 #pragma warning disable CS8618
-    protected AggregateRootBase() { }
+    public AggregateRootBase() { }
 #pragma warning restore CS8618
   }
 }
