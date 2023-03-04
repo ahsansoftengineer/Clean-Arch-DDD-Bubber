@@ -46,6 +46,26 @@ namespace Donation.Contracts.Menus
     string Description);
 }
 ```
+### Menu Create Command
+```csharp
+namespace Donation.Application.Menus.Commands.CreateMenu
+{
+  public record CreateMenuCommand(
+    string HostId,
+    string Name,
+    string Description,
+    List<MenuSectionCommand> Sections) : IRequest<ErrorOr<Menu>>;
+
+  public record MenuSectionCommand(
+    string Name,
+    string Description,
+    List<MenuItemCommand> Items);
+
+  public record MenuItemCommand(
+    string Name,
+    string Description);
+}
+```
 ### Menu Mapping
 ```csharp
 namespace Donation.Api.Common.Mapping
@@ -77,26 +97,6 @@ namespace Donation.Api.Common.Mapping
 
     }
   }
-}
-```
-### Menu Create Command
-```csharp
-namespace Donation.Application.Menus.Commands.CreateMenu
-{
-  public record CreateMenuCommand(
-    string HostId,
-    string Name,
-    string Description,
-    List<MenuSectionCommand> Sections) : IRequest<ErrorOr<Menu>>;
-
-  public record MenuSectionCommand(
-    string Name,
-    string Description,
-    List<MenuItemCommand> Items);
-
-  public record MenuItemCommand(
-    string Name,
-    string Description);
 }
 ```
 ### DB Context
