@@ -12,16 +12,16 @@ namespace Donation.Application.Common.Persistence
   public interface ISystemzRepo : IGenericRepo<Systemz>
   {
   }
-  public interface IBGRepo : IGenericRepo<BG>
-  {
-  }
-  public interface ILERepo : IGenericRepo<LE>
-  {
-  }
-  public interface IOURepo : IGenericRepo<OU>
-  {
-  }
-  public interface ISURepo : IGenericRepo<SU>
-  {
-  }
+  //public interface IBGRepo : IGenericRepo<BG>
+  //{
+  //}
+  //public interface ILERepo : IGenericRepo<LE>
+  //{
+  //}
+  //public interface IOURepo : IGenericRepo<OU>
+  //{
+  //}
+  //public interface ISURepo : IGenericRepo<SU>
+  //{
+  //}
 }

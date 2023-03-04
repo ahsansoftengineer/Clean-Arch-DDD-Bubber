@@ -1,7 +1,10 @@
-﻿namespace Donation.Domain.Common.Models.Hierarchy
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Donation.Domain.Common.Models.Hierarchy
 {
   public class AggregateRootBaseSimpleChild : AggregateRootBase
   {
+    [NotMapped]
     public GenericValueObjectId ParentId { get; }
     protected AggregateRootBaseSimpleChild(
         GenericValueObjectId id,

@@ -19,18 +19,16 @@ namespace Donation.Api.Controllers.Simple
       this.mapper = mapper;
       this.mediator = mediator;
     }
-    //[HttpPost]
-    //public async Task<IActionResult> Create(CreateSimpleRequest request)
-    //{
-    //  var command = mapper.Map<CreateSimpleCommand<Org>>((request));
-    //  var createMenuResult = await mediator.Send(command);
-    //  return createMenuResult.Match(
-    //    menu => Ok(mapper.Map<SimpleResponse>(menu)),
-    //    errors => Problem(errors)
-    //  );
-
-    //  //CreatedAtAction(nameof(GetMenu), new {hostId, menu}) ,
-    //}
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateSimpleRequest request)
+    {
+      var command = mapper.Map<CreateSimpleCommand<Org>>((request));
+      var createMenuResult = await mediator.Send(command);
+      return createMenuResult.Match(
+        menu => Ok(mapper.Map<SimpleResponse>(menu)),
+        errors => Problem(errors)
+      );
+    }
 
   }
 }

@@ -12,6 +12,7 @@ namespace Donation.Infrastructure.Persistence.Repositories
     public void Add(Entityz me)
     {
       //dbContext.Menus.Add(menu);
+      Console.WriteLine(me);
       dbContext.Add(me);
       dbContext.SaveChanges();
     }

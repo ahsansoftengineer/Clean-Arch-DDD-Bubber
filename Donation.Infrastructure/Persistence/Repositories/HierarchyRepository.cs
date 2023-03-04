@@ -1,29 +1,30 @@
-﻿using Donation.Domain.Hierarchy;
+﻿using Donation.Application.Common.Persistence;
+using Donation.Domain.Hierarchy;
 
 namespace Donation.Infrastructure.Persistence.Repositories
 {
-  public class OrgRepository : SimpleRepository<Org>
+  public class OrgRepo : SimpleRepository<Org>, IOrgRepo
   {
-    public OrgRepository(DonationDbContext dbContext) :base(dbContext) { }
+    public OrgRepo(DonationDbContext dbContext) :base(dbContext) { }
   }
-  public class SystemzRepo : SimpleRepository<Systemz>
+  public class SystemzRepo : SimpleRepository<Systemz>, ISystemzRepo
   {
-    public SystemzRepo(DonationDbContext dbContext): base(dbContext) { }
+    public SystemzRepo(DonationDbContext dbContext) : base(dbContext) { }
   }
-  public class BGRepo : SimpleRepository<BG>
-  {
-    public BGRepo(DonationDbContext dbContext) : base(dbContext) { }
-  }
-  public class LERepo : SimpleRepository<LE>
-  {
-    public LERepo(DonationDbContext dbContext): base(dbContext) { }
-  }
-  public class OURepo : SimpleRepository<OU>
-  {
-    public OURepo(DonationDbContext dbContext): base(dbContext) { }
-  }
-  public class SURepo : SimpleRepository<SU>
-  {
-    public SURepo(DonationDbContext dbContext) : base(dbContext) { }
-  }
+  //public class BGRepo : SimpleRepository<BG>, IBGRepo
+  //{
+  //  public BGRepo(DonationDbContext dbContext) : base(dbContext) { }
+  //}
+  //public class LERepo : SimpleRepository<LE>, ILERepo
+  //{
+  //  public LERepo(DonationDbContext dbContext): base(dbContext) { }
+  //}
+  //public class OURepo : SimpleRepository<OU>, IOURepo
+  //{
+  //  public OURepo(DonationDbContext dbContext): base(dbContext) { }
+  //}
+  //public class SURepo : SimpleRepository<SU>, ISURepo
+  //{
+  //  public SURepo(DonationDbContext dbContext) : base(dbContext) { }
+  //}
 }
