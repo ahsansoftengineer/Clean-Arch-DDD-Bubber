@@ -8,8 +8,8 @@ namespace Donation.Domain.HierarchyAggregate
     public string Title { get; private set; }
     public string Description { get; private set; }
 
-    private readonly List<SystemzId> systemzids = new();
-    public IReadOnlyList<SystemzId> SystemzIds => systemzids.AsReadOnly();
+    private readonly List<Systemz> systemz = new();
+    public IReadOnlyList<Systemz> Systemz => systemz.AsReadOnly();
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
 

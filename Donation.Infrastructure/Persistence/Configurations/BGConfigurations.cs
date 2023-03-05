@@ -10,23 +10,8 @@ namespace Donation.Infrastructure.Persistence.Configurations
     public void Configure(EntityTypeBuilder<BG> builder)
     {
       ConfigureBGTable(builder);
-      ConfigureBGLEIdsTable(builder);
     }
 
-    private void ConfigureBGLEIdsTable(EntityTypeBuilder<BG> builder)
-    {
-      builder.OwnsMany(m => m.LEIds, dib =>
-      {
-        dib.ToTable("BGLEIds");
-        dib.WithOwner().HasForeignKey("BGId");
-        dib.HasKey("Id");
-        dib.Property(d => d.Value)
-          .HasColumnName("LEIds")
-          .ValueGeneratedNever();
-      });
-      builder.Metadata.FindNavigation(nameof(BG.LEIds))!
-        .SetPropertyAccessMode(PropertyAccessMode.Field);
-    }
     private void ConfigureBGTable(EntityTypeBuilder<BG> builder)
     {
       builder.ToTable("BGs");

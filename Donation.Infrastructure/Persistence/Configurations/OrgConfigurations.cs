@@ -10,22 +10,6 @@ namespace Donation.Infrastructure.Persistence.Configurations
     public void Configure(EntityTypeBuilder<Org> builder)
     {
       ConfigureOrgTable(builder);
-      ConfigureOrgSystemzIdsTable(builder);
-    }
-
-    private void ConfigureOrgSystemzIdsTable(EntityTypeBuilder<Org> builder)
-    {
-      builder.OwnsMany(m => m.SystemzIds, dib =>
-      {
-        dib.ToTable("OrgSystemzIds");
-        dib.WithOwner().HasForeignKey("OrgId");
-        dib.HasKey("Id");
-        dib.Property(d => d.Value)
-          .HasColumnName("SystemzIds")
-          .ValueGeneratedNever();
-      });
-      builder.Metadata.FindNavigation(nameof(Org.SystemzIds))!
-        .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
     private void ConfigureOrgTable(EntityTypeBuilder<Org> builder)
     {

@@ -8,8 +8,8 @@ namespace Donation.Domain.HierarchyAggregate
     public string Title { get; private set; }
     public string Description { get; private set; }
 
-    private readonly List<LEId> leids = new();
-    public IReadOnlyList<LEId> LEIds => leids.AsReadOnly();
+    private readonly List<LE> les = new();
+    public IReadOnlyList<LE> LEs => les.AsReadOnly();
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
 

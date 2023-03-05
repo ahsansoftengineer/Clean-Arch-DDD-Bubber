@@ -9,8 +9,8 @@ namespace Donation.Domain.HierarchyAggregate
     public string Description { get; private set; }
     public LEId LEId { get; private set; }
 
-    private readonly List<SUId> suids = new();
-    public IReadOnlyList<SUId> SUIds => suids.AsReadOnly();
+    private readonly List<SU> sus = new();
+    public IReadOnlyList<SU> SUs => sus.AsReadOnly();
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
 

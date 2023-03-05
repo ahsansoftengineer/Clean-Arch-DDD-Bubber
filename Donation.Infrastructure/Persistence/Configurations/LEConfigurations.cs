@@ -10,21 +10,6 @@ namespace Donation.Infrastructure.Persistence.Configurations
     public void Configure(EntityTypeBuilder<LE> builder)
     {
       ConfigureLETable(builder);
-      ConfigureLEOUIdsTable(builder);
-    }
-    private void ConfigureLEOUIdsTable(EntityTypeBuilder<LE> builder)
-    {
-      builder.OwnsMany(m => m.OUIds, dib =>
-      {
-        dib.ToTable("LEOUIds");
-        dib.WithOwner().HasForeignKey("LEId");
-        dib.HasKey("Id");
-        dib.Property(d => d.Value)
-          .HasColumnName("OUIds")
-          .ValueGeneratedNever();
-      });
-      builder.Metadata.FindNavigation(nameof(LE.OUIds))!
-        .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
     private void ConfigureLETable(EntityTypeBuilder<LE> builder)
     {

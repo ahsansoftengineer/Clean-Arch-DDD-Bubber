@@ -12,7 +12,8 @@
     string Id,
     string Title,
     string Description,
-    string ParentId,
-    SimpleOption Parent);
+    string ParentId
+    //,SimpleOption Parent
+    );
 
 }
