@@ -13,6 +13,8 @@ using Donation.Infrastructure.Services;
 using Donation.Infrastructure.Persistence;
 using Donation.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Donation.Application.Common.Persistence.Hierarchy;
+using Donation.Infrastructure.Persistence.Repositories.Hierarchy;
 
 namespace Donation.Infrastructure
 {
@@ -36,6 +38,14 @@ namespace Donation.Infrastructure
       });
       Services.AddScoped<IUserRepository, UserRepository>();
       Services.AddScoped<IMenuRepository, MenuRepository>();
+
+      Services.AddScoped<IOrgRepo, OrgRepo>();
+      Services.AddScoped<ISystemzRepo, SystemzRepo>();
+      Services.AddScoped<IBGRepo, BGRepo>();
+      Services.AddScoped<ILERepo, LERepo>();
+      Services.AddScoped<IOURepo, OURepo>();
+      Services.AddScoped<ISURepo, SURepo>();
+
       return Services;
     }
     public static IServiceCollection AddAuth(this IServiceCollection Services, ConfigurationManager Configuration)
