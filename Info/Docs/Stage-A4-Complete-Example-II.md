@@ -99,57 +99,8 @@ namespace Donation.Api.Common.Mapping
   }
 }
 ```
-### DB Context
-```csharp
-namespace Donation.Infrastructure.Persistence
-{
-  public class DonationDbContext : DbContext
-  {
-    public DonationDbContext(DbContextOptions<DonationDbContext> options) : base(options) { }
-    
-    public DbSet<Menu> Menus { get; set; } = null!;
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-      modelBuilder.ApplyConfigurationsFromAssembly(
-        typeof(DonationDbContext).Assembly
-      );
-      base.OnModelCreating(modelBuilder);
-    }
-  }
-}
-```
-### IMenu Repo
-```csharp
-namespace Donation.Application.Common.Persistence
-{
-  public interface IMenuRepository
-  {
-    void Add(Menu menu);
-  }
-}
-```
-### Menu Repo
-```csharp
-namespace Donation.Infrastructure.Persistence.Repositories
-{
-  public class MenuRepository : IMenuRepository
-  {
-    private readonly DonationDbContext dbContext;
 
-    public MenuRepository(DonationDbContext dbContext)
-    {
-      this.dbContext = dbContext;
-    }
-    public void Add(Menu menu)
-    {
-      //dbContext.Menus.Add(menu);
-      dbContext.Add(menu);
-      dbContext.SaveChanges();
-    }
-  }
-}
-```
-### Create Command Hanndler
+### Create Command Handler
 ```csharp
 namespace Donation.Application.Menus.Commands.CreateMenu
 {
@@ -198,7 +149,6 @@ namespace Donation.Application.Menus.Commands.CreateMenu
   }
 }
 ```
-
 ### Controller Action
 ```csharp
 namespace Donation.Api.Controllers
