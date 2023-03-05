@@ -48,16 +48,6 @@ namespace Donation.Infrastructure.Persistence
   public class DonationDbContext : DbContext
 }
 ```
-#### Interface 
-```csharp
-namespace Donation.Application.Common.Persistence
-{
-  public interface IMenuRepository
-  {
-    void Add(Menu menu);
-  }
-}
-```
 #### Repository
 ```csharp
 namespace Donation.Infrastructure.Persistence.Repositories
