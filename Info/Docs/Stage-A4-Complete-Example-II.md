@@ -1,177 +1,252 @@
-### Menu Request Record
+﻿### Table Mapping
 ```csharp
-namespace Donation.Contracts.Menus
+namespace Donation.Infrastructure.Persistence.Configurations
 {
-  public record CreateMenuRequest(
-    string hostId,
-    string Name,
-    string Description,
-    List<MenuSection> Sections);
-  
-  public record MenuSection(
-    string Name,
-    string Description,
-    List<MenuItem > Items);
-
-  public record MenuItem(
-    string Name, 
-    string Description);
-}
-```
-### Menu Response
-```csharp
-namespace Donation.Contracts.Menus
-{
-  public record MenuResponse(
-    Guid Id,
-    string Name,
-    string Description,
-    float? AverageRating,
-    List<MenuSectionResponse> Sections,
-    string HostId,
-    List<string> DinnerIds,
-    List<string> MenuReviewIds,
-    DateTime CreatedDateTime,
-    DateTime UpdatedDateTime);
-
-  public record MenuSectionResponse(
-    string Id,
-    string Name,
-    string Description,
-    List<MenuItemResponse> Items);
-
-  public record MenuItemResponse(
-    string Id,
-    string Name,
-    string Description);
-}
-```
-### Menu Create Command
-```csharp
-namespace Donation.Application.Menus.Commands.CreateMenu
-{
-  public record CreateMenuCommand(
-    string HostId,
-    string Name,
-    string Description,
-    List<MenuSectionCommand> Sections) : IRequest<ErrorOr<Menu>>;
-
-  public record MenuSectionCommand(
-    string Name,
-    string Description,
-    List<MenuItemCommand> Items);
-
-  public record MenuItemCommand(
-    string Name,
-    string Description);
-}
-```
-### Menu Mapping
-```csharp
-namespace Donation.Api.Common.Mapping
-{
-  public class MenuMappingConfig : IRegister
+  public class MenuConfigurations : IEntityTypeConfiguration<Menu>
   {
-    public void Register(TypeAdapterConfig config)
+    // This File Generated Based on the Image StageA2-EF-Core-Z-DB-Diagram-III.png
+    public void Configure(EntityTypeBuilder<Menu> builder)
     {
-      config.NewConfig<
-        (CreateMenuRequest Request, string HostId),  // src area
-        CreateMenuCommand>() // dest area
-        .Map(dest => dest.HostId, src => src.HostId)
-        .Map(dest => dest, src => src.Request);
-
-      // Configuration of Mapping MenuResponse to Menu (dest is Menu, src is MenuResponse)
-      // There is better way of rewriting it
-      config.NewConfig<Menu, MenuResponse>()
-        .Map(dest => dest.Id, src => src.Id.Value)
-        .Map(dest => dest.AverageRating, src => src.AverageRating.Value)
-        .Map(dest => dest.HostId, src => src.HostId.Value)
-        .Map(dest => dest.DinnerIds, src => src.DinnerIds.Select(dinnerId => dinnerId.Value))
-        .Map(dest => dest.MenuReviewIds, src => src.MenuReviewIds.Select(reviewId => reviewId.Value));
-
-      config.NewConfig<MenuSection, MenuSectionResponse>()
-        .Map(dest => dest.Id, src => src.Id.Value);
-
-      config.NewConfig<MenuItem, MenuItemResponse>()
-        .Map(dest => dest.Id, src => src.Id.Value);
-
-    }
-  }
-}
-```
-
-### Create Command Handler
-```csharp
-namespace Donation.Application.Menus.Commands.CreateMenu
-{
-  public class CreateMenuCommandHandler : IRequestHandler<CreateMenuCommand, ErrorOr<Menu>>
-  {
-    private readonly IMenuRepository _menuRepository;
-
-    public CreateMenuCommandHandler(IMenuRepository menuRepository)
-    {
-      _menuRepository = menuRepository;
+      ConfigureMenuTable(builder);
+      ConfigureMenuSectionTable(builder);
+      ConfigureMenuDinnerIdsTable(builder);
+      ConfigureMenuReviewIdsTable(builder);
     }
 
-    public async Task<ErrorOr<Menu>> Handle(CreateMenuCommand request, CancellationToken cancellationToken)
+    private void ConfigureMenuReviewIdsTable(EntityTypeBuilder<Menu> builder)
     {
-      await Task.CompletedTask;
-      // 1. Create Menu
-      var menu = Menu.Create(
-          hostId: HostId.CreateUnique(),//HostId.Create(request.HostId),
-          name: request.Name,
-          description: request.Description,
-          sections: request.Sections.ConvertAll(sections => MenuSection.Create(
-              name: sections.Name,
-              description: sections.Description,
-              items: sections.Items.ConvertAll(items => MenuItem.Create(
-                  name: items.Name,
-                  description: items.Description)))));
-      // 2. Persist Menu
-      _menuRepository.Add(menu);
-      // 3. Return Menu
-      return menu;
+      builder.OwnsMany(m => m.MenuReviewIds, dib =>
+      {
+        dib.ToTable("MenuReviewIds");
+        dib.WithOwner().HasForeignKey("MenuId");
+        dib.HasKey("Id");
+        dib.Property(d => d.Value)
+          .HasColumnName("MenuReviewIds")
+          .ValueGeneratedNever();
+      }) ;
+      builder.Metadata.FindNavigation(nameof(Menu.MenuReviewIds))!
+        .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
-  }
-}
-```
-### Menu Create Command Validator
-```csharp
-namespace Donation.Application.Menus.Commands.CreateMenu
-{
-  public class CreateMenuCommandValidator : AbstractValidator<CreateMenuCommand>
-  {
-    public CreateMenuCommandValidator() {
-      RuleFor(x => x.Name).NotEmpty();
-      RuleFor(x => x.Description).NotEmpty();
-      RuleFor(x => x.Sections).NotEmpty();
-    }
-  }
-}
-```
-### Controller Action
-```csharp
-namespace Donation.Api.Controllers
-{
-  [Route("hosts/{hostId}/menus")]
-  public class MenusController : ApiController
-  {
-    private readonly IMapper mapper;
-    private readonly ISender mediator;
-    public MenusController(IMapper mapper, ISender mediator)
+    private void ConfigureMenuDinnerIdsTable(EntityTypeBuilder<Menu> builder)
     {
-      this.mapper = mapper;
-      this.mediator = mediator;
+      builder.OwnsMany(m => m.DinnerIds, dib =>
+      {
+        dib.ToTable("MenuDinnerIds");
+        dib.WithOwner().HasForeignKey("MenuId");
+        dib.HasKey("Id");
+        dib.Property(d => d.Value)
+          .HasColumnName("DinnerIds")
+          .ValueGeneratedNever();
+      });
+      builder.Metadata.FindNavigation(nameof(Menu.DinnerIds))!
+        .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
-    [HttpPost]
-    public async Task<IActionResult> CreateMenu(CreateMenuRequest request, string hostId)
+    private void ConfigureMenuSectionTable(EntityTypeBuilder<Menu> builder)
     {
-      var command = mapper.Map<CreateMenuCommand>((request, hostId));
-      var createMenuResult = await mediator.Send(command);
-      return createMenuResult.Match(
-        menu => Ok(mapper.Map<MenuResponse>(menu)),
-        errors => Problem(errors)
+      // m => Menu
+      // sb => Navigation Builder Menu
+      // ib => Item Builder
+      builder.OwnsMany(
+        m => m.Sections, 
+        sb =>
+        {
+          sb.ToTable("MenuSections");
+          sb.WithOwner().HasForeignKey("MenuId");
+          sb.HasKey("Id", "MenuId");
+          sb.Property(s => s.Id)
+            .HasColumnName("MenuSectionId")
+            .ValueGeneratedNever()
+            .HasConversion(
+              id => id.Value,
+              value => MenuSectionId.Create(value));
+
+          sb.Property(s => s.Name)
+            .HasMaxLength(100);
+
+          sb.Property(s => s.Description)
+            .HasMaxLength(100);
+
+          sb.OwnsMany(s => s.Items, ib =>
+          {
+            ib.ToTable("MenuItems");
+
+            ib.WithOwner()
+              .HasForeignKey("MenuSectionId", "MenuId");
+
+            ib.HasKey(nameof(MenuItem.Id), "MenuSectionId", "MenuId");
+
+            ib.Property(i => i.Id)
+              .HasColumnName("MenuItemId")
+              .ValueGeneratedNever()
+              .HasConversion(
+                id => id.Value,
+                value => MenuItemId.Create(value));
+
+            ib.Property(s => s.Name)
+              .HasMaxLength(100);
+
+            ib.Property(s => s.Description)
+              .HasMaxLength(100);
+          });
+          sb.Navigation(s => s.Items).Metadata.SetField("_items");
+          sb.Navigation(s => s.Items).UsePropertyAccessMode(PropertyAccessMode.Field);
+
+        });
+      // ! for tell compiler that their will be no null
+      builder.Metadata.FindNavigation(nameof(Menu.Sections))!
+        .SetPropertyAccessMode(PropertyAccessMode.Field);
+    }
+    private void ConfigureMenuTable(EntityTypeBuilder<Menu> builder)
+    {
+      builder.ToTable("Menus");
+      builder.HasKey(x => x.Id);
+      builder.Property(x => x.Id)
+        .ValueGeneratedNever()
+        .HasConversion(
+          id => id.Value,
+          value => MenuId.Create(value)
       );
+
+      builder.Property(x => x.Name)
+        .HasMaxLength(100);
+
+      builder.Property(m => m.Description)
+        .HasMaxLength(100);
+
+      builder.OwnsOne(m => m.AverageRating);
+      builder.Property(m => m.HostId)
+        .HasConversion(
+          id => id.Value,
+          value => HostId.Create(value)
+        );
+    }
+  }
+}
+```
+### IMenu Repo
+```csharp
+namespace Donation.Application.Common.Persistence
+{
+  public interface IMenuRepository
+  {
+    void Add(Menu menu);
+  }
+}
+```
+### DB Context
+```csharp
+namespace Donation.Infrastructure.Persistence
+{
+  public class DonationDbContext : DbContext
+  {
+    public DonationDbContext(DbContextOptions<DonationDbContext> options) : base(options) { }
+    
+    public DbSet<Menu> Menus { get; set; } = null!;
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+      modelBuilder.ApplyConfigurationsFromAssembly(
+        typeof(DonationDbContext).Assembly
+      );
+      base.OnModelCreating(modelBuilder);
+    }
+  }
+}
+```
+### Menu Repo
+```csharp
+namespace Donation.Infrastructure.Persistence.Repositories
+{
+  public class MenuRepository : IMenuRepository
+  {
+    private readonly DonationDbContext dbContext;
+
+    public MenuRepository(DonationDbContext dbContext)
+    {
+      this.dbContext = dbContext;
+    }
+    public void Add(Menu menu)
+    {
+      //dbContext.Menus.Add(menu);
+      dbContext.Add(menu);
+      dbContext.SaveChanges();
+    }
+  }
+}
+```
+### DB Context
+```csharp
+namespace Donation.Infrastructure.Persistence
+{
+  public class DonationDbContext : DbContext
+  {
+    public DonationDbContext(DbContextOptions<DonationDbContext> options) : base(options) {  }
+    public DbSet<Menu> Menus { get; set; } = null!;
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+      modelBuilder.ApplyConfigurationsFromAssembly(
+        typeof(DonationDbContext).Assembly
+      );
+      base.OnModelCreating(modelBuilder);
+    }
+  }
+}
+```
+
+### Dependency Injection
+```csharp
+namespace Donation.Infrastructure
+{
+  public static class DependencyInjection
+  {
+    public static IServiceCollection AddInfrastructure(this IServiceCollection Services, ConfigurationManager Configuration)
+    {
+      Services
+        .AddAuth(Configuration)
+        .AddPersistence();
+      Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+
+      return Services;
+    }
+    public static IServiceCollection AddPersistence(this IServiceCollection Services)
+    {
+      Services.AddDbContext<DonationDbContext>(options =>
+      {
+        // TrustServerCertificate=true | Encrypt=false
+        options.UseSqlServer("SERVER=localhost;DATABASE=Donation;USER=sa;PASSWORD=asdf1234;Encrypt=false");
+      });
+      Services.AddScoped<IUserRepository, UserRepository>();
+      Services.AddScoped<IMenuRepository, MenuRepository>();
+
+      return Services;
+    }
+    public static IServiceCollection AddAuth(this IServiceCollection Services, ConfigurationManager Configuration)
+    {
+      var jwtSettings = new JwtSettings();
+      Configuration.Bind(JwtSettings.SectionName, jwtSettings);
+
+      Services.AddSingleton(Options.Create(jwtSettings));
+      
+      Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+      Services
+        .AddAuthentication(options =>
+        {
+          options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+          options.TokenValidationParameters = new TokenValidationParameters()
+          {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
+
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidAudience = "https://localhost:7228",
+            ValidIssuer = "https://localhost:7228",
+
+          };
+        });
+      return Services;
     }
   }
 }
