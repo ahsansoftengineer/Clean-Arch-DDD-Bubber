@@ -11,27 +11,27 @@ namespace Donation.Domain.HierarchyAggregate
     public OUId OUId { get; private set; }
 
     private SU(
-        SUId id,
-        OUId prenetId,
-        string title,
-        string description)
-        : base(id)
+      SUId id,
+      OUId parentId,
+      string title,
+      string description)
+      : base(id)
     {
-      OUId = prenetId;
+      OUId = parentId;
       Title = title;
       Description = description;
     }
 
     public static SU Create(
-      OUId prenetId,
-        string title,
-        string description)
+      OUId parentId,
+      string title,
+      string description)
     {
       return new(
-          SUId.CreateUnique(),
-          prenetId,
-          title,
-          description);
+        SUId.CreateUnique(),
+        parentId,
+        title,
+        description);
     }
 
     // Private Constructor is Required for EF Core

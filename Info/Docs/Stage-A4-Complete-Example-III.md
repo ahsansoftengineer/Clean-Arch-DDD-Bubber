@@ -66,40 +66,6 @@ namespace Donation.Application.Menus.Commands.CreateMenu
     string Description);
 }
 ```
-### Menu Mapping
-```csharp
-namespace Donation.Api.Common.Mapping
-{
-  public class MenuMappingConfig : IRegister
-  {
-    public void Register(TypeAdapterConfig config)
-    {
-      config.NewConfig<
-        (CreateMenuRequest Request, string HostId),  // src area
-        CreateMenuCommand>() // dest area
-        .Map(dest => dest.HostId, src => src.HostId)
-        .Map(dest => dest, src => src.Request);
-
-      // Configuration of Mapping MenuResponse to Menu (dest is Menu, src is MenuResponse)
-      // There is better way of rewriting it
-      config.NewConfig<Menu, MenuResponse>()
-        .Map(dest => dest.Id, src => src.Id.Value)
-        .Map(dest => dest.AverageRating, src => src.AverageRating.Value)
-        .Map(dest => dest.HostId, src => src.HostId.Value)
-        .Map(dest => dest.DinnerIds, src => src.DinnerIds.Select(dinnerId => dinnerId.Value))
-        .Map(dest => dest.MenuReviewIds, src => src.MenuReviewIds.Select(reviewId => reviewId.Value));
-
-      config.NewConfig<MenuSection, MenuSectionResponse>()
-        .Map(dest => dest.Id, src => src.Id.Value);
-
-      config.NewConfig<MenuItem, MenuItemResponse>()
-        .Map(dest => dest.Id, src => src.Id.Value);
-
-    }
-  }
-}
-```
-
 ### Create Command Handler
 ```csharp
 namespace Donation.Application.Menus.Commands.CreateMenu
@@ -149,6 +115,39 @@ namespace Donation.Application.Menus.Commands.CreateMenu
   }
 }
 ```
+### Menu Mapping
+```csharp
+namespace Donation.Api.Common.Mapping
+{
+  public class MenuMappingConfig : IRegister
+  {
+    public void Register(TypeAdapterConfig config)
+    {
+      config.NewConfig<
+        (CreateMenuRequest Request, string HostId),  // src area
+        CreateMenuCommand>() // dest area
+        .Map(dest => dest.HostId, src => src.HostId)
+        .Map(dest => dest, src => src.Request);
+
+      // Configuration of Mapping MenuResponse to Menu (dest is Menu, src is MenuResponse)
+      // There is better way of rewriting it
+      config.NewConfig<Menu, MenuResponse>()
+        .Map(dest => dest.Id, src => src.Id.Value)
+        .Map(dest => dest.AverageRating, src => src.AverageRating.Value)
+        .Map(dest => dest.HostId, src => src.HostId.Value)
+        .Map(dest => dest.DinnerIds, src => src.DinnerIds.Select(dinnerId => dinnerId.Value))
+        .Map(dest => dest.MenuReviewIds, src => src.MenuReviewIds.Select(reviewId => reviewId.Value));
+
+      config.NewConfig<MenuSection, MenuSectionResponse>()
+        .Map(dest => dest.Id, src => src.Id.Value);
+
+      config.NewConfig<MenuItem, MenuItemResponse>()
+        .Map(dest => dest.Id, src => src.Id.Value);
+
+    }
+  }
+}
+```
 ### Controller Action
 ```csharp
 namespace Donation.Api.Controllers
@@ -175,4 +174,19 @@ namespace Donation.Api.Controllers
     }
   }
 }
+```
+
+### Migrations
+```csharp
+dotnet tool list --global
+dotnet tool install --global dotnet-ef
+Install-Package Microsoft.EntityFrameworkCore.Tools // Power Shell
+dotnet ef migrations add InitialCreate -p Donation.Infrastructure -s Donation.Api
+// docker pull mcr.microsoft.com/mssql/server:2022-latest
+// docker image ls
+// docker run -e 'HOMEBREW_NO_ENV_FILTERING=1' -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=asdf1234' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
+// docker ps
+dotnet ef database update -p Donation.Infrastructure -s Donation.Api --connection "Server=localhost;Database=Donation;User Id=sa;Password=asdf1234;Encrypt=false"
+dotnet run --project Donation.Api
+
 ```

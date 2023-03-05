@@ -12,24 +12,24 @@ namespace Donation.Domain.HierarchyAggregate
 
     private Systemz(
         SystemzId id,
-        OrgId prenetId,
+        OrgId parentId,
         string title,
         string description)
         : base(id)
     {
-      OrgId = prenetId;
+      OrgId = parentId;
       Title = title;
       Description = description;
     }
 
     public static Systemz Create(
-      OrgId prenetId,
+        OrgId parentId,
         string title,
         string description)
     {
       return new(
           SystemzId.CreateUnique(),
-          prenetId,
+          parentId,
           title,
           description);
     }

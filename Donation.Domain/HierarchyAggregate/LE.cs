@@ -21,7 +21,7 @@ namespace Donation.Domain.HierarchyAggregate
         string description)
         : base(id)
     {
-      BGId = parentId,
+      BGId = parentId;
       Title = title;
       Description = description;
     }
