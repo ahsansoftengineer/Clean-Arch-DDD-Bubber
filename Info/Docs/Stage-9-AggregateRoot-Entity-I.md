@@ -18,3 +18,12 @@
 
 4. Value Objects can help to improve the expressiveness, robustness, and maintainability of a domain model by providing a way to represent and reason about concepts that are important within the domain. They can also help to reduce the complexity of entities and aggregates by encapsulating domain logic within self-contained objects that can be reused across different parts of the domain model.
 
+### Entity VS Value Object VS Aggregate
+1. Entity is Immutable 
+2. ValueObject is Immutable
+3. ValueObject doesn't has the Id at its own
+4. Entity Consider as Same when theirs Ids are same
+5. Value Object's treated as same when their Property Values are same
+6. Aggregate are composed of Several Entities and ValueObjects
+7. Aggregate are treated as Transactional Boundaries when you modified it, should effect the whole SubEntities and ValueObjects
+

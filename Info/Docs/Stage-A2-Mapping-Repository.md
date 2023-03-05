@@ -47,7 +47,7 @@ namespace Donation.Application.Common.Persistence
 ```
 
 ### MenuRepository Impl
-```charp
+```csharp
 namespace Donation.Infrastructure.Persistence
 {
   public class MenuRepository : IMenuRepository
