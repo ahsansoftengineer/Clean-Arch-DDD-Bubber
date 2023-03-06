@@ -32,8 +32,6 @@ namespace Donation.Domain.HierarchyAggregate
           title,
           description);
     }
-
-    // Private Constructor is Required for EF Core
 #pragma warning disable CS8618
     private Org() { }
 #pragma warning restore CS8618

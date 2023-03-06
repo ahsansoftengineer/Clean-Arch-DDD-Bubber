@@ -10,10 +10,8 @@ namespace Donation.Api.Common.Mapping.Hierarchy
   {
     public void Register(TypeAdapterConfig config)
     {
-      config.NewConfig<
-        (SimpleCreateRequest Request, string HostId),  // src area
-        CreateOrgCommand>() // dest area
-        .Map(dest => dest, src => src.Request);
+      config.NewConfig<SimpleCreateRequest, CreateOrgCommand>()
+        .Map(dest => dest, src => src);
 
       config.NewConfig<Org, SimpleCreateResponse>()
         .Map(dest => dest.Id, src => src.Id.Value);

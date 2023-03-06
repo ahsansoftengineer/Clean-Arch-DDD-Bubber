@@ -6,6 +6,5 @@
 
   public record SimpleChildCreateRequest(
     string Title,
-    string Description,
-    string ParentId);
+    string Description);
 }

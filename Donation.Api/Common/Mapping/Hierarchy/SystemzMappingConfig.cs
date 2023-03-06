@@ -10,17 +10,13 @@ namespace Donation.Api.Common.Mapping.Hierarchy
   {
     public void Register(TypeAdapterConfig config)
     {
-      config.NewConfig<
-        (SimpleChildCreateRequest Request, string HostId),  // src area
-        CreateSystemzCommand>() // dest area
-        .Map(dest => dest.ParentId, src => src.Request.ParentId)
+      config.NewConfig<(SimpleChildCreateRequest Request, Guid ParentId), CreateSystemzCommand>()
+        .Map(dest => dest.ParentId, src => src.ParentId)
         .Map(dest => dest, src => src.Request);
 
       config.NewConfig<Systemz, SimpleChildCreateResponse>()
         .Map(dest => dest.Id, src => src.Id.Value)
         .Map(dest => dest.ParentId, src => src.OrgId.Value);
-        //.Map(dest => dest.Parent, src => src.Org.Select(org => org.Value))
-        //.Map(dest => dest.ParentId, src => src.Org); // How this is going to done
 
     }
   }
