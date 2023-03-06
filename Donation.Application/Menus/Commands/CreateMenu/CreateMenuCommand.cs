@@ -1,5 +1,4 @@
 ﻿
-using Donation.Domain.Host.ValueObjects;
 using Donation.Domain.Menu;
 using ErrorOr;
 using MediatR;
@@ -7,7 +6,7 @@ using MediatR;
 namespace Donation.Application.Menus.Commands.CreateMenu
 {
   public record CreateMenuCommand(
-    string HostId,
+    Guid HostId,
     string Name,
     string Description,
     List<MenuSectionCommand> Sections) : IRequest<ErrorOr<Menu>>;
