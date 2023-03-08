@@ -19,7 +19,7 @@ namespace Donation.Infrastructure.Persistence.Configurations
         .ValueGeneratedNever()
         .HasConversion(
           id => id.Value,
-          value => OrgId.Create(value)
+          value => SimpleValueObject.Create(value)
       );
 
       builder.Property(x => x.Title)

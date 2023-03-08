@@ -2,18 +2,14 @@
 using Donation.Contracts.Simple;
 using Donation.Domain.HierarchyAggregate;
 using Mapster;
-// LEAggregate
-
 namespace Donation.Api.Common.Mapping.Hierarchy
 {
   public class LEMappingConfig : IRegister
   {
     public void Register(TypeAdapterConfig config)
     {
-      config.NewConfig<
-        (SimpleChildCreateRequest Request, string HostId),  // src area
-        CreateLECommand>() // dest area
-        .Map(dest => dest.ParentId, src => src.Request.ParentId)
+      config.NewConfig<(SimpleChildCreateRequest Request, Guid ParentId), CreateLECommand>()
+        .Map(dest => dest.ParentId, src => src.ParentId)
         .Map(dest => dest, src => src.Request);
 
       config.NewConfig<LE, SimpleChildCreateResponse>()

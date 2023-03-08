@@ -7,31 +7,24 @@ using Microsoft.AspNetCore.Mvc;
 namespace Donation.Api.Controllers
 {
   [Route("hierarchy/[controller]")]
-  public class OrgController : ApiController
+  public class BGController : ApiController
   {
     private readonly IMapper mapper;
     private readonly ISender mediator;
-    public OrgController(IMapper mapper, ISender mediator)
+    public BGController(IMapper mapper, ISender mediator)
     {
       this.mapper = mapper;
       this.mediator = mediator;
     }
-    [HttpGet]
-    public IActionResult Get()
-    {
-      return Ok(Array.Empty<string>());
-    }
-
     [HttpPost]
     public async Task<IActionResult> Create(SimpleCreateRequest request)
     {
-      var command = mapper.Map<CreateOrgCommand>(request);
+      var command = mapper.Map<CreateBGCommand>(request);
       var createResult = await mediator.Send(command);
       return createResult.Match(
         entity => Ok(mapper.Map<SimpleCreateResponse>(entity)),
         errors => Problem(errors)
       );
     }
-
   }
 }

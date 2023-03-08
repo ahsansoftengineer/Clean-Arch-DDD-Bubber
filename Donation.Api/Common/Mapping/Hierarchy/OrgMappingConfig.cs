@@ -2,8 +2,6 @@
 using Donation.Contracts.Simple;
 using Donation.Domain.HierarchyAggregate;
 using Mapster;
-// OrgAggregate
-
 namespace Donation.Api.Common.Mapping.Hierarchy
 {
   public class OrgMappingConfig : IRegister
