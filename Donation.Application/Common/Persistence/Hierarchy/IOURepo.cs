@@ -2,8 +2,7 @@
 
 namespace Donation.Application.Common.Persistence.Hierarchy
 {
-    public interface IOURepo
+    public interface IOURepo : ISimpleRepo<OU>
     {
-        void Add(OU me);
     }
 }

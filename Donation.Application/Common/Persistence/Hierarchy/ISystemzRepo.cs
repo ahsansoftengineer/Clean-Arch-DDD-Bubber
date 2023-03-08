@@ -2,8 +2,7 @@
 
 namespace Donation.Application.Common.Persistence.Hierarchy
 {
-    public interface ISystemzRepo
+    public interface ISystemzRepo : ISimpleRepo<Systemz>
     {
-        void Add(Systemz me);
     }
 }

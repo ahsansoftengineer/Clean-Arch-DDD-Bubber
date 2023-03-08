@@ -2,8 +2,7 @@
 
 namespace Donation.Application.Common.Persistence.Hierarchy
 {
-    public interface IBGRepo
+    public interface IBGRepo : ISimpleRepo<BG>
     {
-        void Add(BG me);
     }
 }

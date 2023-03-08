@@ -2,8 +2,7 @@
 
 namespace Donation.Application.Common.Persistence.Hierarchy
 {
-    public interface IOrgRepo
+    public interface IOrgRepo : ISimpleRepo<Org>
     {
-        void Add(Org me);
     }
 }

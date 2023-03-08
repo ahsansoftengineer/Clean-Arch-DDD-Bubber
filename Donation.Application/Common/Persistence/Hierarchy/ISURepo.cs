@@ -2,8 +2,7 @@
 
 namespace Donation.Application.Common.Persistence.Hierarchy
 {
-    public interface ISURepo
+    public interface ISURepo : ISimpleRepo<SU>
     {
-        void Add(SU me);
     }
 }

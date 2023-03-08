@@ -2,8 +2,7 @@
 
 namespace Donation.Application.Common.Persistence.Hierarchy
 {
-    public interface ILERepo
+    public interface ILERepo : ISimpleRepo<LE>
     {
-        void Add(LE me);
     }
 }

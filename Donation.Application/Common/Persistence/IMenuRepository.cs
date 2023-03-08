@@ -2,8 +2,7 @@
 
 namespace Donation.Application.Common.Persistence
 {
-  public interface IMenuRepository
+  public interface IMenuRepository : ISimpleRepo<Menu>
   {
-    void Add(Menu menu);
   }
 }

@@ -1,32 +1,29 @@
-﻿using Donation.Application.Common.Persistence;
-using Donation.Domain.SimpleAggregates;
+﻿using Donation.Domain.SimpleAggregates;
 using ErrorOr;
 using MediatR;
 
+// It cannot be Generic we are so behind
 namespace Donation.Application.Simple
 {
-  public class SimpleCommandCreateHandler<TCommand, TRepo> : IRequestHandler<TCommand, ErrorOr<SimpleAggregate>>
-  where TCommand : SimpleCommandCreate<SimpleAggregate>
-  where TRepo : ISimpleRepo<SimpleAggregate>
-  {
-    private readonly TRepo Repo;
+  //public class SimpleCommandCreateHandler : IRequestHandler<SimpleCommandCreate, ErrorOr<SimpleAggregate>>
+  //{
+  //  private readonly TRepo Repo;
+  //  public SimpleCommandCreateHandler(TRepo repo)
+  //  {
+  //    Repo = repo;
+  //  }
 
-    public SimpleCommandCreateHandler(TRepo repo)
-    {
-      Repo = repo;
-    }
-
-    public async Task<ErrorOr<SimpleAggregate>> Handle(TCommand request, CancellationToken cancellationToken)
-    {
-      await Task.CompletedTask;
-      var item = SimpleAggregate.Create(
-          title: request.Title,
-          description: request.Description);
-
-      //var result = TCommand.MakeGenericType(typeof(SimpleAggregate));
-      //dynamic configurationInstance = Activator.CreateInstance(result);
-      Repo.Add(item);
-      return item;
-    }
-  }
+  //  public async Task<ErrorOr<SimpleAggregate>> Handle(SimpleCommandCreate request, CancellationToken cancellationToken)
+  //  {
+  //    await Task.CompletedTask;
+  //    var item = SimpleAggregate.Create(
+  //        title: request.Title,
+  //        description: request.Description);
+  //    Repo.Add(item);
+  //    return item;
+  //  }
+  //}
 }
+
+//var result = TCommand.MakeGenericType(typeof(SimpleAggregate));
+//dynamic configurationInstance = Activator.CreateInstance(result);
