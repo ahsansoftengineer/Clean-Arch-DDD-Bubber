@@ -2,7 +2,6 @@
 using Donation.Contracts.Simple;
 using Donation.Domain.HierarchyAggregate;
 using Mapster;
-// BGAggregate
 
 namespace Donation.Api.Common.Mapping.Hierarchy
 {
@@ -10,12 +9,10 @@ namespace Donation.Api.Common.Mapping.Hierarchy
   {
     public void Register(TypeAdapterConfig config)
     {
-      config.NewConfig<
-        (SimpleCreateRequest Request, string HostId),  // src area
-        CreateBGCommand>() // dest area
-        .Map(dest => dest, src => src.Request);
+      config.NewConfig<SimpleRequestCreate, CreateBGCommand>()
+        .Map(dest => dest, src => src);
 
-      config.NewConfig<BG, SimpleCreateResponse>()
+      config.NewConfig<BG, SimpleResponseCreate>()
         .Map(dest => dest.Id, src => src.Id.Value);
 
     }

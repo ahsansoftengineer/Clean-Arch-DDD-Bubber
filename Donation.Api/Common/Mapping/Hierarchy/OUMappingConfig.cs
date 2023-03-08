@@ -2,7 +2,6 @@
 using Donation.Contracts.Simple;
 using Donation.Domain.HierarchyAggregate;
 using Mapster;
-// OUAggregate
 
 namespace Donation.Api.Common.Mapping.Hierarchy
 {
@@ -10,13 +9,11 @@ namespace Donation.Api.Common.Mapping.Hierarchy
   {
     public void Register(TypeAdapterConfig config)
     {
-      config.NewConfig<
-        (SimpleChildCreateRequest Request, string HostId),  // src area
-        CreateOUCommand>() // dest area
-        .Map(dest => dest.ParentId, src => src.Request.ParentId)
+      config.NewConfig<(SimpleRequestChildCreate Request, Guid ParentId), CreateOUCommand>()
+        .Map(dest => dest.ParentId, src => src.ParentId)
         .Map(dest => dest, src => src.Request);
 
-      config.NewConfig<OU, SimpleChildCreateResponse>()
+      config.NewConfig<OU, SimpleResponseChildCreate>()
         .Map(dest => dest.Id, src => src.Id.Value)
         .Map(dest => dest.ParentId, src => src.LEId.Value);
         //.Map(dest => dest.Parent, src => src.Org.Select(org => org.Value))
