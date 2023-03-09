@@ -2,23 +2,21 @@
 
 namespace Donation.Application.Simple
 {
-  public class SimpleCommandCreateValidator : AbstractValidator<SimpleCommandCreate>
-  //where Entity : CreateSimpleCommand<Entity>
+  public class SimpleCommandValidatorCreate<TEntity>: AbstractValidator<SimpleCommandCreate<TEntity>>
   {
-    public SimpleCommandCreateValidator()
+    public SimpleCommandValidatorCreate()
     {
       RuleFor(x => x.Title).NotEmpty();
-      RuleFor(x => x.Title).Length(3, 20);
+      RuleFor(x => x.Title).Length(5, 20);
 
       RuleFor(x => x.Description).NotEmpty();
       RuleFor(x => x.Description).Length(0, 100);
     }
   }
 
-  public class CreateSimpleChildCommandValidator<Entity> : AbstractValidator<SimpleCommandChildCreate>
-  //where Entity: CreateSimpleChildCommand<Entity>
+  public class SimpleCommandValidatorChildCreate<TEntity> : AbstractValidator<SimpleCommandChildCreate<TEntity>>
   {
-    public CreateSimpleChildCommandValidator()
+    public SimpleCommandValidatorChildCreate()
     {
       RuleFor(x => x.Title).NotEmpty();
       RuleFor(x => x.Title).Length(3, 20);
