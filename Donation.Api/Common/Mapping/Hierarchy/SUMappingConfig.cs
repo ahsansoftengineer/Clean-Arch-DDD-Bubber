@@ -1,5 +1,4 @@
-﻿using Donation.Application.Hierarchy.Commands;
-using Donation.Application.Simple;
+﻿using Donation.Application.Simple;
 using Donation.Contracts.Simple;
 using Donation.Domain.HierarchyAggregate;
 using Mapster;
@@ -10,9 +9,8 @@ namespace Donation.Api.Common.Mapping.Hierarchy
   {
     public void Register(TypeAdapterConfig config)
     {
-      config.NewConfig<(SimpleRequestChildCreate Request, Guid ParentId), SimpleCommandChildCreate<OU>>()
-        .Map(dest => dest.ParentId, src => src.ParentId)
-        .Map(dest => dest, src => src.Request);
+      config.NewConfig<SimpleRequestChildCreate, SimpleCommandChildCreate<SU>>()
+        .Map(dest => dest, src => src);
 
       config.NewConfig<SU, SimpleResponseChildCreate>()
         .Map(dest => dest.Id, src => src.Id.Value)

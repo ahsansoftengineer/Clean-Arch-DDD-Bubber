@@ -5,7 +5,7 @@
     string Description);
 
   public record SimpleRequestChildCreate(
-    //Guid ParentId, // you can take it from both url or with in Request Body
+    Guid ParentId, // you can take it from both url or with in Request Body
     string Title,
     string Description
   );

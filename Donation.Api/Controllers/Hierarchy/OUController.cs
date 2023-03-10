@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace Donation.Api.Controllers
 {
   [Route("hierarchy/[controller]")]
-  public class LEController : ApiController
+  public class OUController : ApiController
   {
     private readonly IMapper mapper;
     private readonly ISender mediator;
-    public LEController(IMapper mapper, ISender mediator)
+    public OUController(IMapper mapper, ISender mediator)
     {
       this.mapper = mapper;
       this.mediator = mediator;
@@ -20,7 +20,7 @@ namespace Donation.Api.Controllers
     [HttpPost]
     public async Task<IActionResult> Create(SimpleRequestChildCreate request)
     {
-      var command = mapper.Map<SimpleCommandChildCreate<LE>>(request);
+      var command = mapper.Map<SimpleCommandChildCreate<OU>>(request);
       var createResult = await mediator.Send(command);
       return createResult.Match(
         entity => Ok(mapper.Map<SimpleResponseChildCreate>(entity)),

@@ -18,10 +18,10 @@ namespace Donation.Api.Controllers
       this.mapper = mapper;
       this.mediator = mediator;
     }
-    [HttpPost("{ParentId}")]
-    public async Task<IActionResult> Create(SimpleRequestChildCreate request, Guid ParentId)
+    [HttpPost()]
+    public async Task<IActionResult> Create(SimpleRequestChildCreate request)
     {
-      var command = mapper.Map<SimpleCommandChildCreate<Systemz>>((request, ParentId));
+      var command = mapper.Map<SimpleCommandChildCreate<Systemz>>(request);
       var createResult = await mediator.Send(command);
       return createResult.Match(
         entity => Ok(mapper.Map<SimpleResponseChildCreate>(entity)),

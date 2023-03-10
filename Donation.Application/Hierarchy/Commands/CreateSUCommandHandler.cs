@@ -20,7 +20,7 @@ namespace Donation.Application.Hierarchy.Commands
     {
       await Task.CompletedTask;
       var item = SU.Create(
-          parentId: OUId.CreateUnique(),// OrgId.Create(request.ParentId),
+          parentId: OUId.Create(request.ParentId),// OrgId.Create(request.ParentId),
           title: request.Title,
           description: request.Description);
       Repo.Add(item);

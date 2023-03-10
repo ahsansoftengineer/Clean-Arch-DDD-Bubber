@@ -9,9 +9,8 @@ namespace Donation.Api.Common.Mapping.Hierarchy
   {
     public void Register(TypeAdapterConfig config)
     {
-      config.NewConfig<(SimpleRequestChildCreate Request, Guid ParentId), SimpleCommandChildCreate<LE>>()
-        .Map(dest => dest.ParentId, src => src.ParentId)
-        .Map(dest => dest, src => src.Request);
+      config.NewConfig<SimpleRequestChildCreate, SimpleCommandChildCreate<LE>>()
+        .Map(dest => dest, src => src);
 
       config.NewConfig<LE, SimpleResponseChildCreate>()
         .Map(dest => dest.Id, src => src.Id.Value)
