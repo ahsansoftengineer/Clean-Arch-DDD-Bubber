@@ -1,4 +1,5 @@
 ﻿using Donation.Application.Common.Persistence.Hierarchy;
+using Donation.Application.Simple;
 using Donation.Domain.HierarchyAggregate;
 using Donation.Domain.HierarchyAggregate.ValueObjects;
 using ErrorOr;
@@ -6,7 +7,7 @@ using MediatR;
 
 namespace Donation.Application.Hierarchy.Commands
 {
-  public class CreateOUCommandHandler : IRequestHandler<CreateOUCommand, ErrorOr<OU>>
+  public class CreateOUCommandHandler : IRequestHandler<SimpleCommandChildCreate<OU>, ErrorOr<OU>>
   {
     private readonly IOURepo Repo;
 
@@ -15,7 +16,7 @@ namespace Donation.Application.Hierarchy.Commands
       Repo = repo;
     }
 
-    public async Task<ErrorOr<OU>> Handle(CreateOUCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<OU>> Handle(SimpleCommandChildCreate<OU> request, CancellationToken cancellationToken)
     {
       await Task.CompletedTask;
       var item = OU.Create(

@@ -1,5 +1,4 @@
-﻿using Donation.Application.Hierarchy.Commands;
-using Donation.Application.Simple;
+﻿using Donation.Application.Simple;
 using Donation.Contracts.Simple;
 using Donation.Domain.HierarchyAggregate;
 using MapsterMapper;

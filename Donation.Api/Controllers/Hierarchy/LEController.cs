@@ -1,5 +1,7 @@
 ﻿using Donation.Application.Hierarchy.Commands;
+using Donation.Application.Simple;
 using Donation.Contracts.Simple;
+using Donation.Domain.HierarchyAggregate;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +21,7 @@ namespace Donation.Api.Controllers
     [HttpPost("{ParentId}")]
     public async Task<IActionResult> Create(SimpleRequestChildCreate request, Guid ParentId)
     {
-      var command = mapper.Map<CreateLECommand>((request, ParentId));
+      var command = mapper.Map<SimpleCommandChildCreate<LE>>((request, ParentId));
       var createResult = await mediator.Send(command);
       return createResult.Match(
         entity => Ok(mapper.Map<SimpleResponseChildCreate>(entity)),

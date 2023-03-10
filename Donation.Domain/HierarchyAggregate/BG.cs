@@ -14,10 +14,10 @@ namespace Donation.Domain.HierarchyAggregate
     public DateTime UpdatedAt { get; private set; }
 
     private BG(
-        BGId id,
-        string title,
-        string description)
-        : base(id)
+      BGId id,
+      string title,
+      string description)
+      : base(id)
     {
       Title = title;
       Description = description;

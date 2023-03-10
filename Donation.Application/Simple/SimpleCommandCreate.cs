@@ -1,5 +1,4 @@
-﻿using Donation.Domain.SimpleAggregates;
-using ErrorOr;
+﻿using ErrorOr;
 using MediatR;
 
 namespace Donation.Application.Simple

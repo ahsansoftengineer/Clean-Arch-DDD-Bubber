@@ -1,11 +1,12 @@
 ﻿using Donation.Application.Common.Persistence.Hierarchy;
+using Donation.Application.Simple;
 using Donation.Domain.HierarchyAggregate;
 using ErrorOr;
 using MediatR;
 
 namespace Donation.Application.Hierarchy.Commands
 {
-  public class CreateOrgCommandHandler : IRequestHandler<CreateOrgCommand, ErrorOr<Org>>
+  public class CreateOrgCommandHandler : IRequestHandler<SimpleCommandCreate<Org>, ErrorOr<Org>>
   {
     private readonly IOrgRepo Repo;
 
@@ -13,8 +14,7 @@ namespace Donation.Application.Hierarchy.Commands
     {
       Repo = repo;
     }
-
-    public async Task<ErrorOr<Org>> Handle(CreateOrgCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Org>> Handle(SimpleCommandCreate<Org> request, CancellationToken cancellationToken)
     {
       await Task.CompletedTask;
       var item = Org.Create(

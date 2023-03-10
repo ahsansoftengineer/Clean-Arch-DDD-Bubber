@@ -1,4 +1,5 @@
 ﻿using Donation.Application.Common.Persistence.Hierarchy;
+using Donation.Application.Simple;
 using Donation.Domain.HierarchyAggregate;
 using Donation.Domain.HierarchyAggregate.ValueObjects;
 using ErrorOr;
@@ -6,7 +7,7 @@ using MediatR;
 
 namespace Donation.Application.Hierarchy.Commands
 {
-  public class CreateSystemzCommandHandler : IRequestHandler<CreateSystemzCommand, ErrorOr<Systemz>>
+  public class CreateSystemzCommandHandler : IRequestHandler<SimpleCommandChildCreate<Systemz>, ErrorOr<Systemz>>
   {
     private readonly ISystemzRepo Repo;
 
@@ -15,7 +16,7 @@ namespace Donation.Application.Hierarchy.Commands
       Repo = repo;
     }
 
-    public async Task<ErrorOr<Systemz>> Handle(CreateSystemzCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Systemz>> Handle(SimpleCommandChildCreate<Systemz> request, CancellationToken cancellationToken)
     {
       await Task.CompletedTask;
       var item = Systemz.Create(

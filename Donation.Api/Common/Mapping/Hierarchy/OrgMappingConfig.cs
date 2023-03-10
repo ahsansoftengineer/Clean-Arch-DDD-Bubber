@@ -1,4 +1,4 @@
-﻿using Donation.Application.Hierarchy.Commands;
+﻿using Donation.Application.Simple;
 using Donation.Contracts.Simple;
 using Donation.Domain.HierarchyAggregate;
 using Mapster;
@@ -8,7 +8,7 @@ namespace Donation.Api.Common.Mapping.Hierarchy
   {
     public void Register(TypeAdapterConfig config)
     {
-      config.NewConfig<SimpleRequestCreate, CreateOrgCommand>()
+      config.NewConfig<SimpleRequestCreate, SimpleCommandCreate<Org>>()
         .Map(dest => dest, src => src);
 
       config.NewConfig<Org, SimpleResponseCreate>()

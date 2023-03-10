@@ -1,4 +1,5 @@
 ﻿using Donation.Application.Common.Persistence.Hierarchy;
+using Donation.Application.Simple;
 using Donation.Domain.HierarchyAggregate;
 using Donation.Domain.HierarchyAggregate.ValueObjects;
 using ErrorOr;
@@ -6,7 +7,7 @@ using MediatR;
 
 namespace Donation.Application.Hierarchy.Commands
 {
-  public class CreateLECommandHandler : IRequestHandler<CreateLECommand, ErrorOr<LE>>
+  public class CreateLECommandHandler : IRequestHandler<SimpleCommandChildCreate<LE>, ErrorOr<LE>>
   {
     private readonly ILERepo Repo;
 
@@ -15,7 +16,7 @@ namespace Donation.Application.Hierarchy.Commands
       Repo = repo;
     }
 
-    public async Task<ErrorOr<LE>> Handle(CreateLECommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<LE>> Handle(SimpleCommandChildCreate<LE> request, CancellationToken cancellationToken)
     {
       await Task.CompletedTask;
       var item = LE.Create(
