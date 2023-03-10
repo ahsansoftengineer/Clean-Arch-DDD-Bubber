@@ -3,17 +3,10 @@ using Donation.Domain.HierarchyAggregate;
 
 namespace Donation.Infrastructure.Persistence.Repositories.Hierarchy
 {
-  public class BGRepo : IBGRepo
+  public class BGRepo : SimpleRepo<BG>, IBGRepo
   {
-    private readonly DonationDbContext dbContext;
-    public BGRepo(DonationDbContext dbContext)
+    public BGRepo(DonationDbContext dbContext) : base(dbContext)
     {
-      this.dbContext = dbContext;
-    }
-    public void Add(BG me)
-    {
-      dbContext.Add(me);
-      dbContext.SaveChanges();
     }
   }
 }

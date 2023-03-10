@@ -3,17 +3,10 @@ using Donation.Domain.HierarchyAggregate;
 
 namespace Donation.Infrastructure.Persistence.Repositories.Hierarchy
 {
-  public class OURepo : IOURepo
+  public class OURepo : SimpleRepo<OU>, IOURepo
   {
-    private readonly DonationDbContext dbContext;
-    public OURepo(DonationDbContext dbContext)
+    public OURepo(DonationDbContext dbContext) : base(dbContext)
     {
-      this.dbContext = dbContext;
-    }
-    public void Add(OU me)
-    {
-      dbContext.Add(me);
-      dbContext.SaveChanges();
     }
   }
 }

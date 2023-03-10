@@ -3,17 +3,10 @@ using Donation.Domain.HierarchyAggregate;
 
 namespace Donation.Infrastructure.Persistence.Repositories.Hierarchy
 {
-  public class SystemzRepo : ISystemzRepo
+  public class SystemzRepo : SimpleRepo<Systemz>, ISystemzRepo
   {
-    private readonly DonationDbContext dbContext;
-    public SystemzRepo(DonationDbContext dbContext)
+    public SystemzRepo(DonationDbContext dbContext): base(dbContext)
     {
-      this.dbContext = dbContext;
-    }
-    public void Add(Systemz me)
-    {
-      dbContext.Add(me);
-      dbContext.SaveChanges();
     }
   }
 }
