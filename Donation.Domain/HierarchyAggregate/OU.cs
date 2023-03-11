@@ -1,38 +1,30 @@
-﻿using Donation.Domain.Common.Models;
-using Donation.Domain.HierarchyAggregate.ValueObjects;
+﻿using Donation.Domain.SimpleAggregates;
 
 namespace Donation.Domain.HierarchyAggregate
 {
-  public sealed class OU : AggregateRoot<OUId>
+  public sealed class OU : SimpleAggregate
   {
-    public string Title { get; private set; }
-    public string Description { get; private set; }
-    public LEId LEId { get; private set; }
+    public SimpleValueObject LEId { get; private set; }
 
     private readonly List<SU> sus = new();
     public IReadOnlyList<SU> SUs => sus.AsReadOnly();
-    public DateTime CreatedAt { get; private set; }
-    public DateTime UpdatedAt { get; private set; }
-
     private OU(
-        OUId id,
-        LEId parentId,
-        string title,
-        string description)
-        : base(id)
+       SimpleValueObject id,
+       SimpleValueObject parentId,
+       string title,
+       string description)
+       : base(id, title, description)
     {
       LEId = parentId;
-      Title = title;
-      Description = description;
     }
 
     public static OU Create(
-        LEId parentId,
+        SimpleValueObject parentId,
         string title,
         string description)
     {
       return new(
-          OUId.CreateUnique(),
+          SimpleValueObject.CreateUnique(),
           parentId,
           title,
           description);

@@ -1,4 +1,5 @@
-﻿using Donation.Application.Simple;
+﻿using Azure.Core;
+using Donation.Application.Simple;
 using Donation.Contracts.Simple;
 using Donation.Domain.HierarchyAggregate;
 using MapsterMapper;
@@ -17,11 +18,16 @@ namespace Donation.Api.Controllers
       this.mapper = mapper;
       this.mediator = mediator;
     }
-    [HttpGet]
-    public IActionResult Get()
-    {
-      return Ok(Array.Empty<string>());
-    }
+    //[HttpGet]
+    //public async IActionResult GetAll()
+    //{
+    //  var command = mapper.Map<SimpleCommandCreate<Org>>();
+    //  var createResult = await mediator.Send(command);
+    //  return createResult.Match(
+    //    entity => Ok(mapper.Map<SimpleResponseCreate>(entity)),
+    //    errors => Problem(errors)
+    //  );
+    //}
 
     [HttpPost]
     public async Task<IActionResult> Create(SimpleRequestCreate request)

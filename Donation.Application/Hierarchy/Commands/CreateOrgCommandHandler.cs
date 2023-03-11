@@ -19,7 +19,7 @@ namespace Donation.Application.Hierarchy.Commands
       await Task.CompletedTask;
       var item = Org.Create(
           title: request.Title,
-          description: request.Description);
+          description: request.Description) ;
       Repo.Add(item);
       return item;
     }

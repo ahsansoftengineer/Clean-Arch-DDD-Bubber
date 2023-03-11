@@ -1,5 +1,5 @@
 ﻿using Donation.Domain.HierarchyAggregate;
-using Donation.Domain.HierarchyAggregate.ValueObjects;
+using Donation.Domain.SimpleAggregates;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -19,7 +19,7 @@ namespace Donation.Infrastructure.Persistence.Configurations
         .ValueGeneratedNever()
         .HasConversion(
           id => id.Value,
-          value => OrgId.Create(value)
+          value => SimpleValueObject.Create(value)
       );
 
       builder.Property(x => x.Title)

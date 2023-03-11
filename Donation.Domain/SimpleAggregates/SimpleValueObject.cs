@@ -1,6 +1,6 @@
 ﻿using Donation.Domain.Common.Models;
 
-namespace Donation.Domain.SimpleAggregate
+namespace Donation.Domain.SimpleAggregates
 {
   public sealed class SimpleValueObject : ValueObject
   {

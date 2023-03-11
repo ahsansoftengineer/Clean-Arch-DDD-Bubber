@@ -1,34 +1,28 @@
-﻿using Donation.Domain.Common.Models;
-using Donation.Domain.HierarchyAggregate.ValueObjects;
+﻿using Donation.Domain.SimpleAggregates;
+
 namespace Donation.Domain.HierarchyAggregate
 {
-  public sealed class Systemz : AggregateRoot<SystemzId>
+  public sealed class Systemz : SimpleAggregate
   {
-    public string Title { get; private set; }
-    public string Description { get; private set; }
-    public DateTime CreatedAt { get; private set; }
-    public DateTime UpdatedAt { get; private set; }
-    public OrgId OrgId { get; private set; }
+    public SimpleValueObject OrgId { get; private set; }
 
     private Systemz(
-        SystemzId id,
-        OrgId parentId,
+        SimpleValueObject id,
+        SimpleValueObject parentId,
         string title,
         string description)
-        : base(id)
+        : base(id, title, description)
     {
       OrgId = parentId;
-      Title = title;
-      Description = description;
     }
 
     public static Systemz Create(
-        OrgId parentId,
+        SimpleValueObject parentId,
         string title,
         string description)
     {
       return new(
-          SystemzId.CreateUnique(),
+          SimpleValueObject.CreateUnique(),
           parentId,
           title,
           description);

@@ -1,6 +1,8 @@
-﻿using Donation.Application.Common.Persistence.Hierarchy;
+﻿using Donation.Application.Common.Persistence;
+using Donation.Application.Common.Persistence.Hierarchy;
 using Donation.Application.Simple;
 using Donation.Domain.HierarchyAggregate;
+using Donation.Domain.SimpleAggregates;
 using ErrorOr;
 using MediatR;
 

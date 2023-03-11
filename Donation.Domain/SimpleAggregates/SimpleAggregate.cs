@@ -1,5 +1,4 @@
 ﻿using Donation.Domain.Common.Models;
-using Donation.Domain.SimpleAggregate;
 
 namespace Donation.Domain.SimpleAggregates
 {
@@ -11,7 +10,7 @@ namespace Donation.Domain.SimpleAggregates
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
 
-    protected SimpleAggregate(
+    public SimpleAggregate(
         SimpleValueObject id,
         string title,
         string description)
