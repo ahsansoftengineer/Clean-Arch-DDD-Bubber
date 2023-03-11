@@ -1,7 +1,7 @@
 ﻿## DDD Simplified
 ### JSON
-##### Parent
 ```json
+// Parent
 {
   "id": { 
     "value": "00000000-0000-0000-0000-000000000000" 
@@ -9,9 +9,7 @@
   "title": "Org 1",
   "description": "Desc 1"
 }
-```
-##### Parent
-```json
+// Child
 {
   "id": { 
     "value": "00000000-0000-0000-0000-000000000000" 
