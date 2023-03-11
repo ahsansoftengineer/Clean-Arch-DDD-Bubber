@@ -165,6 +165,7 @@ namespace Donation.Api.Controllers
       this.mapper = mapper;
       this.mediator = mediator;
     }
+    // For Parent Controller
     [HttpPost]
     public async Task<IActionResult> Create(SimpleRequestCreate request)
     {
@@ -175,21 +176,7 @@ namespace Donation.Api.Controllers
         errors => Problem(errors)
       );
     }
-  }
-}
-
-namespace Donation.Api.Controllers
-{
-  [Route("hierarchy/[controller]")]
-  public class SystemzController : ApiController
-  {
-    private readonly IMapper mapper;
-    private readonly ISender mediator;
-    public SystemzController(IMapper mapper, ISender mediator)
-    {
-      this.mapper = mapper;
-      this.mediator = mediator;
-    }
+    // For Child Controller
     [HttpPost()]
     public async Task<IActionResult> Create(SimpleRequestChildCreate request)
     {
@@ -202,5 +189,4 @@ namespace Donation.Api.Controllers
     }
   }
 }
-
 ```
