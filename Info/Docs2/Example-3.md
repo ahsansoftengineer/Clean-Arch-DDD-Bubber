@@ -1,4 +1,4 @@
-﻿### Request
+### Request
 ```csharp
 namespace Donation.Contracts.Simple
 {
@@ -20,6 +20,7 @@ namespace Donation.Contracts.Simple
   public record SimpleOption(
     string Title,
     string Description);
+    
   public record SimpleResponseCreate(
     string Id,
     string Title,
@@ -98,12 +99,6 @@ namespace Donation.Application.Hierarchy.Commands
 ### Command Handler
 
 ```csharp
-using Donation.Application.Common.Persistence.Hierarchy;
-using Donation.Application.Simple;
-using Donation.Domain.HierarchyAggregate;
-using ErrorOr;
-using MediatR;
-
 namespace Donation.Application.Hierarchy.Commands
 {
   public class CreateOrgCommandHandler : IRequestHandler<SimpleCommandCreate<Org>, ErrorOr<Org>>
@@ -114,12 +109,25 @@ namespace Donation.Application.Hierarchy.Commands
     {
       Repo = repo;
     }
+    // For Parent
     public async Task<ErrorOr<Org>> Handle(SimpleCommandCreate<Org> request, CancellationToken cancellationToken)
     {
       await Task.CompletedTask;
       var item = Org.Create(
           title: request.Title,
           description: request.Description) ;
+      Repo.Add(item);
+      return item;
+    }
+    
+    // For Child
+    public async Task<ErrorOr<Systemz>> Handle(SimpleCommandChildCreate<Systemz> request, CancellationToken cancellationToken)
+    {
+      await Task.CompletedTask;
+      var item = Systemz.Create(
+          parentId: SimpleValueObject.Create(request.ParentId),
+          title: request.Title,
+          description: request.Description);
       Repo.Add(item);
       return item;
     }
