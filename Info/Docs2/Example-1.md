@@ -76,7 +76,7 @@ namespace Donation.Domain.Common.Models
 }
 ```
 ### SimpleValueObjects
-```charp
+```csharp
 using Donation.Domain.Common.Models;
 
 namespace Donation.Domain.SimpleAggregates
