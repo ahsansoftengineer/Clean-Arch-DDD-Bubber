@@ -1,3 +1,112 @@
+### IMenu Repo
+```csharp
+namespace Donation.Application.Common.Persistence
+{
+  public interface IMenuRepository
+  {
+    void Add(Menu menu);
+  }
+}
+```
+### DB Context
+```csharp
+namespace Donation.Infrastructure.Persistence
+{
+  public class DonationDbContext : DbContext
+  {
+    public DonationDbContext(DbContextOptions<DonationDbContext> options) : base(options) { }
+    
+    public DbSet<Menu> Menus { get; set; } = null!;
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+      modelBuilder.ApplyConfigurationsFromAssembly(
+        typeof(DonationDbContext).Assembly
+      );
+      base.OnModelCreating(modelBuilder);
+    }
+  }
+}
+```
+### Menu Repo
+```csharp
+namespace Donation.Infrastructure.Persistence.Repositories
+{
+  public class MenuRepository : IMenuRepository
+  {
+    private readonly DonationDbContext dbContext;
+
+    public MenuRepository(DonationDbContext dbContext)
+    {
+      this.dbContext = dbContext;
+    }
+    public void Add(Menu menu)
+    {
+      //dbContext.Menus.Add(menu);
+      dbContext.Add(menu);
+      dbContext.SaveChanges();
+    }
+  }
+}
+```
+### Dependency Injection
+```csharp
+namespace Donation.Infrastructure
+{
+  public static class DependencyInjection
+  {
+    public static IServiceCollection AddInfrastructure(this IServiceCollection Services, ConfigurationManager Configuration)
+    {
+      Services
+        .AddAuth(Configuration)
+        .AddPersistence();
+      Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+
+      return Services;
+    }
+    public static IServiceCollection AddPersistence(this IServiceCollection Services)
+    {
+      Services.AddDbContext<DonationDbContext>(options =>
+      {
+        // TrustServerCertificate=true | Encrypt=false
+        options.UseSqlServer("SERVER=localhost;DATABASE=Donation;USER=sa;PASSWORD=asdf1234;Encrypt=false");
+      });
+      Services.AddScoped<IUserRepository, UserRepository>();
+      Services.AddScoped<IMenuRepository, MenuRepository>();
+
+      return Services;
+    }
+    public static IServiceCollection AddAuth(this IServiceCollection Services, ConfigurationManager Configuration)
+    {
+      var jwtSettings = new JwtSettings();
+      Configuration.Bind(JwtSettings.SectionName, jwtSettings);
+
+      Services.AddSingleton(Options.Create(jwtSettings));
+      
+      Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+      Services
+        .AddAuthentication(options =>
+        {
+          options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+          options.TokenValidationParameters = new TokenValidationParameters()
+          {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
+
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidAudience = "https://localhost:7228",
+            ValidIssuer = "https://localhost:7228",
+
+          };
+        });
+      return Services;
+    }
+  }
+}
+```
 ﻿### Table Mapping
 ```csharp
 namespace Donation.Infrastructure.Persistence.Configurations
@@ -119,134 +228,6 @@ namespace Donation.Infrastructure.Persistence.Configurations
           id => id.Value,
           value => HostId.Create(value)
         );
-    }
-  }
-}
-```
-### IMenu Repo
-```csharp
-namespace Donation.Application.Common.Persistence
-{
-  public interface IMenuRepository
-  {
-    void Add(Menu menu);
-  }
-}
-```
-### DB Context
-```csharp
-namespace Donation.Infrastructure.Persistence
-{
-  public class DonationDbContext : DbContext
-  {
-    public DonationDbContext(DbContextOptions<DonationDbContext> options) : base(options) { }
-    
-    public DbSet<Menu> Menus { get; set; } = null!;
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-      modelBuilder.ApplyConfigurationsFromAssembly(
-        typeof(DonationDbContext).Assembly
-      );
-      base.OnModelCreating(modelBuilder);
-    }
-  }
-}
-```
-### Menu Repo
-```csharp
-namespace Donation.Infrastructure.Persistence.Repositories
-{
-  public class MenuRepository : IMenuRepository
-  {
-    private readonly DonationDbContext dbContext;
-
-    public MenuRepository(DonationDbContext dbContext)
-    {
-      this.dbContext = dbContext;
-    }
-    public void Add(Menu menu)
-    {
-      //dbContext.Menus.Add(menu);
-      dbContext.Add(menu);
-      dbContext.SaveChanges();
-    }
-  }
-}
-```
-### DB Context
-```csharp
-namespace Donation.Infrastructure.Persistence
-{
-  public class DonationDbContext : DbContext
-  {
-    public DonationDbContext(DbContextOptions<DonationDbContext> options) : base(options) {  }
-    public DbSet<Menu> Menus { get; set; } = null!;
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-      modelBuilder.ApplyConfigurationsFromAssembly(
-        typeof(DonationDbContext).Assembly
-      );
-      base.OnModelCreating(modelBuilder);
-    }
-  }
-}
-```
-
-### Dependency Injection
-```csharp
-namespace Donation.Infrastructure
-{
-  public static class DependencyInjection
-  {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection Services, ConfigurationManager Configuration)
-    {
-      Services
-        .AddAuth(Configuration)
-        .AddPersistence();
-      Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-
-      return Services;
-    }
-    public static IServiceCollection AddPersistence(this IServiceCollection Services)
-    {
-      Services.AddDbContext<DonationDbContext>(options =>
-      {
-        // TrustServerCertificate=true | Encrypt=false
-        options.UseSqlServer("SERVER=localhost;DATABASE=Donation;USER=sa;PASSWORD=asdf1234;Encrypt=false");
-      });
-      Services.AddScoped<IUserRepository, UserRepository>();
-      Services.AddScoped<IMenuRepository, MenuRepository>();
-
-      return Services;
-    }
-    public static IServiceCollection AddAuth(this IServiceCollection Services, ConfigurationManager Configuration)
-    {
-      var jwtSettings = new JwtSettings();
-      Configuration.Bind(JwtSettings.SectionName, jwtSettings);
-
-      Services.AddSingleton(Options.Create(jwtSettings));
-      
-      Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
-      Services
-        .AddAuthentication(options =>
-        {
-          options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(options =>
-        {
-          options.TokenValidationParameters = new TokenValidationParameters()
-          {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
-
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ValidAudience = "https://localhost:7228",
-            ValidIssuer = "https://localhost:7228",
-
-          };
-        });
-      return Services;
     }
   }
 }
