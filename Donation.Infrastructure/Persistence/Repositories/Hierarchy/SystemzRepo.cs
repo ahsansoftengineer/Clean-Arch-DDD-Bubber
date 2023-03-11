@@ -5,8 +5,6 @@ namespace Donation.Infrastructure.Persistence.Repositories.Hierarchy
 {
   public class SystemzRepo : SimpleRepo<Systemz>, ISystemzRepo
   {
-    public SystemzRepo(DonationDbContext dbContext): base(dbContext)
-    {
-    }
+    public SystemzRepo(DonationDbContext dbContext): base(dbContext) { }
   }
 }

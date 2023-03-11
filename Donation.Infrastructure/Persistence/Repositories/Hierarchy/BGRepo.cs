@@ -5,8 +5,6 @@ namespace Donation.Infrastructure.Persistence.Repositories.Hierarchy
 {
   public class BGRepo : SimpleRepo<BG>, IBGRepo
   {
-    public BGRepo(DonationDbContext dbContext) : base(dbContext)
-    {
-    }
+    public BGRepo(DonationDbContext dbContext) : base(dbContext) { }
   }
 }

@@ -5,8 +5,6 @@ namespace Donation.Infrastructure.Persistence.Repositories.Hierarchy
 {
   public class OURepo : SimpleRepo<OU>, IOURepo
   {
-    public OURepo(DonationDbContext dbContext) : base(dbContext)
-    {
-    }
+    public OURepo(DonationDbContext dbContext) : base(dbContext) { }
   }
 }
