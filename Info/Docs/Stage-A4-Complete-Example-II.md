@@ -107,7 +107,7 @@ namespace Donation.Infrastructure
   }
 }
 ```
-﻿### Table Mapping
+### Table Mapping
 ```csharp
 namespace Donation.Infrastructure.Persistence.Configurations
 {
