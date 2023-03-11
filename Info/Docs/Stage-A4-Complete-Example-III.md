@@ -66,6 +66,20 @@ namespace Donation.Application.Menus.Commands.CreateMenu
     string Description);
 }
 ```
+### Menu Create Command Validator
+```csharp
+namespace Donation.Application.Menus.Commands.CreateMenu
+{
+  public class CreateMenuCommandValidator : AbstractValidator<CreateMenuCommand>
+  {
+    public CreateMenuCommandValidator() {
+      RuleFor(x => x.Name).NotEmpty();
+      RuleFor(x => x.Description).NotEmpty();
+      RuleFor(x => x.Sections).NotEmpty();
+    }
+  }
+}
+```
 ### Create Command Handler
 ```csharp
 namespace Donation.Application.Menus.Commands.CreateMenu
@@ -97,20 +111,6 @@ namespace Donation.Application.Menus.Commands.CreateMenu
       _menuRepository.Add(menu);
       // 3. Return Menu
       return menu;
-    }
-  }
-}
-```
-### Menu Create Command Validator
-```csharp
-namespace Donation.Application.Menus.Commands.CreateMenu
-{
-  public class CreateMenuCommandValidator : AbstractValidator<CreateMenuCommand>
-  {
-    public CreateMenuCommandValidator() {
-      RuleFor(x => x.Name).NotEmpty();
-      RuleFor(x => x.Description).NotEmpty();
-      RuleFor(x => x.Sections).NotEmpty();
     }
   }
 }
