@@ -176,4 +176,30 @@ namespace Donation.Api.Controllers
     }
   }
 }
+
+namespace Donation.Api.Controllers
+{
+  [Route("hierarchy/[controller]")]
+  public class SystemzController : ApiController
+  {
+    private readonly IMapper mapper;
+    private readonly ISender mediator;
+    public SystemzController(IMapper mapper, ISender mediator)
+    {
+      this.mapper = mapper;
+      this.mediator = mediator;
+    }
+    [HttpPost()]
+    public async Task<IActionResult> Create(SimpleRequestChildCreate request)
+    {
+      var command = mapper.Map<SimpleCommandChildCreate<Systemz>>(request);
+      var createResult = await mediator.Send(command);
+      return createResult.Match(
+        entity => Ok(mapper.Map<SimpleResponseChildCreate>(entity)),
+        errors => Problem(errors)
+      );
+    }
+  }
+}
+
 ```
