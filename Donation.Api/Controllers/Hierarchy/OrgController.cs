@@ -34,7 +34,7 @@ namespace Donation.Api.Controllers
     [HttpGet()]
     public async Task<IActionResult> GetAll()
     {
-      var nothing = new SimpleQueryGetAll<Org>("");
+      var nothing = new SimpleQueryGetAll<Org>();
       var query = mapper.Map<SimpleQueryGetAll<Org>>(nothing);
 
       var createResult = await mediator.Send(query);
