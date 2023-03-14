@@ -2,6 +2,7 @@
 using ErrorOr;
 using MediatR;
 
+public record SimpleQueryGetAll<TEntity>(string empty): IRequest<ErrorOr<List<TEntity>>>;
 public record SimpleQueryGetById<TEntity>(
   SimpleValueObject Id) : IRequest<ErrorOr<TEntity>>;
 
@@ -13,3 +14,4 @@ public record SimpleQuerySearch<TEntity>(
 //public record SimpleQueryListing<TEntity>(
 //  string Title,
 //  string Description) : IRequest<ErrorOr<TEntity>>;
+

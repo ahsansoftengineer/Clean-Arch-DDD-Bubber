@@ -12,4 +12,5 @@
   //public record SimpleRequestQueryPagination(
 
   //);
+  public record SimpleRequestQueryGetAll();
 }

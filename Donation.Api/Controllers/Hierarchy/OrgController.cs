@@ -24,9 +24,22 @@ namespace Donation.Api.Controllers
     {
       var query = mapper.Map<SimpleQueryGetById<Org>>(orgId);
 
+      var result = await mediator.Send(query);
+      return result.Match(
+        entity => Ok(mapper.Map<SimpleResponseCreate>(entity)),
+        errors => Problem(errors)
+      );
+    }
+
+    [HttpGet()]
+    public async Task<IActionResult> GetAll()
+    {
+      var nothing = new SimpleQueryGetAll<Org>("");
+      var query = mapper.Map<SimpleQueryGetAll<Org>>(nothing);
+
       var createResult = await mediator.Send(query);
       return createResult.Match(
-        entity => Ok(mapper.Map<SimpleResponseCreate>(entity)),
+        entity => Ok(mapper.Map<List<SimpleResponseCreate>>(entity)),
         errors => Problem(errors)
       );
     }
