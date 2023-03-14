@@ -7,5 +7,6 @@ namespace Donation.Application.Common.Persistence.Hierarchy
   {
     Task<Org> GetById(SimpleValueObject id);
     Task<List<Org>> GetAll();
+    Task<List<Org>> GetAllwithChilds();
   }
 }

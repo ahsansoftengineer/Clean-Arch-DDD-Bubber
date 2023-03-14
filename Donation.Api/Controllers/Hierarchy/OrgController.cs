@@ -44,6 +44,18 @@ namespace Donation.Api.Controllers
       );
     }
 
+    [HttpGet("with-childs")]
+    public async Task<IActionResult> GetAllWithChilds()
+    {
+      var nothing = new SimpleQueryGetAllwithChild<Org>();
+      var query = mapper.Map<SimpleQueryGetAllwithChild<Org>>(nothing);
+
+      var createResult = await mediator.Send(query);
+      return createResult.Match(
+        entity => Ok(mapper.Map<List<SimpleResponseParentWithChild>>(entity)),
+        errors => Problem(errors)
+      );
+    }
     [HttpPost]
     public async Task<IActionResult> Create(SimpleRequestCreate request)
     {

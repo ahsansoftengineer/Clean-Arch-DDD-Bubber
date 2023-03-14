@@ -3,6 +3,7 @@ using ErrorOr;
 using MediatR;
 
 public record SimpleQueryGetAll<TEntity>(): IRequest<ErrorOr<List<TEntity>>>;
+public record SimpleQueryGetAllwithChild<TEntity>(): IRequest<ErrorOr<List<TEntity>>>;
 public record SimpleQueryGetById<TEntity>(
   SimpleValueObject Id) : IRequest<ErrorOr<TEntity>>;
 

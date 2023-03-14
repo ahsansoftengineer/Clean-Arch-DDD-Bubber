@@ -1,8 +1,8 @@
 ﻿namespace Donation.Contracts.Simple
 {
   public record SimpleOption(
-    string Title,
-    string Description);
+    string Id,
+    string Title);
   public record SimpleResponseCreate(
     string Id,
     string Title,
@@ -13,7 +13,14 @@
     string Title,
     string Description,
     string ParentId
-    //,SimpleOption Parent
+    ,SimpleOption Parent
     );
+
+  public record SimpleResponseParentWithChild(
+  string Id,
+  string Title,
+  string Description,
+  List<SimpleOption> Childs
+  );
 
 }
