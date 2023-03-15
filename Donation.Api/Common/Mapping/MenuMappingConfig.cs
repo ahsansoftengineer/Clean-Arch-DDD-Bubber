@@ -18,10 +18,10 @@ namespace Donation.Api.Common.Mapping
 
       config.NewConfig<Menu, MenuResponse>()
           .Map(dest => dest.Id, src => src.Id.Value)
-          .Map(dest => dest.AverageRating, src => src.AverageRating.Value)
-          .Map(dest => dest.HostId, src => src.HostId.Value)
-          .Map(dest => dest.DinnerIds, src => src.DinnerIds.Select(dinnerId => dinnerId.Value))
-          .Map(dest => dest.MenuReviewIds, src => src.MenuReviewIds.Select(menuReviewId => menuReviewId.Value));
+          .Map(dest => dest.AverageRating, src => src.AverageRating.Value);
+          //.Map(dest => dest.HostId, src => src.HostId.Value)
+          //.Map(dest => dest.DinnerIds, src => src.DinnerIds.Select(dinnerId => dinnerId.Value))
+          //.Map(dest => dest.MenuReviewIds, src => src.MenuReviewIds.Select(menuReviewId => menuReviewId.Value));
 
       config.NewConfig<MenuSection, MenuSectionResponse>()
           .Map(dest => dest.Id, src => src.Id.Value);

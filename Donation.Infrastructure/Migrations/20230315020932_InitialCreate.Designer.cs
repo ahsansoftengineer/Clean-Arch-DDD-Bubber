@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Donation.Infrastructure.Migrations
 {
     [DbContext(typeof(DonationDbContext))]
-    [Migration("20230311092909_Initial")]
-    partial class Initial
+    [Migration("20230315020932_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -214,9 +214,6 @@ namespace Donation.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid>("HostId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -287,31 +284,6 @@ namespace Donation.Infrastructure.Migrations
                                 .HasForeignKey("MenuId");
                         });
 
-                    b.OwnsMany("Donation.Domain.Dinner.ValueObjects.DinnerId", "DinnerIds", b1 =>
-                        {
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int");
-
-                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
-
-                            b1.Property<Guid>("MenuId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<Guid>("Value")
-                                .HasColumnType("uniqueidentifier")
-                                .HasColumnName("DinnerIds");
-
-                            b1.HasKey("Id");
-
-                            b1.HasIndex("MenuId");
-
-                            b1.ToTable("MenuDinnerIds", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("MenuId");
-                        });
-
                     b.OwnsMany("Donation.Domain.Menu.Entities.MenuSection", "Sections", b1 =>
                         {
                             b1.Property<Guid>("Id")
@@ -375,37 +347,8 @@ namespace Donation.Infrastructure.Migrations
                             b1.Navigation("Items");
                         });
 
-                    b.OwnsMany("Donation.Domain.MenuReview.ValueObjects.MenuReviewId", "MenuReviewIds", b1 =>
-                        {
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int");
-
-                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
-
-                            b1.Property<Guid>("MenuId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<Guid>("Value")
-                                .HasColumnType("uniqueidentifier")
-                                .HasColumnName("MenuReviewIds");
-
-                            b1.HasKey("Id");
-
-                            b1.HasIndex("MenuId");
-
-                            b1.ToTable("MenuReviewIds", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("MenuId");
-                        });
-
                     b.Navigation("AverageRating")
                         .IsRequired();
-
-                    b.Navigation("DinnerIds");
-
-                    b.Navigation("MenuReviewIds");
 
                     b.Navigation("Sections");
                 });

@@ -1,4 +1,4 @@
-﻿using Donation.Domain.Host.ValueObjects;
+﻿//using Donation.Domain.Host.ValueObjects;
 using Donation.Domain.Menu;
 using Donation.Domain.Menu.Entities;
 using Donation.Domain.Menu.ValueObjects;
@@ -14,38 +14,38 @@ namespace Donation.Infrastructure.Persistence.Configurations
     {
       ConfigureMenuTable(builder);
       ConfigureMenuSectionTable(builder);
-      ConfigureMenuDinnerIdsTable(builder);
-      ConfigureMenuReviewIdsTable(builder);
+      //ConfigureMenuDinnerIdsTable(builder);
+      //ConfigureMenuReviewIdsTable(builder);
     }
 
-    private void ConfigureMenuReviewIdsTable(EntityTypeBuilder<Menu> builder)
-    {
-      builder.OwnsMany(m => m.MenuReviewIds, dib =>
-      {
-        dib.ToTable("MenuReviewIds");
-        dib.WithOwner().HasForeignKey("MenuId");
-        dib.HasKey("Id");
-        dib.Property(d => d.Value)
-          .HasColumnName("MenuReviewIds")
-          .ValueGeneratedNever();
-      }) ;
-      builder.Metadata.FindNavigation(nameof(Menu.MenuReviewIds))!
-        .SetPropertyAccessMode(PropertyAccessMode.Field);
-    }
-    private void ConfigureMenuDinnerIdsTable(EntityTypeBuilder<Menu> builder)
-    {
-      builder.OwnsMany(m => m.DinnerIds, dib =>
-      {
-        dib.ToTable("MenuDinnerIds");
-        dib.WithOwner().HasForeignKey("MenuId");
-        dib.HasKey("Id");
-        dib.Property(d => d.Value)
-          .HasColumnName("DinnerIds")
-          .ValueGeneratedNever();
-      });
-      builder.Metadata.FindNavigation(nameof(Menu.DinnerIds))!
-        .SetPropertyAccessMode(PropertyAccessMode.Field);
-    }
+    //private void ConfigureMenuReviewIdsTable(EntityTypeBuilder<Menu> builder)
+    //{
+    //  builder.OwnsMany(m => m.MenuReviewIds, dib =>
+    //  {
+    //    dib.ToTable("MenuReviewIds");
+    //    dib.WithOwner().HasForeignKey("MenuId");
+    //    dib.HasKey("Id");
+    //    dib.Property(d => d.Value)
+    //      .HasColumnName("MenuReviewIds")
+    //      .ValueGeneratedNever();
+    //  }) ;
+    //  builder.Metadata.FindNavigation(nameof(Menu.MenuReviewIds))!
+    //    .SetPropertyAccessMode(PropertyAccessMode.Field);
+    //}
+    //private void ConfigureMenuDinnerIdsTable(EntityTypeBuilder<Menu> builder)
+    //{
+    //  builder.OwnsMany(m => m.DinnerIds, dib =>
+    //  {
+    //    dib.ToTable("MenuDinnerIds");
+    //    dib.WithOwner().HasForeignKey("MenuId");
+    //    dib.HasKey("Id");
+    //    dib.Property(d => d.Value)
+    //      .HasColumnName("DinnerIds")
+    //      .ValueGeneratedNever();
+    //  });
+    //  builder.Metadata.FindNavigation(nameof(Menu.DinnerIds))!
+    //    .SetPropertyAccessMode(PropertyAccessMode.Field);
+    //}
     private void ConfigureMenuSectionTable(EntityTypeBuilder<Menu> builder)
     {
       // m => Menu
@@ -119,11 +119,11 @@ namespace Donation.Infrastructure.Persistence.Configurations
         .HasMaxLength(100);
 
       builder.OwnsOne(m => m.AverageRating);
-      builder.Property(m => m.HostId)
-        .HasConversion(
-          id => id.Value,
-          value => HostId.Create(value)
-        );
+      //builder.Property(m => m.HostId)
+      //  .HasConversion(
+      //    id => id.Value,
+      //    value => HostId.Create(value)
+      //  );
     }
   }
 }

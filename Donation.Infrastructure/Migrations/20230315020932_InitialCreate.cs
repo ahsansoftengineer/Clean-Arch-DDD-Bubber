@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Donation.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,7 +35,6 @@ namespace Donation.Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     AverageRating_Value = table.Column<double>(type: "float", nullable: false),
                     AverageRating_NumRatings = table.Column<int>(type: "int", nullable: false),
-                    HostId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -77,46 +76,6 @@ namespace Donation.Infrastructure.Migrations
                         name: "FK_LEs_BGs_BGId",
                         column: x => x.BGId,
                         principalTable: "BGs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MenuDinnerIds",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DinnerIds = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MenuId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MenuDinnerIds", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MenuDinnerIds_Menus_MenuId",
-                        column: x => x.MenuId,
-                        principalTable: "Menus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MenuReviewIds",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MenuReviewIds = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MenuId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MenuReviewIds", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MenuReviewIds_Menus_MenuId",
-                        column: x => x.MenuId,
-                        principalTable: "Menus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -234,19 +193,9 @@ namespace Donation.Infrastructure.Migrations
                 column: "BGId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MenuDinnerIds_MenuId",
-                table: "MenuDinnerIds",
-                column: "MenuId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_MenuItems_MenuSectionId_MenuId",
                 table: "MenuItems",
                 columns: new[] { "MenuSectionId", "MenuId" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuReviewIds_MenuId",
-                table: "MenuReviewIds",
-                column: "MenuId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MenuSections_MenuId",
@@ -273,13 +222,7 @@ namespace Donation.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "MenuDinnerIds");
-
-            migrationBuilder.DropTable(
                 name: "MenuItems");
-
-            migrationBuilder.DropTable(
-                name: "MenuReviewIds");
 
             migrationBuilder.DropTable(
                 name: "SUs");
