@@ -1,9 +1,8 @@
-﻿using Donation.Application.Hierarchy.Commands;
-using Donation.Application.Simple;
+﻿using Donation.Application.Simple;
 using Donation.Contracts.Simple;
 using Donation.Domain.HierarchyAggregate;
+using Donation.Domain.SimpleAggregates;
 using Mapster;
-// SystemzAggregate
 
 namespace Donation.Api.Common.Mapping.Hierarchy
 {
@@ -11,12 +10,23 @@ namespace Donation.Api.Common.Mapping.Hierarchy
   {
     public void Register(TypeAdapterConfig config)
     {
-      config.NewConfig<SimpleRequestChildCreate, SimpleCommandChildCreate<Systemz>>()
+      config.NewConfig<CommandRequestCreateSimpleChild, SimpleCommandChildCreate<Systemz>>()
         .Map(dest => dest, src => src);
 
       config.NewConfig<Systemz, SimpleResponseChildCreate>()
         .Map(dest => dest.Id, src => src.Id.Value)
         .Map(dest => dest.ParentId, src => src.OrgId.Value);
+
+      config.NewConfig<Guid, SimpleQueryGetById<Systemz>>()
+      .Map(dest => dest.Id, src => SimpleValueObject.Create(src));
+
+      config.NewConfig<Guid, SimpleQueryGetByIdwithParent<Systemz>>()
+        .Map(dest => dest.Id, src => SimpleValueObject.Create(src));
+
+      config.NewConfig<Systemz, SimpleResponseChildwithParent>()
+        .Map(dest => dest.Id, src => src.Id.Value)
+        .Map(dest => dest.ParentId, src => src.OrgId.Value)
+        .Map(dest => dest.Parent, src => new SimpleOption(src.Org.Id.Value.ToString(), src.Org.Title));
 
     }
   }

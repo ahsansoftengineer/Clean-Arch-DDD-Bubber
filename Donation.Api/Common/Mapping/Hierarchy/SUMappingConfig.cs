@@ -9,7 +9,7 @@ namespace Donation.Api.Common.Mapping.Hierarchy
   {
     public void Register(TypeAdapterConfig config)
     {
-      config.NewConfig<SimpleRequestChildCreate, SimpleCommandChildCreate<SU>>()
+      config.NewConfig<CommandRequestCreateSimpleChild, SimpleCommandChildCreate<SU>>()
         .Map(dest => dest, src => src);
 
       config.NewConfig<SU, SimpleResponseChildCreate>()

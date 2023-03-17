@@ -6,11 +6,11 @@ using MediatR;
 
 namespace Donation.Application.Hierarchy.Commands
 {
-  public class CreateOrgCommandHandler : IRequestHandler<SimpleCommandCreate<Org>, ErrorOr<Org>>
+  public class CommandHandlerCreateOrg : IRequestHandler<SimpleCommandCreate<Org>, ErrorOr<Org>>
   {
     private readonly IOrgRepo Repo;
 
-    public CreateOrgCommandHandler(IOrgRepo repo)
+    public CommandHandlerCreateOrg(IOrgRepo repo)
     {
       Repo = repo;
     }

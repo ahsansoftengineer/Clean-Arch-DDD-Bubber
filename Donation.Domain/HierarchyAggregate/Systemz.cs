@@ -5,6 +5,7 @@ namespace Donation.Domain.HierarchyAggregate
   public sealed class Systemz : SimpleAggregate
   {
     public SimpleValueObject OrgId { get; private set; }
+    public Org Org { get; private set; }
 
     private Systemz(
         SimpleValueObject id,

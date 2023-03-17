@@ -1,9 +1,9 @@
 ﻿namespace Donation.Contracts.Simple
 {
-  public record SimpleRequestQueryGetById(
+  public record QueryRequestGetAllSimple();
+  public record QueryRequestGetByIdSimple(
     Guid Id);
-
-  public record SimpleRequestQuerySearch(
+  public record QueryRequestSearch(
     Guid ParentId,
     Guid Id,
     string Title,
@@ -12,5 +12,4 @@
   //public record SimpleRequestQueryPagination(
 
   //);
-  public record SimpleRequestQueryGetAll();
 }

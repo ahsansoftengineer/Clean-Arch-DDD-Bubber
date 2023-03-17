@@ -1,14 +1,14 @@
 ﻿using Donation.Api.Common.Http;
 using ErrorOr;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Donation.Api.Controllers
 {
   [ApiController]
-  [Authorize]
+  //[Authorize] // Uncomment for JWT
+  [AllowAnonymous] // No Authorization for Every Child Controller
   public class ApiController : ControllerBase
   {
     protected IActionResult Problem(List<Error> errors)

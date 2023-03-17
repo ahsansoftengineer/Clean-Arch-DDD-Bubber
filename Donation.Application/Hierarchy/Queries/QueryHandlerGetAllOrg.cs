@@ -5,20 +5,20 @@ using MediatR;
 
 namespace Donation.Application.Hierarchy.Queries
 {
-  public class QueryHandlerGetOrgAllwithChilds : IRequestHandler<SimpleQueryGetAllwithChild<Org>, ErrorOr<List<Org>>>
+  public class QueryHandlerGetAllOrg : IRequestHandler<SimpleQueryGetAll<Org>, ErrorOr<List<Org>>>
   {
     private readonly IOrgRepo Repo;
 
-    public QueryHandlerGetOrgAllwithChilds(IOrgRepo repo)
+    public QueryHandlerGetAllOrg(IOrgRepo repo)
     {
       Repo = repo;
     }
     public async Task<ErrorOr<List<Org>>> Handle(
-      SimpleQueryGetAllwithChild<Org> request, 
+      SimpleQueryGetAll<Org> request, 
       CancellationToken cancellationToken
     )
     {
-      if (await Repo.GetAllwithChilds() is not List<Org> data)
+      if (await Repo.GetAll() is not List<Org> data)
       {
         return new[] {
           Domain.Common.Errors.SimpleErrors.DataNotFound("Org"),

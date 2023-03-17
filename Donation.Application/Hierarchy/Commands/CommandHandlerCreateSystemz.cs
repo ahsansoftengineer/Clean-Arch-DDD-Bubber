@@ -7,19 +7,19 @@ using MediatR;
 
 namespace Donation.Application.Hierarchy.Commands
 {
-  public class CreateLECommandHandler : IRequestHandler<SimpleCommandChildCreate<LE>, ErrorOr<LE>>
+  public class CommandHandlerCreateSystemz : IRequestHandler<SimpleCommandChildCreate<Systemz>, ErrorOr<Systemz>>
   {
-    private readonly ILERepo Repo;
+    private readonly ISystemzRepo Repo;
 
-    public CreateLECommandHandler(ILERepo repo)
+    public CommandHandlerCreateSystemz(ISystemzRepo repo)
     {
       Repo = repo;
     }
 
-    public async Task<ErrorOr<LE>> Handle(SimpleCommandChildCreate<LE> request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Systemz>> Handle(SimpleCommandChildCreate<Systemz> request, CancellationToken cancellationToken)
     {
       await Task.CompletedTask;
-      var item = LE.Create(
+      var item = Systemz.Create(
           parentId: SimpleValueObject.Create(request.ParentId),
           title: request.Title,
           description: request.Description);

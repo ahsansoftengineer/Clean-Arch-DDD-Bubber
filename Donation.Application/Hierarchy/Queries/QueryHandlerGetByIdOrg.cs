@@ -5,11 +5,11 @@ using MediatR;
 
 namespace Donation.Application.Hierarchy.Queries
 {
-  public class QueryHandlerGetOrgById : IRequestHandler<SimpleQueryGetById<Org>, ErrorOr<Org>>
+  public class QueryHandlerGetByIdOrg : IRequestHandler<SimpleQueryGetById<Org>, ErrorOr<Org>>
   {
     private readonly IOrgRepo Repo;
 
-    public QueryHandlerGetOrgById(IOrgRepo repo)
+    public QueryHandlerGetByIdOrg(IOrgRepo repo)
     {
       Repo = repo;
     }

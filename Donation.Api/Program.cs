@@ -1,9 +1,6 @@
 using Donation.Api;
 using Donation.Application;
 using Donation.Infrastructure;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 {

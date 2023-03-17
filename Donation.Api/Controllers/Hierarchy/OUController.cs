@@ -18,7 +18,7 @@ namespace Donation.Api.Controllers
       this.mediator = mediator;
     }
     [HttpPost]
-    public async Task<IActionResult> Create(SimpleRequestChildCreate request)
+    public async Task<IActionResult> Create(CommandRequestCreateSimpleChild request)
     {
       var command = mapper.Map<SimpleCommandChildCreate<OU>>(request);
       var createResult = await mediator.Send(command);

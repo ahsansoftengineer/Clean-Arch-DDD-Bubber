@@ -7,19 +7,19 @@ using MediatR;
 
 namespace Donation.Application.Hierarchy.Commands
 {
-  public class CreateOUCommandHandler : IRequestHandler<SimpleCommandChildCreate<OU>, ErrorOr<OU>>
+  public class CommandHandlerCreateLE : IRequestHandler<SimpleCommandChildCreate<LE>, ErrorOr<LE>>
   {
-    private readonly IOURepo Repo;
+    private readonly ILERepo Repo;
 
-    public CreateOUCommandHandler(IOURepo repo)
+    public CommandHandlerCreateLE(ILERepo repo)
     {
       Repo = repo;
     }
 
-    public async Task<ErrorOr<OU>> Handle(SimpleCommandChildCreate<OU> request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<LE>> Handle(SimpleCommandChildCreate<LE> request, CancellationToken cancellationToken)
     {
       await Task.CompletedTask;
-      var item = OU.Create(
+      var item = LE.Create(
           parentId: SimpleValueObject.Create(request.ParentId),
           title: request.Title,
           description: request.Description);

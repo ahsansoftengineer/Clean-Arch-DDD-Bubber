@@ -9,7 +9,7 @@ namespace Donation.Api.Common.Mapping.Hierarchy
   {
     public void Register(TypeAdapterConfig config)
     {
-      config.NewConfig<SimpleRequestCreate, SimpleCommandCreate<Org>>()
+      config.NewConfig<CommandRequestCreateSimple, SimpleCommandCreate<Org>>()
         .Map(dest => dest, src => src);
 
       config.NewConfig<Guid, SimpleQueryGetById<Org>>()
@@ -30,7 +30,7 @@ namespace Donation.Api.Common.Mapping.Hierarchy
           y => new SimpleOption(y.Id.Value.ToString(), y.Title))
         );
 
-      config.NewConfig<Org, SimpleResponseCreate>()
+      config.NewConfig<Org, ResponseSimpleCreate>()
         .Map(dest => dest.Id, src => src.Id.Value);
 
 

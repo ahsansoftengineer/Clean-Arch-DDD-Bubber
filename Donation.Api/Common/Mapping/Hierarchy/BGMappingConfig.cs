@@ -10,10 +10,10 @@ namespace Donation.Api.Common.Mapping.Hierarchy
   {
     public void Register(TypeAdapterConfig config)
     {
-      config.NewConfig<SimpleRequestCreate, SimpleCommandCreate<BG>>()
+      config.NewConfig<CommandRequestCreateSimple, SimpleCommandCreate<BG>>()
         .Map(dest => dest, src => src);
 
-      config.NewConfig<BG, SimpleResponseCreate>()
+      config.NewConfig<BG, ResponseSimpleCreate>()
         .Map(dest => dest.Id, src => src.Id.Value);
 
     }

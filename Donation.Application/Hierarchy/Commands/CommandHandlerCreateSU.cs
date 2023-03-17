@@ -7,11 +7,11 @@ using MediatR;
 
 namespace Donation.Application.Hierarchy.Commands
 {
-  public class CreateSUCommandHandler : IRequestHandler<SimpleCommandChildCreate<SU>, ErrorOr<SU>>
+  public class CommandHandlerCreateSU : IRequestHandler<SimpleCommandChildCreate<SU>, ErrorOr<SU>>
   {
     private readonly ISURepo Repo;
 
-    public CreateSUCommandHandler(ISURepo repo)
+    public CommandHandlerCreateSU(ISURepo repo)
     {
       Repo = repo;
     }
