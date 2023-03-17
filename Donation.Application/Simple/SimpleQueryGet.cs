@@ -4,7 +4,11 @@ using MediatR;
 
 public record SimpleQueryGetAll<TEntity>(): IRequest<ErrorOr<List<TEntity>>>;
 public record SimpleQueryGetAllwithChild<TEntity>(): IRequest<ErrorOr<List<TEntity>>>;
+public record SimpleQueryGetAllwithParent<TEntity>(): IRequest<ErrorOr<List<TEntity>>>;
 public record SimpleQueryGetById<TEntity>(
+  SimpleValueObject Id) : IRequest<ErrorOr<TEntity>>;
+
+public record SimpleQueryGetByIdwithParent<TEntity>(
   SimpleValueObject Id) : IRequest<ErrorOr<TEntity>>;
 
 public record SimpleQuerySearch<TEntity>(

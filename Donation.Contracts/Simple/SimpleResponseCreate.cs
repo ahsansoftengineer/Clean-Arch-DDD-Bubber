@@ -13,9 +13,14 @@
     string Title,
     string Description,
     string ParentId
-    ,SimpleOption Parent
     );
-
+  public record SimpleResponseChildwithParent(
+    string Id,
+    string Title,
+    string Description,
+    string ParentId,
+    SimpleOption Parent
+  );
   public record SimpleResponseParentWithChild(
   string Id,
   string Title,

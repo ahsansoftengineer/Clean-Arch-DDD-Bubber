@@ -19,10 +19,10 @@ namespace Donation.Api.Controllers
       this.mapper = mapper;
       this.mediator = mediator;
     }
-    [HttpGet("{orgId}")]
-    public async Task<IActionResult> GetById([FromRoute] Guid orgId)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
-      var query = mapper.Map<SimpleQueryGetById<Org>>(orgId);
+      var query = mapper.Map<SimpleQueryGetById<Org>>(id);
 
       var result = await mediator.Send(query);
       return result.Match(
@@ -34,8 +34,7 @@ namespace Donation.Api.Controllers
     [HttpGet()]
     public async Task<IActionResult> GetAll()
     {
-      var nothing = new SimpleQueryGetAll<Org>();
-      var query = mapper.Map<SimpleQueryGetAll<Org>>(nothing);
+      var query = mapper.Map<SimpleQueryGetAll<Org>>(new SimpleQueryGetAll<Org>());
 
       var createResult = await mediator.Send(query);
       return createResult.Match(
@@ -47,8 +46,7 @@ namespace Donation.Api.Controllers
     [HttpGet("with-childs")]
     public async Task<IActionResult> GetAllWithChilds()
     {
-      var nothing = new SimpleQueryGetAllwithChild<Org>();
-      var query = mapper.Map<SimpleQueryGetAllwithChild<Org>>(nothing);
+      var query = mapper.Map<SimpleQueryGetAllwithChild<Org>>(new SimpleQueryGetAllwithChild<Org>());
 
       var createResult = await mediator.Send(query);
       return createResult.Match(
