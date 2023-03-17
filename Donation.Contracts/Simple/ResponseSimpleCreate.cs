@@ -27,10 +27,10 @@
     SimpleOption Parent
   );
   public record SimpleResponseParentWithChild(
-  string Id,
-  string Title,
-  string Description,
-  List<SimpleOption> Childs
+    string Id,
+    string Title,
+    string Description,
+    List<SimpleOption> Childs
   );
 
 }
