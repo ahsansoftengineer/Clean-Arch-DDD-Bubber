@@ -206,11 +206,15 @@ dotnet tool list --global
 dotnet tool install --global dotnet-ef
 Install-Package Microsoft.EntityFrameworkCore.Tools // Power Shell
 dotnet ef migrations add InitialCreate -p Donation.Infrastructure -s Donation.Api
+// When you are in Project
+dotnet ef migrations add InitialCreate
 // docker pull mcr.microsoft.com/mssql/server:2022-latest
 // docker image ls
 // docker run -e 'HOMEBREW_NO_ENV_FILTERING=1' -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=asdf1234' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
 // docker ps
 dotnet ef database update -p Donation.Infrastructure -s Donation.Api --connection "SERVER=.;DATABASE=Donation;USER=sa;PASSWORD=asdf1234;Encrypt=false"
+// When you are in project
+dotnet ef database update --connection "SERVER=.;DATABASE=Donation;USER=sa;PASSWORD=asdf1234;Encrypt=false"
 dotnet run --project Donation.Api
 ```
 ### SSMS CREADENTIALS
