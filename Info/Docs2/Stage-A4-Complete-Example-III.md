@@ -181,7 +181,14 @@ namespace Donation.Api.Controllers
 dotnet tool list --global
 dotnet tool install --global dotnet-ef
 Install-Package Microsoft.EntityFrameworkCore.Tools // Power Shell
-dotnet ef migrations add InitialCreate -p Donation.Infrastructure -s Donation.Api
+// PM Package Manager Console
+Add-Migration NameOfMigration -Context DatabaseContextName
+// When you have One DBContext and One Project
+dotnet ef migrations add NameOfMigration 
+// When you have two or more Projects
+dotnet ef migrations add NameOfMigration -p Donation.Infrastructure -s Donation.Api
+// When you have Two or More DB Context
+dotnet ef migrations add NameOfMigration --context DatabaseContextName
 // docker pull mcr.microsoft.com/mssql/server:2022-latest
 // docker image ls
 // docker run -e 'HOMEBREW_NO_ENV_FILTERING=1' -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=asdf1234' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest

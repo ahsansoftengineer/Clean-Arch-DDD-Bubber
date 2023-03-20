@@ -12,6 +12,15 @@ namespace Donation.Api
     public static IServiceCollection AddPresentation(this IServiceCollection Services)
     {
       Services.AddControllers();
+      // Services.AddCors(option =>
+      // {
+      //   option.AddPolicy("AllowAll", builder =>
+      //   {
+      //     builder.AllowAnyOrigin()
+      //     .AllowAnyMethod()
+      //     .AllowAnyHeader();
+      //   });
+      // });
 
       Services.AddMySwagger();
       Services.AddSingleton<ProblemDetailsFactory, DonationOverrideDefaultProblemDetailsFactory>();

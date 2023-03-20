@@ -15,7 +15,7 @@ var app = builder.Build();
 
 {
   app.UseExceptionHandler("/error");
-
+  // app.UseCors("AllowAll");
   app.UseHttpsRedirection();
   //app.UseAuthentication(); // This is already Set up by AddControllers
   //app.UseAuthorization(); // This middleware decide weather the user can access the endpoints

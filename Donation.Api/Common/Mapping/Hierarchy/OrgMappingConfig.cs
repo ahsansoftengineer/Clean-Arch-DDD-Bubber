@@ -15,15 +15,6 @@ namespace Donation.Api.Common.Mapping.Hierarchy
       config.NewConfig<Guid, SimpleQueryGetById<Org>>()
        .Map(dest => dest.Id, src => SimpleValueObject.Create(src));
 
-
-      //config.NewConfig<List<Org>, List<SimpleResponseCreate>>()
-      //.Map(dest => dest, src => src.Select(x => new SimpleResponseCreate(
-      //  x.Id.Value.ToString(),
-      //  x.Title,
-      //  "Yes Descriptions"
-      ////x.Description
-      //)));
-
       config.NewConfig<Org, SimpleResponseParentWithChild>()
         .Map(dest => dest.Id, src => src.Id.Value)
         .Map(dest => dest.Childs, src => src.Systemz.Select(
