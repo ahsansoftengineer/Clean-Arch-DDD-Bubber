@@ -2,7 +2,6 @@
 using Donation.Contracts.Simple;
 using Donation.Domain.HierarchyAggregate;
 using Mapster;
-
 namespace Donation.Api.Common.Mapping.Hierarchy
 {
   public class BGMappingConfig : IRegister
