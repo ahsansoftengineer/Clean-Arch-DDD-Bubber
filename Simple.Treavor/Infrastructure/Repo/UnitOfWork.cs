@@ -1,9 +1,9 @@
-﻿using Simple.Treavor.Data;
+﻿using Simple.Treavor.Infrastructure.Data;
 using Simple.Treavor.Infrastructure.IRepo;
 
 namespace Simple.Treavor.Infrastructure.Repo
 {
-  public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
   {
     private readonly DatabaseContext _context;
     private IGenericRepo<Country> _countries;

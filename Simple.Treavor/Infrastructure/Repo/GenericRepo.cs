@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Simple.Treavor.Data;
+using Simple.Treavor.Infrastructure.Data;
 using Simple.Treavor.Infrastructure.IRepo;
 using System.Linq.Expressions;
 
 namespace Simple.Treavor.Infrastructure.Repo
 {
-  public class GenericRepo<T> : IGenericRepo<T> where T : class
+    public class GenericRepo<T> : IGenericRepo<T> where T : class
   {
     private readonly DatabaseContext _context;
     private readonly DbSet<T> _db;

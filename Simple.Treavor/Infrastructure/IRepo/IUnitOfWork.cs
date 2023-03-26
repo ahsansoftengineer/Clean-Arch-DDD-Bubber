@@ -1,8 +1,8 @@
-﻿using Simple.Treavor.Data;
+﻿using Simple.Treavor.Infrastructure.Data;
 
 namespace Simple.Treavor.Infrastructure.IRepo
 {
-  public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
   {
     IGenericRepo<Country> Countries { get; }  // CountryRepo ???
     IGenericRepo<Hotel> Hotels { get; } //

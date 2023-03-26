@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Simple.Treavor.Data;
+using Simple.Treavor.Domain.Configurations;
+using Simple.Treavor.Infrastructure.Data;
 
 namespace Simple.Treavor
 {
-  public class Startup
+    public class Startup
   {
     public IConfiguration Configuration { get; }
 
@@ -27,6 +28,9 @@ namespace Simple.Treavor
               .AllowAnyHeader()
         );
       });
+
+      services.AddAutoMapper(typeof(MapperInitializer));
+
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
