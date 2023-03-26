@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Simple.Treavor.Domain.Model;
 using Simple.Treavor.Infrastructure.IRepo;
-using System.Collections;
 
 namespace Simple.Treavor.Controllers
 {
@@ -55,6 +53,5 @@ namespace Simple.Treavor.Controllers
         return StatusCode(500, "Internal Server Error, Please try again later");
       }
     }
-
   }
 }

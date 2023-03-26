@@ -19,29 +19,16 @@ namespace Simple.Treavor
     {
       services.AddDbContext<DatabaseContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
-     
-      services.AddCors(option =>
-      {
-        option
-          .AddPolicy("CorsPolicyAllowAll", builder =>
-            builder
-              .AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader()
-        );
-      });
+
+      services.AddAuthentication();
+      services.ConfigureIdentity();
+
+      services.ConfigureCors();
 
       services.AddAutoMapper(typeof(MapperInitializer));
       // Transient Means Fresh Copy
       services.AddTransient<IUnitOfWork, UnitOfWork>();
-      services.AddSwaggerGen(c =>
-      {
-        c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-        {
-          Title = "Trevor Simple",
-          Version = "v1"
-        });
-      });
+      services.ConfigureSwagger();
       services
         .AddControllers()
           .AddNewtonsoftJson(opt =>
@@ -52,12 +39,7 @@ namespace Simple.Treavor
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-      if (env.IsDevelopment())
-      {
-        app.UseDeveloperExceptionPage();
-        app.UseSwagger();
-        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Trevor v1"));
-      }
+      app.ConfigureDevEnv(env);
 
       app.UseHttpsRedirection();
 
@@ -76,5 +58,7 @@ namespace Simple.Treavor
         ep.MapControllers();
       });
     }
+
+
   }
 }
