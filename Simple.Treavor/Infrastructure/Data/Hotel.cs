@@ -2,19 +2,19 @@
 
 namespace Simple.Treavor.Infrastructure.Data
 {
-    public class Hotel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public double Rating { get; set; }
-        [ForeignKey(nameof(Country))]
-        public int CountryId { get; set; }
-        public Country Country { get; set; }
-    }
-    public class SeedHotel
-    {
-        public static List<Hotel> Data { get; } = new List<Hotel>
+  public class Hotel
+  {
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Address { get; set; }
+    public double Rating { get; set; }
+    [ForeignKey(nameof(Country))]
+    public int CountryId { get; set; }
+    //public virtual Country Country { get; set; }
+  }
+  public class SeedHotel
+  {
+    public static List<Hotel> Data { get; } = new List<Hotel>
     {
       new Hotel {
         Id= 1,
@@ -52,5 +52,5 @@ namespace Simple.Treavor.Infrastructure.Data
         CountryId = 3,
       }
     };
-    }
+  }
 }

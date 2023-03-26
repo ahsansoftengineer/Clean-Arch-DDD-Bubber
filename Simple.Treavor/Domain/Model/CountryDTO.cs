@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Simple.Treavor.Infrastructure.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace Simple.Treavor.Domain.Model
 {
@@ -15,5 +16,6 @@ namespace Simple.Treavor.Domain.Model
     [Required]
     [StringLength(maximumLength: 2, ErrorMessage = "Short Country Name is Too Long")]
     public string ShortName { get; set; }
+    public IList<Hotel> Hotels { get; set; }
   }
 }

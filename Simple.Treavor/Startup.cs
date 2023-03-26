@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Simple.Treavor.Domain.Configurations;
 using Simple.Treavor.Infrastructure.Data;
+using Simple.Treavor.Infrastructure.IRepo;
+using Simple.Treavor.Infrastructure.Repo;
 
 namespace Simple.Treavor
 {
@@ -30,7 +32,8 @@ namespace Simple.Treavor
       });
 
       services.AddAutoMapper(typeof(MapperInitializer));
-
+      // Transient Means Fresh Copy
+      services.AddTransient<IUnitOfWork, UnitOfWork>();
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
@@ -39,7 +42,13 @@ namespace Simple.Treavor
           Version = "v1"
         });
       });
-      services.AddControllers();
+      services
+        .AddControllers()
+          .AddNewtonsoftJson(opt =>
+          {
+            opt.SerializerSettings.ReferenceLoopHandling = 
+              Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+          });
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
@@ -58,6 +67,12 @@ namespace Simple.Treavor
       app.UseAuthorization();
       app.UseEndpoints(ep =>
       {
+        // This Routing is useful for MVC type application
+        // Convention Based Routing Schema
+        //ep.MapControllerRoute(
+        //  name: "default",
+        //  pattern: "{controller=Home}/{action=Index}/{id?}"
+        //  );
         ep.MapControllers();
       });
     }
