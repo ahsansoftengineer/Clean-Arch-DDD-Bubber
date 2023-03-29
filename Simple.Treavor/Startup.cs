@@ -18,13 +18,15 @@ namespace Simple.Treavor
 
     public void ConfigureServices(IServiceCollection services)
     {
+      //services.AddTransient<SignInManager<ApiUser>, SignInManager<ApiUser>>();
+
       services.AddDbContext<DatabaseContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
-      //services.AddTransient<SignInManager<ApiUser>, SignInManager<ApiUser>>();
       services.AddAuthentication();
       services.ConfigureIdentity();
-
+      services.ConfigureJWT(Configuration);
       services.ConfigureCors();
+
 
       services.AddAutoMapper(typeof(MapperInitializer));
       // Transient Means Fresh Copy
