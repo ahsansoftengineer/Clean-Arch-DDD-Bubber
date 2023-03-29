@@ -1,4 +1,5 @@
-﻿using Simple.Treavor.Infrastructure.Data;
+﻿using Simple.Treavor.Infrastructure.Context;
+using Simple.Treavor.Infrastructure.Data;
 using Simple.Treavor.Infrastructure.IRepo;
 
 namespace Simple.Treavor.Infrastructure.Repo

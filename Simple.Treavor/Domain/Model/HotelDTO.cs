@@ -2,7 +2,7 @@
 
 namespace Simple.Treavor.Domain.Model
 {
-  public class HotelDto : CreateHotelDTO
+  public class HotelDTO : CreateHotelDTO
   {
     public int id { get; set; }
     [Required]

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Simple.Treavor.Infrastructure.Data;
+using Simple.Treavor.Infrastructure.Context;
 
 #nullable disable
 
@@ -27,6 +27,9 @@ namespace Simple.Treavor.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("ApiUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -41,12 +44,30 @@ namespace Simple.Treavor.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApiUserId");
+
                     b.HasIndex("NormalizedName")
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "bda2c087-50e3-41c8-a8b4-c0afbf920205",
+                            ConcurrencyStamp = "690975cd-046f-4a86-911f-aaa27b90c941",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "60344475-b78b-4682-8bbc-0b9c59a2cfe7",
+                            ConcurrencyStamp = "9b36ed9f-9df5-405d-b7c5-b67fdfe3db1f",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -200,6 +221,7 @@ namespace Simple.Treavor.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
@@ -346,6 +368,13 @@ namespace Simple.Treavor.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.HasOne("Simple.Treavor.Infrastructure.Data.ApiUser", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("ApiUserId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -404,6 +433,11 @@ namespace Simple.Treavor.Migrations
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Simple.Treavor.Infrastructure.Data.ApiUser", b =>
+                {
+                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("Simple.Treavor.Infrastructure.Data.Country", b =>

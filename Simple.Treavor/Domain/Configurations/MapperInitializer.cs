@@ -10,8 +10,9 @@ namespace Simple.Treavor.Domain.Configurations
     {
       CreateMap<Country, CountryDTO>().ReverseMap();
       CreateMap<Country, CreateCountryDTO>().ReverseMap();
-      CreateMap<Hotel, HotelDto>().ReverseMap();
+      CreateMap<Hotel, HotelDTO>().ReverseMap();
       CreateMap<Hotel, CreateHotelDTO>().ReverseMap();
+      CreateMap<ApiUser, UserDTO>().ReverseMap();
     }
   }
 }

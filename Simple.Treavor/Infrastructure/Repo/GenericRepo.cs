@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Simple.Treavor.Infrastructure.Data;
+using Simple.Treavor.Infrastructure.Context;
 using Simple.Treavor.Infrastructure.IRepo;
 using System.Linq.Expressions;
 

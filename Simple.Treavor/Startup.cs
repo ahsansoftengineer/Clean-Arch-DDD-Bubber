@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Simple.Treavor.Domain.Configurations;
-using Simple.Treavor.Infrastructure.Data;
+using Simple.Treavor.Infrastructure.Context;
 using Simple.Treavor.Infrastructure.IRepo;
 using Simple.Treavor.Infrastructure.Repo;
 
@@ -19,7 +20,7 @@ namespace Simple.Treavor
     {
       services.AddDbContext<DatabaseContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
-
+      //services.AddTransient<SignInManager<ApiUser>, SignInManager<ApiUser>>();
       services.AddAuthentication();
       services.ConfigureIdentity();
 

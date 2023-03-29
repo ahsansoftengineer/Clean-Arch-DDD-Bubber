@@ -1,10 +1,11 @@
 ﻿using Simple.Treavor.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using System.Runtime.CompilerServices;
+using Simple.Treavor.Infrastructure.Context;
 
 namespace Simple.Treavor
 {
-  public static class ServiceExtensions
+    public static class ServiceExtensions
   {
     public static IServiceCollection ConfigureIdentity(this IServiceCollection services)
     {

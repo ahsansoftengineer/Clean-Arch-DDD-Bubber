@@ -28,7 +28,7 @@ namespace Simple.Treavor.Controllers
       try
       {
         var hotels = await UnitOfWork.Hotels.GetAll();
-        var result = Mapper.Map<IList<HotelDto>>(hotels);
+        var result = Mapper.Map<IList<HotelDTO>>(hotels);
         return Ok(result);
       }
       catch (Exception ex)
@@ -44,7 +44,7 @@ namespace Simple.Treavor.Controllers
       {
         //, new List<string> { "Country" }
         var hotel = await UnitOfWork.Hotels.Get(q => q.Id == id);
-        var result = Mapper.Map<HotelDto>(hotel);
+        var result = Mapper.Map<HotelDTO>(hotel);
         return Ok(result);
       }
       catch (Exception ex)
