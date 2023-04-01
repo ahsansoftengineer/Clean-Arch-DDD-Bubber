@@ -1,4 +1,6 @@
-﻿using System.Linq.Expressions;
+﻿using Simple.Treavor.Domain.Model;
+using System.Linq.Expressions;
+using X.PagedList;
 
 namespace Simple.Treavor.Infrastructure.IRepo
 {
@@ -8,6 +10,12 @@ namespace Simple.Treavor.Infrastructure.IRepo
       Expression<Func<T, bool>> expression = null,
       Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
       List<string> includes = null
+    );
+    Task<IPagedList<T>> GetPagedList(
+      RequestParams requestParams = null,
+      List<string> includes = null,
+      Expression<Func<T, bool>> expression = null,
+      Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null
     );
 
     Task<T> Get(

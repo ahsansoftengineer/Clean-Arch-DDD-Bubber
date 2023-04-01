@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Simple.Treavor.Domain.Model;
 using Simple.Treavor.Infrastructure.Context;
 using Simple.Treavor.Infrastructure.IRepo;
 using System.Linq.Expressions;
+using X.PagedList;
 
 namespace Simple.Treavor.Infrastructure.Repo
 {
@@ -66,6 +69,35 @@ namespace Simple.Treavor.Infrastructure.Repo
         query = orderBy(query);
       }
       return await query.AsNoTracking().ToListAsync();
+    }
+
+    // X.PagedList.Mvc.Core ->  X_Pagedist Library Requires
+    public async Task<IPagedList<T>> GetPagedList(
+      RequestParams param = null,
+      List<string> includes = null,
+       Expression<Func<T, bool>> expression = null,
+      Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
+    {
+      IQueryable<T> query = _db;
+      if (expression != null)
+      {
+        query = query.Where(expression);
+      }
+
+      if (includes != null)
+      {
+        foreach (var item in includes)
+        {
+          query = query.Include(item);
+        }
+      }
+
+      if (orderBy != null)
+      {
+        query = orderBy(query);
+      }
+      return await query.AsNoTracking()
+        .ToPagedListAsync(param.PageNumber, param.PageSize);
     }
 
     public async Task Insert(T entity)

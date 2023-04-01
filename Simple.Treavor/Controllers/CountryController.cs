@@ -25,11 +25,12 @@ namespace Simple.Treavor.Controllers
     }
 
     [HttpGet]
-    public async Task<IActionResult> Gets()
+    public async Task<IActionResult> Gets(
+      [FromQuery] RequestParams query)
     {
       try
       {
-        var countries = await UnitOfWork.Countries.GetAll();
+        var countries = await UnitOfWork.Countries.GetPagedList(query);
         var result = Mapper.Map<IList<CountryDTO>>(countries);
         return Ok(result);
       }
@@ -42,17 +43,9 @@ namespace Simple.Treavor.Controllers
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Get(int id)
     {
-      try
-      {
         var country = await UnitOfWork.Countries.Get(q => q.Id == id);
         var result = Mapper.Map<CountryDTO>(country);
         return Ok(result);
-      }
-      catch (Exception ex)
-      {
-        Logger.LogError(ex, $"Something went wrong in the {nameof(Get)}");
-        return StatusCode(500, "Internal Server Error, Please try again later");
-      }
     }
 
     [HttpPost]

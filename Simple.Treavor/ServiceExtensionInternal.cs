@@ -1,26 +1,7 @@
-﻿using Simple.Treavor.Infrastructure.Data;
-using Microsoft.AspNetCore.Identity;
-using System.Runtime.CompilerServices;
-using Simple.Treavor.Infrastructure.Context;
-
-namespace Simple.Treavor
+﻿namespace Simple.Treavor
 {
-    public static class ServiceExtensions
+  public static partial class ServiceExtension
   {
-    public static IServiceCollection ConfigureIdentity(this IServiceCollection services)
-    {
-      var builder = services
-        .AddIdentityCore<ApiUser>(q => q.User.RequireUniqueEmail = true);
-
-      builder = new IdentityBuilder(
-        builder.UserType, 
-        typeof(IdentityRole), services);
-
-      builder
-        .AddEntityFrameworkStores<DatabaseContext>()
-          .AddDefaultTokenProviders();
-      return services;
-    }
     public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
     {
       services.AddSwaggerGen(c =>
@@ -58,5 +39,4 @@ namespace Simple.Treavor
       return services;
     }
   }
-
 }
