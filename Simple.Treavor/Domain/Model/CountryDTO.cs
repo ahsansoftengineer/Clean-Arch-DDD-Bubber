@@ -6,7 +6,12 @@ namespace Simple.Treavor.Domain.Model
   public class CountryDTO : CreateCountryDTO
   {
     public int Id { get; set; }
+    public IList<Hotel> Hotels { get; set; }
 
+  }
+  public class UpdateCountryDTO : CreateCountryDTO
+  {
+    public IList<CreateHotelDTO> Hotels { get; set; }
   }
   public class CreateCountryDTO
   {
@@ -16,6 +21,5 @@ namespace Simple.Treavor.Domain.Model
     [Required]
     [StringLength(maximumLength: 2, ErrorMessage = "Short Country Name is Too Long")]
     public string ShortName { get; set; }
-    public IList<Hotel> Hotels { get; set; }
   }
 }

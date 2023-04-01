@@ -12,8 +12,8 @@ using Simple.Treavor.Infrastructure.Context;
 namespace Simple.Treavor.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230328184740_INITIAL")]
-    partial class INITIAL
+    [Migration("20230401022503_Create_DB")]
+    partial class Create_DB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,15 +58,15 @@ namespace Simple.Treavor.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bda2c087-50e3-41c8-a8b4-c0afbf920205",
-                            ConcurrencyStamp = "690975cd-046f-4a86-911f-aaa27b90c941",
+                            Id = "0773d686-328b-44cc-a2ab-be299b9821b4",
+                            ConcurrencyStamp = "22194c56-dd2e-4642-b411-388e1c4ae2e1",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "60344475-b78b-4682-8bbc-0b9c59a2cfe7",
-                            ConcurrencyStamp = "9b36ed9f-9df5-405d-b7c5-b67fdfe3db1f",
+                            Id = "6d5d29e4-0b43-4074-beeb-3751fdfe77ae",
+                            ConcurrencyStamp = "5a89f486-7f6c-4b69-9648-c22cdcd19218",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

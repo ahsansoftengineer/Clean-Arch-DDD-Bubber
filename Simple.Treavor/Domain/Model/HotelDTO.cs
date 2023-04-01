@@ -6,7 +6,7 @@ namespace Simple.Treavor.Domain.Model
   {
     public int id { get; set; }
     [Required]
-    public int CountryId { get; set; }
+    public CountryDTO Country { get; set; }
   }
   public class CreateHotelDTO
   {
@@ -18,7 +18,7 @@ namespace Simple.Treavor.Domain.Model
     public string Address { get; set; }
     [Range(1,5)]
     public double Rating { get; set; }
-    public CountryDTO Country { get; set; } 
-
+    [Required]
+    public int CountryId { get; set; }
   }
 }
