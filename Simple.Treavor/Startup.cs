@@ -37,11 +37,12 @@ namespace Simple.Treavor
             opt.SerializerSettings.ReferenceLoopHandling = 
               Newtonsoft.Json.ReferenceLoopHandling.Ignore;
           });
+      services.ConfigureVersioning(); 
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
       app.ConfigureDevEnv(env);
-
+      app.ConfigureExceptionHandler();
       app.UseHttpsRedirection();
 
       app.UseCors("CorsPolicyAllowAll");

@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Simple.Treavor.Domain.Model;
 using Simple.Treavor.Infrastructure.Data;
 using Simple.Treavor.Infrastructure.IRepo;
-using Simple.Treavor.Infrastructure.Repo;
 
 namespace Simple.Treavor.Controllers
 {
@@ -43,26 +40,15 @@ namespace Simple.Treavor.Controllers
     [HttpGet("{id:int}", Name = "Get")]
     public async Task<IActionResult> Get(int id)
     {
-      try
-      {
-        //, new List<string> { "Country" }
-        var hotel = await UnitOfWork.Hotels.Get(q => q.Id == id, new List<string> { "Country" });
-        var result = Mapper.Map<HotelDTO>(hotel);
-        result.Country.Hotels = null;
-        return Ok(result);
-      }
-      catch (Exception ex)
-      {
-        Logger.LogError(ex, $"Something went wrong in the {nameof(Get)}");
-        return StatusCode(500, "Internal Server Error, Please try again later");
-      }
-
+      var hotel = await UnitOfWork.Hotels.Get(q => q.Id == id, new List<string> { "Country" });
+      var result = Mapper.Map<HotelDTO>(hotel);
+      result.Country.Hotels = null;
+      return Ok(result);
     }
 
     //[Authorize(Roles = "Adminstrator")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create([FromBody] CreateHotelDTO data)
     {
@@ -77,7 +63,7 @@ namespace Simple.Treavor.Controllers
         var result = Mapper.Map<Hotel>(data);
         await UnitOfWork.Hotels.Insert(result);
         await UnitOfWork.Save();
-        return CreatedAtRoute("Get", new {id = result.Id }, result);
+        return CreatedAtRoute("Get", new { id = result.Id }, result);
         //CreatedResult
         //CreatedAtAction
         //CreatedAtActionResult
@@ -91,8 +77,6 @@ namespace Simple.Treavor.Controllers
     }
 
     [HttpPut("{id:int}")]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Update(int id, [FromBody] CreateHotelDTO data)
     {
@@ -103,8 +87,8 @@ namespace Simple.Treavor.Controllers
       }
       try
       {
-        var hotel = await UnitOfWork.Hotels.Get(q =>  q.Id == id);
-        if(hotel == null)
+        var hotel = await UnitOfWork.Hotels.Get(q => q.Id == id);
+        if (hotel == null)
         {
           Logger.LogError($"Invalid UPDATE attempt in {nameof(Update)}");
           return BadRequest("Submit Data is Invalid");
@@ -112,7 +96,7 @@ namespace Simple.Treavor.Controllers
 
         Mapper.Map(data, hotel);
         UnitOfWork.Hotels.Update(hotel);
-        await UnitOfWork.Save();  
+        await UnitOfWork.Save();
         return NoContent();
       }
       catch (Exception ex)
@@ -121,7 +105,7 @@ namespace Simple.Treavor.Controllers
         return StatusCode(500, "Internal Server Error, Please try again later");
       }
     }
-    
+
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -130,25 +114,17 @@ namespace Simple.Treavor.Controllers
         Logger.LogError($"Invalid DELETE attempt in {nameof(Delete)}");
         return BadRequest();
       }
-      try
+      var search = await UnitOfWork.Hotels.Get(q => q.Id == id);
+      if (search == null)
       {
-        var search = await UnitOfWork.Hotels.Get(q => q.Id == id);
-        if (search == null)
-        {
-          Logger.LogError($"Invalid DELETE attempt in {nameof(Delete)}");
-          return BadRequest("Submit id is Invalid");
-        }
-
-        await UnitOfWork.Hotels.Delete(id);
-        await UnitOfWork.Save();
-
-        return NoContent();
+        Logger.LogError($"Invalid DELETE attempt in {nameof(Delete)}");
+        return BadRequest("Submit id is Invalid");
       }
-      catch (Exception ex)
-      {
-        Logger.LogError(ex, $"Something went wrong in the {nameof(Delete)}");
-        return StatusCode(500, "Internal Server Error, Please try again later");
-      }
+
+      await UnitOfWork.Hotels.Delete(id);
+      await UnitOfWork.Save();
+
+      return NoContent();
     }
   }
 }

@@ -32,34 +32,25 @@ namespace Simple.Treavor.Controllers
     {
       Logger.LogInformation($"Registration Attempt for {data.Email}");
 
-      if(!ModelState.IsValid)
+      if (!ModelState.IsValid)
       {
-        return BadRequest(ModelState);    
+        return BadRequest(ModelState);
       }
-      try
-      {
-        var user = Mapper.Map<ApiUser>(data);
-        user.UserName = data.Email;
-        var result = await UserManager.CreateAsync(user, data.Password); 
+      var user = Mapper.Map<ApiUser>(data);
+      user.UserName = data.Email;
+      var result = await UserManager.CreateAsync(user, data.Password);
 
-        if(!result.Succeeded)
+      if (!result.Succeeded)
+      {
+        foreach (var error in result.Errors)
         {
-          foreach (var error in result.Errors)
-          {
-            ModelState.AddModelError(error.Code, error.Description);
-          }
-
-          return BadRequest("User Registration Attempt Failed");
+          ModelState.AddModelError(error.Code, error.Description);
         }
-        await UserManager.AddToRolesAsync(user, data.Roles);
-        return Accepted();
+
+        return BadRequest("User Registration Attempt Failed");
       }
-      catch (Exception ex)
-      {
-        string message = $"Something Went Wrong in the {nameof(Register)}";
-        Logger.LogError(ex, message);
-        return Problem(message, statusCode: 500);
-      }
+      await UserManager.AddToRolesAsync(user, data.Roles);
+      return Accepted();
     }
 
     //[HttpPost("login")]
