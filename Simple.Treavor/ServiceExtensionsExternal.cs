@@ -32,7 +32,7 @@ namespace Simple.Treavor
         opt.AssumeDefaultVersionWhenUnspecified = true;
         opt.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
       });
-      return services;
+      return services;    
     }
     public static IApplicationBuilder ConfigureExceptionHandler(this IApplicationBuilder app)
     {
