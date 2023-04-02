@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Simple.Treavor.Domain.Configurations;
@@ -22,6 +22,11 @@ namespace Simple.Treavor
       services.AddDbContext<DatabaseContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
       //services.AddTransient<SignInManager<ApiUser>, SignInManager<ApiUser>>();
+      // 1. API Throttling 1: Adding Service
+      services.AddMemoryCache();
+      // API Throttling 3
+      services.ConfigureRateLimiting();
+      services.AddHttpContextAccessor();
 
       // API Caching 6: Adding Services Extensions
       services.ConfigureHttpCacheHeaders();
@@ -68,6 +73,9 @@ namespace Simple.Treavor
       app.UseResponseCaching();
       // API Caching 7. Setting up Caching Profile at Globally
       app.UseHttpCacheHeaders();
+      // API Throttling 4. Setting up Middleware
+      // This is giving error while runing
+      //app.UseIpRateLimiting();
 
       app.UseRouting();
       app.UseAuthorization();

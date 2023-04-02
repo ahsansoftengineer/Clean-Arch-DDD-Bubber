@@ -1,9 +1,13 @@
 ﻿## API Caching
 
-### What API Caching and Throttling
+### What API Caching
 1. ASP.NET Core APIs can benefit from caching and throttling to improve performance and manage resources.
 2. Caching involves storing frequently accessed data in memory or a cache store, which reduces the need to repeatedly fetch data from the database or external services. ASP.NET Core provides built-in support for caching through the IMemoryCache interface, which can be used to cache data for a specified duration.
 3. To use caching in your API, you can inject an instance of IMemoryCache into your controller or service and use its GetOrCreate method to retrieve the cached data or add it if it doesn't exist.
+
+### What is API Throttling
+1. How often a user can hit our API Within a specific time duration
+2. It Help Preventing from API Bombarding and shutting down the server
 
 ### What is Marvin.Cache.Headers?
 1. By using Marvin.Cache.Headers, you can add powerful caching features to your ASP.NET Core API with minimal effort, reducing server load and improving performance for your users.

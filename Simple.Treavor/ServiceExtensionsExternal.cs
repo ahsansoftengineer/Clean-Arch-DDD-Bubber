@@ -4,6 +4,7 @@ using Simple.Treavor.Infrastructure.Context;
 using Microsoft.AspNetCore.Diagnostics;
 using Serilog;
 using Simple.Treavor.Domain.Model;
+using AspNetCoreRateLimit;
 
 namespace Simple.Treavor
 {
@@ -70,6 +71,27 @@ namespace Simple.Treavor
           validationOpt.MustRevalidate = true;
         }
         );
+    }
+    // API Throttling 2: 
+    public static void ConfigureRateLimiting(this IServiceCollection services)
+    {
+      var rateLimitRules = new List<RateLimitRule>
+      {
+        new RateLimitRule
+        {
+          Endpoint = "*",
+          Limit = 3,
+          Period = "1m"
+        }
+      };
+
+      services.Configure<IpRateLimitOptions>(opt =>
+      {
+        opt.GeneralRules = rateLimitRules;
+      });
+      services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+      services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+      services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
     }
   }
 
