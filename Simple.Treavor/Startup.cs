@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Simple.Treavor.Domain.Configurations;
 using Simple.Treavor.Infrastructure.Context;
@@ -21,6 +22,10 @@ namespace Simple.Treavor
       services.AddDbContext<DatabaseContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
       //services.AddTransient<SignInManager<ApiUser>, SignInManager<ApiUser>>();
+
+      // API Caching 6: Adding Services Extensions
+      services.ConfigureHttpCacheHeaders();
+
       services.AddAuthentication();
       services.ConfigureIdentity();
 
@@ -31,12 +36,23 @@ namespace Simple.Treavor
       services.AddTransient<IUnitOfWork, UnitOfWork>();
       services.ConfigureSwagger();
       services
-        .AddControllers()
-          .AddNewtonsoftJson(opt =>
+         // API Caching 3. Defining Cache Profile
+        .AddControllers(config =>
+        {
+          config.CacheProfiles.Add("120SecondsDuration", new CacheProfile
           {
-            opt.SerializerSettings.ReferenceLoopHandling = 
-              Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            Duration = 120
+            //,Location = ResponseCacheLocation.Client
+            //,NoStore = true
+            //,VaryByHeader = "I don't know which string"
+            //,VaryByQueryKeys = "Any Keys"
           });
+        })
+        .AddNewtonsoftJson(opt =>
+        {
+          opt.SerializerSettings.ReferenceLoopHandling = 
+            Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+        });
 
       services.ConfigureVersioning(); 
     }
@@ -47,6 +63,11 @@ namespace Simple.Treavor
       app.UseHttpsRedirection();
 
       app.UseCors("CorsPolicyAllowAll");
+
+      // API Caching 2. Setting up Caching
+      app.UseResponseCaching();
+      // API Caching 7. Setting up Caching Profile at Globally
+      app.UseHttpCacheHeaders();
 
       app.UseRouting();
       app.UseAuthorization();

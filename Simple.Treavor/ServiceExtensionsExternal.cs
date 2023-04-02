@@ -7,24 +7,23 @@ using Simple.Treavor.Domain.Model;
 
 namespace Simple.Treavor
 {
-    public  static partial class ServiceExtensions
+  public static partial class ServiceExtensions
   {
-    public static IServiceCollection ConfigureIdentity(this IServiceCollection services)
+    public static void ConfigureIdentity(this IServiceCollection services)
     {
       var builder = services
         .AddIdentityCore<ApiUser>(q => q.User.RequireUniqueEmail = true);
 
       builder = new IdentityBuilder(
-        builder.UserType, 
+        builder.UserType,
         typeof(IdentityRole), services);
 
       builder
         .AddEntityFrameworkStores<DatabaseContext>()
           .AddDefaultTokenProviders();
-      return services;
     }
-   
-    public static IServiceCollection ConfigureVersioning(this IServiceCollection services)
+
+    public static void ConfigureVersioning(this IServiceCollection services)
     {
       services.AddApiVersioning(opt =>
       {
@@ -32,9 +31,8 @@ namespace Simple.Treavor
         opt.AssumeDefaultVersionWhenUnspecified = true;
         opt.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
       });
-      return services;    
     }
-    public static IApplicationBuilder ConfigureExceptionHandler(this IApplicationBuilder app)
+    public static void ConfigureExceptionHandler(this IApplicationBuilder app)
     {
       app.UseExceptionHandler(error =>
       {
@@ -46,7 +44,6 @@ namespace Simple.Treavor
 
           if (contextFeature != null)
           {
-
             Log.Error($"Something Went Wrong in the {contextFeature.Error}");
 
             await context.Response.WriteAsync(new Error
@@ -57,11 +54,23 @@ namespace Simple.Treavor
           }
         });
       });
-
-
-      return app;
     }
-
+    // API Caching : 5 with Marvin.Cache.Headers
+    public static void ConfigureHttpCacheHeaders(this IServiceCollection services)
+    {
+      services.AddResponseCaching();
+      services.AddHttpCacheHeaders(
+        (expirationOpt) =>
+        {
+          expirationOpt.MaxAge = 65;
+          expirationOpt.CacheLocation = Marvin.Cache.Headers.CacheLocation.Private;
+        },
+        (validationOpt) =>
+        {
+          validationOpt.MustRevalidate = true;
+        }
+        );
+    }
   }
 
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.Mvc;
 using Simple.Treavor.Domain.Model;
 using Simple.Treavor.Infrastructure.Data;
@@ -23,6 +24,15 @@ namespace Simple.Treavor.Controllers
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    // API Caching 1. To Client know API Caching
+    //[ResponseCache(Duration = 60)]
+    // API Caching 4. Using Global Cache Profile
+    // API Caching 8. Setting Applied Globally no need to apply here
+    //[ResponseCache(CacheProfileName="120SecondsDuration")]
+
+    // API Caching 9. With Marvin.Cache.Headers
+    [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 60)]
+    [HttpCacheValidation(MustRevalidate = false)]
     public async Task<IActionResult> Gets()
     {
       try

@@ -2,7 +2,7 @@
 {
   public static partial class ServiceExtension
   {
-    public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
+    public static void ConfigureSwagger(this IServiceCollection services)
     {
       services.AddSwaggerGen(c =>
       {
@@ -12,9 +12,8 @@
           Version = "v1"
         });
       });
-      return services;
     }
-    public static IApplicationBuilder ConfigureDevEnv(this IApplicationBuilder app, IWebHostEnvironment env)
+    public static void ConfigureDevEnv(this IApplicationBuilder app, IWebHostEnvironment env)
     {
       if (env.IsDevelopment())
       {
@@ -22,9 +21,8 @@
         app.UseSwagger();
         app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Trevor v1"));
       }
-      return app;
     }
-    public static IServiceCollection ConfigureCors(this IServiceCollection services)
+    public static void ConfigureCors(this IServiceCollection services)
     {
       services.AddCors(option =>
       {
@@ -36,7 +34,6 @@
               .AllowAnyHeader()
         );
       });
-      return services;
     }
   }
 }
