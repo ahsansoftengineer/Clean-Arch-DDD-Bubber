@@ -1,35 +1,50 @@
 # Donation
 ## Most Used Principle
-### Clean Architecture
-1. Core: This is the innermost layer that contains the application's business logic, domain models, and interfaces for accessing external resources.
-2. Infrastructure: This layer contains the implementation of the interfaces defined in the Core layer, such as data access and logging.
-3. Application: This layer contains the application services that coordinate the interactions between the Core and Infrastructure layers.
-4. Presentation: This layer contains the UI and any other presentation-related logic, such as user input handling.
-
-
-### Repository Patter
-
-### Domain Driven Design
-
-### SOLID 
-- Single Responsibility Principle (SRP)
+### Clean Architecture, DDD, Onion Archetecture
+#### Solution Structure
+| Layer | Internal Libraries | External Libraries | Purpose |
+|:----------:|:----:|:------:|:----------:|
+| Domain | - | ErrorOr | Entities, Models, ValueObjects, Aggregate, AggregateRoot | 
+| Contract | - | - | Request, Response, Query, Commands, CommandHandlers
+| Application | Domain | FluentValidation, FluentValidation.AspNetCore, MediatR | CommandHandler, QueryHandler, CommandValidator, ValidationBehavior |
+| Infrastructure | Application | EntityFrameworkCore.SqlServer, Extensions.Configuration, Extensions.Options.ConfigurationExtensions, AspNetCore.Authentication.JwtBearer, System.IdentityModel.Tokens.Jwt | DbContext, Repository, Migration, Configuration, JWT |
+| Presentation / API | Contract, Application, Infrastructure | Mapster, OpenApi, EntityFrameworkCore.Design | Controller, MappingConfiguration CQRS | 
+| Core | | | This is the innermost layer that contains the application's business logic, domain models, and interfaces for accessing external resources. | 
+## SOLID 
+- Single Responsibility (SRP)
 - Open-Closed Principle (OCP)
-- Liskov Substitution Principle (LSP)
-- Interface Segregation Principle (ISP)
-- Dependency Inversion Principle (DIP)
+- Liskov Substitution (LSP)
+- Interface Segregation (ISP)
+- Dependency Inversion (DIP)
 
-### OOP 
+## OOP 
 - Inheritance 
 - Abstraction
 - Polymorphism
 - Encapsulation
 
-### Factory pattern
-### Singleton pattern
-### Observer pattern
-### Decorator pattern
+### Libraries
+
+ Marvin Caching
+### CQRS Common Query Segregation
+### Domain Driven Design
 ### Model-View-Controller (MVC)
-### Command pattern
-### Adapter pattern
-### Facade pattern
-### Template method pattern
+
+## Concepts
+### API Versioning
+### API Caching,
+### JWT
+### Async Programming in DotNet
+
+## Patterns
+
+### Pub Sub
+### Repository
+### Factory
+### Singleton
+### Observer
+### Decorator
+### Command
+### Adapter
+### Facade
+### Template Method

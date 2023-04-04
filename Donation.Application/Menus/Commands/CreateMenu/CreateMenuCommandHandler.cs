@@ -1,5 +1,5 @@
 ﻿using Donation.Application.Common.Persistence;
-using Donation.Domain.Host.ValueObjects;
+//using Donation.Domain.Host.ValueObjects;
 using Donation.Domain.Menu;
 using Donation.Domain.Menu.Entities;
 using ErrorOr;
@@ -21,7 +21,7 @@ namespace Donation.Application.Menus.Commands.CreateMenu
       await Task.CompletedTask;
       // 1. Create Menu
       var menu = Menu.Create(
-          hostId: HostId.CreateUnique(),//HostId.Create(request.HostId),
+          //hostId: HostId.Create(request.HostId),
           name: request.Name,
           description: request.Description,
           sections: request.Sections.ConvertAll(sections => MenuSection.Create(

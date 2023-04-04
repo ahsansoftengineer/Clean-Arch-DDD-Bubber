@@ -22,6 +22,182 @@ namespace Donation.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Donation.Domain.HierarchyAggregate.BG", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BGs", (string)null);
+                });
+
+            modelBuilder.Entity("Donation.Domain.HierarchyAggregate.LE", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BGId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BGId");
+
+                    b.ToTable("LEs", (string)null);
+                });
+
+            modelBuilder.Entity("Donation.Domain.HierarchyAggregate.OU", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<Guid>("LEId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LEId");
+
+                    b.ToTable("OUs", (string)null);
+                });
+
+            modelBuilder.Entity("Donation.Domain.HierarchyAggregate.Org", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orgs", (string)null);
+                });
+
+            modelBuilder.Entity("Donation.Domain.HierarchyAggregate.SU", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<Guid>("OUId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OUId");
+
+                    b.ToTable("SUs", (string)null);
+                });
+
+            modelBuilder.Entity("Donation.Domain.HierarchyAggregate.Systemz", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<Guid>("OrgId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrgId");
+
+                    b.ToTable("Systemzs", (string)null);
+                });
+
             modelBuilder.Entity("Donation.Domain.Menu.Menu", b =>
                 {
                     b.Property<Guid>("Id")
@@ -35,9 +211,6 @@ namespace Donation.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid>("HostId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -49,6 +222,42 @@ namespace Donation.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Menus", (string)null);
+                });
+
+            modelBuilder.Entity("Donation.Domain.HierarchyAggregate.LE", b =>
+                {
+                    b.HasOne("Donation.Domain.HierarchyAggregate.BG", null)
+                        .WithMany("LEs")
+                        .HasForeignKey("BGId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Donation.Domain.HierarchyAggregate.OU", b =>
+                {
+                    b.HasOne("Donation.Domain.HierarchyAggregate.LE", null)
+                        .WithMany("OUs")
+                        .HasForeignKey("LEId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Donation.Domain.HierarchyAggregate.SU", b =>
+                {
+                    b.HasOne("Donation.Domain.HierarchyAggregate.OU", null)
+                        .WithMany("SUs")
+                        .HasForeignKey("OUId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Donation.Domain.HierarchyAggregate.Systemz", b =>
+                {
+                    b.HasOne("Donation.Domain.HierarchyAggregate.Org", null)
+                        .WithMany("Systemz")
+                        .HasForeignKey("OrgId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Donation.Domain.Menu.Menu", b =>
@@ -67,31 +276,6 @@ namespace Donation.Infrastructure.Migrations
                             b1.HasKey("MenuId");
 
                             b1.ToTable("Menus");
-
-                            b1.WithOwner()
-                                .HasForeignKey("MenuId");
-                        });
-
-                    b.OwnsMany("Donation.Domain.Dinner.ValueObjects.DinnerId", "DinnerIds", b1 =>
-                        {
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int");
-
-                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
-
-                            b1.Property<Guid>("MenuId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<Guid>("Value")
-                                .HasColumnType("uniqueidentifier")
-                                .HasColumnName("DinnerIds");
-
-                            b1.HasKey("Id");
-
-                            b1.HasIndex("MenuId");
-
-                            b1.ToTable("MenuDinnerIds", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("MenuId");
@@ -160,39 +344,30 @@ namespace Donation.Infrastructure.Migrations
                             b1.Navigation("Items");
                         });
 
-                    b.OwnsMany("Donation.Domain.MenuReview.ValueObjects.MenuReviewId", "MenuReviewIds", b1 =>
-                        {
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int");
-
-                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
-
-                            b1.Property<Guid>("MenuId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<Guid>("Value")
-                                .HasColumnType("uniqueidentifier")
-                                .HasColumnName("MenuReviewIds");
-
-                            b1.HasKey("Id");
-
-                            b1.HasIndex("MenuId");
-
-                            b1.ToTable("MenuReviewIds", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("MenuId");
-                        });
-
                     b.Navigation("AverageRating")
                         .IsRequired();
 
-                    b.Navigation("DinnerIds");
-
-                    b.Navigation("MenuReviewIds");
-
                     b.Navigation("Sections");
+                });
+
+            modelBuilder.Entity("Donation.Domain.HierarchyAggregate.BG", b =>
+                {
+                    b.Navigation("LEs");
+                });
+
+            modelBuilder.Entity("Donation.Domain.HierarchyAggregate.LE", b =>
+                {
+                    b.Navigation("OUs");
+                });
+
+            modelBuilder.Entity("Donation.Domain.HierarchyAggregate.OU", b =>
+                {
+                    b.Navigation("SUs");
+                });
+
+            modelBuilder.Entity("Donation.Domain.HierarchyAggregate.Org", b =>
+                {
+                    b.Navigation("Systemz");
                 });
 #pragma warning restore 612, 618
         }

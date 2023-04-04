@@ -1,9 +1,6 @@
 using Donation.Api;
 using Donation.Application;
 using Donation.Infrastructure;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -18,10 +15,10 @@ var app = builder.Build();
 
 {
   app.UseExceptionHandler("/error");
-
+  // app.UseCors("AllowAll");
   app.UseHttpsRedirection();
-  app.UseAuthentication(); // This is already Set up by AddControllers
-  app.UseAuthorization(); // This middleware decide weather the user can access the endpoints
+  //app.UseAuthentication(); // This is already Set up by AddControllers
+  //app.UseAuthorization(); // This middleware decide weather the user can access the endpoints
 
   app.MapControllers();
 

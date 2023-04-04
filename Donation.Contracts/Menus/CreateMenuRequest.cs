@@ -1,7 +1,6 @@
 ﻿namespace Donation.Contracts.Menus
 {
   public record CreateMenuRequest(
-    string hostId,
     string Name,
     string Description,
     List<MenuSection> Sections);

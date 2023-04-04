@@ -1,18 +1,18 @@
 ﻿using Donation.Domain.Common.Models;
 using Donation.Domain.Common.ValueObjects;
-using Donation.Domain.Dinner.ValueObjects;
-using Donation.Domain.Host.ValueObjects;
+//using Donation.Domain.Dinner.ValueObjects;
+//using Donation.Domain.Host.ValueObjects;
 using Donation.Domain.Menu.Entities;
 using Donation.Domain.Menu.ValueObjects;
-using Donation.Domain.MenuReview.ValueObjects;
+//using Donation.Domain.MenuReview.ValueObjects;
 
 namespace Donation.Domain.Menu
 {
   public sealed class Menu : AggregateRoot<MenuId>
   {
     private readonly List<MenuSection> _sections = new();
-    private readonly List<DinnerId> _dinnerIds = new();
-    private readonly List<MenuReviewId> _menuReviewIds = new();
+    //private readonly List<DinnerId> _dinnerIds = new();
+    //private readonly List<MenuReviewId> _menuReviewIds = new();
     // Private Set is Required for EF Core
     public string Name { get; private set; }
     public string Description { get; private set; }
@@ -20,23 +20,23 @@ namespace Donation.Domain.Menu
 
     public IReadOnlyList<MenuSection> Sections => _sections.AsReadOnly();
 
-    public HostId HostId { get; private set; }
-    public IReadOnlyList<DinnerId> DinnerIds => _dinnerIds.AsReadOnly();
-    public IReadOnlyList<MenuReviewId> MenuReviewIds => _menuReviewIds.AsReadOnly();
+    //public HostId HostId { get; private set; }
+    //public IReadOnlyList<DinnerId> DinnerIds => _dinnerIds.AsReadOnly();
+    //public IReadOnlyList<MenuReviewId> MenuReviewIds => _menuReviewIds.AsReadOnly();
 
     public DateTime CreatedDateTime { get; private set; }
     public DateTime UpdatedDateTime { get; private set; }
 
     private Menu(
         MenuId menuId,
-        HostId hostId,
+        //HostId hostId,
         string name,
         string description,
         AverageRating averageRating,
         List<MenuSection>? sections)
         : base(menuId)
     {
-      HostId = hostId;
+      //HostId = hostId;
       Name = name;
       Description = description;
       _sections = sections;
@@ -44,14 +44,14 @@ namespace Donation.Domain.Menu
     }
 
     public static Menu Create(
-        HostId hostId,
+        //HostId hostId,
         string name,
         string description,
         List<MenuSection>? sections)
     {
       return new(
           MenuId.CreateUnique(),
-          hostId,
+          //hostId,
           name,
           description,
           AverageRating.CreateNew(0),

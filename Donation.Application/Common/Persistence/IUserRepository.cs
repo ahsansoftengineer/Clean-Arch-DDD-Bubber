@@ -2,9 +2,8 @@
 
 namespace Donation.Application.Common.Persistence
 {
-    public interface IUserRepository
+    public interface IUserRepository : ISimpleRepo<User>
     {
         User? GetUserByEmail(string email);
-        void Add(User user);
     }
 }
