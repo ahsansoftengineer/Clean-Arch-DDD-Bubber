@@ -9,10 +9,10 @@
 | Application | Domain | FluentValidation, FluentValidation.AspNetCore, MediatR | CommandHandler, QueryHandler, CommandValidator, ValidationBehavior |
 | Infrastructure | Application | EntityFrameworkCore.SqlServer, Extensions.Configuration, Extensions.Options.ConfigurationExtensions, AspNetCore.Authentication.JwtBearer, System.IdentityModel.Tokens.Jwt | DbContext, Repository, Migration, Configuration, JWT |
 | Presentation / API | Contract, Application, Infrastructure | Mapster, OpenApi, EntityFrameworkCore.Design | Controller, MappingConfiguration CQRS | 
- <tr>
+|
   <td> Core</td>
-  <td colspan="4">This is the innermost layer that contains the application's business logic, domain models, and interfaces for accessing external resources. :|||</td>
- </tr>
+  <td colspan="4">This is the innermost layer that contains the application's business logic, domain models, and interfaces for accessing external resources.</td>
+|
  
 ## SOLID 
 - Single Responsibility (SRP)
