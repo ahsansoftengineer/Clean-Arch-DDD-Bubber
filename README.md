@@ -67,10 +67,6 @@
     </tr>
   </tbody>
 </table>
-|  |  |  |  | 
-|  | - |  | 
-
-<!-- | Core | | |  |  -->
 
 ## SOLID 
 - Single Responsibility (SRP)
