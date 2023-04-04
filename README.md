@@ -1,21 +1,22 @@
 # Donation
 ## Most Used Principle
 ### Clean Architecture, DDD, Onion Archetecture
-1. Domain: (-) : Entities, Models, ValueObjects, Aggregate, AggregateRoot
-2. Contract: (-) : (Request, Response, Query, Commands, CommandHandlers) 
-3. Application: (Domain) : This layer contains the application services that coordinate the interactions between the Core and Infrastructure layers.
-4. Infrastructure: (Application) : This layer contains the implementation of the interfaces defined in the Core layer, such as data access and logging.
-5. Presentation, API: (Contract, Application, Infrastructure) :This layer contains the UI and any other presentation-related logic, such as user input handling.
+#### Solution Structure
+1. Domain: (-) :| Entities, Models, ValueObjects, Aggregate, AggregateRoot :|: ErrorOr
+2. Contract: (-) :| Request, Response, Query, Commands, CommandHandlers :|:  (-)
+3. Application: (Domain) :| CommandHandler, QueryHandler, CommandValidator, ValidationBehavior :|: FluentValidation, FluentValidation.AspNetCore, MediatR, |: 
+4. Infrastructure: (Application) :| DbContext, Repository, Migration, Configuration, JWT :|: EntityFrameworkCore.SqlServer, Extensions.Configuration, Extensions.Options.ConfigurationExtensions, AspNetCore.Authentication.JwtBearer, System.IdentityModel.Tokens.Jwt |:
+5. Presentation, API: (Contract, Application, Infrastructure) :| Controller, MappingConfiguration CQRS :|:  |:
 6. Core: This is the innermost layer that contains the application's business logic, domain models, and interfaces for accessing external resources.
 
 
 
 ## SOLID 
-- Single Responsibility Principle (SRP)
+- Single Responsibility (SRP)
 - Open-Closed Principle (OCP)
-- Liskov Substitution Principle (LSP)
-- Interface Segregation Principle (ISP)
-- Dependency Inversion Principle (DIP)
+- Liskov Substitution (LSP)
+- Interface Segregation (ISP)
+- Dependency Inversion (DIP)
 
 ## OOP 
 - Inheritance 
@@ -33,14 +34,18 @@
 ## Concepts
 ### API Versioning
 ### API Caching,
+### JWT
+### Async Programming in DotNet
 
 ## Patterns
-#### Repository
-#### Factory
-#### Singleton
-#### Observer
-#### Decorator
-#### Command
-#### Adapter
-#### Facade
-#### Template Method
+
+### Pub Sub
+### Repository
+### Factory
+### Singleton
+### Observer
+### Decorator
+### Command
+### Adapter
+### Facade
+### Template Method
