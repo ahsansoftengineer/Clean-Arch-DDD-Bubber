@@ -11,7 +11,7 @@
 | Presentation / API | Contract, Application, Infrastructure | Mapster, OpenApi, EntityFrameworkCore.Design | Controller, MappingConfiguration CQRS | 
 
 
-|:----:|:----:|
+| | |
 | Core |: This is the innermost layer that contains the application's business logic, domain models, and interfaces for accessing external resources. :|||
 
 ## SOLID 
