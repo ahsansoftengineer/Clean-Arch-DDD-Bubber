@@ -1,7 +1,4 @@
-# Donation
-## Most Used Principle
-### Clean Architecture, DDD, Onion Archetecture
-#### Solution Structure
+## Clean Architecture, DDD, Onion Archetecture
 <table>
   <thead>
     <tr>
@@ -69,40 +66,73 @@
 </table>
 
 ## SOLID 
-- Single Responsibility (SRP)
-- Open-Closed Principle (OCP)
-- Liskov Substitution (LSP)
-- Interface Segregation (ISP)
-- Dependency Inversion (DIP)
+| Heading | Defination |
+|:-------:|:---------- | 
+| Single Responsibility (SRP)  | Class, Function has the Only 1 Reason to Change |
+| Open-Closed Principle (OCP)  | Make your function as flexible that it can used over and over again |
+| Liskov Substitution (LSP)    | Needs short defination |
+| Interface Segregation (ISP)  | Don't Make Huge Interface, Split the Big Interface into multiple small Interfaces |
+| Dependency Inversion (DIP)   |  |
+| Keep it Simple Stupid (KISS) |  |
+| IOC Container | |
+
+
 
 ## OOP 
-- Inheritance 
-- Abstraction
-- Polymorphism
-- Encapsulation
+| Heading | Defination |
+|:-------:|:---------- | 
+| Inheritance  | |
+| Abstraction | |
+| Polymorphism | |
+| Encapsulation | |
 
-### Libraries
+### Programing Paradiagm 
+| Heading | Defination |
+|:-------:|:---------- | 
+| Procedural Programing | | 
+| Object Oriented Programing | |
+| Functional Programing | |
 
- Marvin Caching
-### CQRS Common Query Segregation
-### Domain Driven Design
-### Model-View-Controller (MVC)
+| Heading | Defination |
+|:-------:|:---------- | 
+| CQRS Common Query Segregation | |
+| Model-View-Controller (MVC) | |
+| Model-View-View-Model (MVVM) | |
+| ASP .NET Core Web Form () | |
+| Templating Engine | |
 
-## Concepts
-### API Versioning
-### API Caching,
-### JWT
-### Async Programming in DotNet
 
-## Patterns
+### Concepts
+| Heading | Defination |
+|:-------:|:---------- | 
+| API Versioning | |
+| API Caching, | |
+| JWT | |
+| Single Sign ON ||
 
-### Pub Sub
-### Repository
-### Factory
-### Singleton
-### Observer
-### Decorator
-### Command
-### Adapter
-### Facade
-### Template Method
+| Async Programming in DotNet | |
+
+### Design Patterns
+| Heading | Defination |
+|:-------:|:---------- | 
+| Singleton, Doubleton, Tripleton | |
+| Domain Driven Design | |
+| Repository | |
+| ||
+| Pub Sub | |
+| Factory | |
+| Observer | |
+| Decorator | |
+| Command | |
+| Adapter | |
+| Facade | |
+| Template Method | |
+
+### Programming Terms
+| Heading | Defination |
+|:-------:|:---------- | 
+| POCO, POJO | |
+| Database Migrations | |
+| | |
+
+
