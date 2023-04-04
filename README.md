@@ -2,14 +2,14 @@
 ## Most Used Principle
 ### Clean Architecture, DDD, Onion Archetecture
 #### Solution Structure
-1. Domain: (-) :| Entities, Models, ValueObjects, Aggregate, AggregateRoot :|: ErrorOr
-2. Contract: (-) :| Request, Response, Query, Commands, CommandHandlers :|:  (-)
-3. Application: (Domain) :| CommandHandler, QueryHandler, CommandValidator, ValidationBehavior :|: FluentValidation, FluentValidation.AspNetCore, MediatR, |: 
-4. Infrastructure: (Application) :| DbContext, Repository, Migration, Configuration, JWT :|: EntityFrameworkCore.SqlServer, Extensions.Configuration, Extensions.Options.ConfigurationExtensions, AspNetCore.Authentication.JwtBearer, System.IdentityModel.Tokens.Jwt |:
-5. Presentation, API: (Contract, Application, Infrastructure) :| Controller, MappingConfiguration CQRS :|: Mapster, OpenApi, EntityFrameworkCore.Design |:
-6. Core: This is the innermost layer that contains the application's business logic, domain models, and interfaces for accessing external resources.
-
-
+| Layer | Internal Libraries | External Libraries | Purpose |
+|:----------:|:----:|------|----------|
+| Domain | - | ErrorOr | Entities, Models, ValueObjects, Aggregate, AggregateRoot | 
+| Contract | - | - | Request, Response, Query, Commands, CommandHandlers
+| Application | Domain | FluentValidation, FluentValidation.AspNetCore, MediatR | CommandHandler, QueryHandler, CommandValidator, ValidationBehavior |
+| Infrastructure | Application | EntityFrameworkCore.SqlServer, Extensions.Configuration, Extensions.Options.ConfigurationExtensions, AspNetCore.Authentication.JwtBearer, System.IdentityModel.Tokens.Jwt | DbContext, Repository, Migration, Configuration, JWT |
+| Presentation / API | Contract, Application, Infrastructure | Mapster, OpenApi, EntityFrameworkCore.Design | Controller, MappingConfiguration CQRS | 
+| Core ||| This is the innermost layer that contains the application's business logic, domain models, and interfaces for accessing external resources. |
 
 ## SOLID 
 - Single Responsibility (SRP)
