@@ -3,7 +3,7 @@
 ### Clean Architecture, DDD, Onion Archetecture
 #### Solution Structure
 | Layer | Internal Libraries | External Libraries | Purpose |
-|:----------:|:----:|------|----------|
+|:----------:|:----:|:------:|:----------:|
 | Domain | - | ErrorOr | Entities, Models, ValueObjects, Aggregate, AggregateRoot | 
 | Contract | - | - | Request, Response, Query, Commands, CommandHandlers
 | Application | Domain | FluentValidation, FluentValidation.AspNetCore, MediatR | CommandHandler, QueryHandler, CommandValidator, ValidationBehavior |
