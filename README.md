@@ -1,35 +1,46 @@
 # Donation
 ## Most Used Principle
-### Clean Architecture
-1. Core: This is the innermost layer that contains the application's business logic, domain models, and interfaces for accessing external resources.
-2. Infrastructure: This layer contains the implementation of the interfaces defined in the Core layer, such as data access and logging.
-3. Application: This layer contains the application services that coordinate the interactions between the Core and Infrastructure layers.
-4. Presentation: This layer contains the UI and any other presentation-related logic, such as user input handling.
+### Clean Architecture, DDD, Onion Archetecture
+1. Domain: (-) : Entities, Models, ValueObjects, Aggregate, AggregateRoot
+2. Contract: (-) : (Request, Response, Query, Commands, CommandHandlers) 
+3. Application: (Domain) : This layer contains the application services that coordinate the interactions between the Core and Infrastructure layers.
+4. Infrastructure: (Application) : This layer contains the implementation of the interfaces defined in the Core layer, such as data access and logging.
+5. Presentation, API: (Contract, Application, Infrastructure) :This layer contains the UI and any other presentation-related logic, such as user input handling.
+6. Core: This is the innermost layer that contains the application's business logic, domain models, and interfaces for accessing external resources.
 
 
-### Repository Patter
 
-### Domain Driven Design
-
-### SOLID 
+## SOLID 
 - Single Responsibility Principle (SRP)
 - Open-Closed Principle (OCP)
 - Liskov Substitution Principle (LSP)
 - Interface Segregation Principle (ISP)
 - Dependency Inversion Principle (DIP)
 
-### OOP 
+## OOP 
 - Inheritance 
 - Abstraction
 - Polymorphism
 - Encapsulation
 
-### Factory pattern
-### Singleton pattern
-### Observer pattern
-### Decorator pattern
+### Libraries
+
+ Marvin Caching
+### CQRS Common Query Segregation
+### Domain Driven Design
 ### Model-View-Controller (MVC)
-### Command pattern
-### Adapter pattern
-### Facade pattern
-### Template method pattern
+
+## Concepts
+### API Versioning
+### API Caching,
+
+## Patterns
+#### Repository
+#### Factory
+#### Singleton
+#### Observer
+#### Decorator
+#### Command
+#### Adapter
+#### Facade
+#### Template Method
