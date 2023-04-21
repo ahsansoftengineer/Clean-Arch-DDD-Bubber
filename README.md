@@ -71,14 +71,18 @@
 |:-------:|:---------- | 
 | Single Responsibility (SRP)  | Class, Function has the Only 1 Reason to Change |
 | Open-Closed Principle (OCP)  | Make your function as flexible that it can used over and over again |
-| Liskov Substitution (LSP)    | Needs short defination |
+| Liskov Substitution (LSP)    | To apply the Liskov substitution principle in your code, you should make sure that any subclasses you create adhere to the same interface and behavior as their parent class. You should also avoid making any changes to the behavior of the parent class that would affect the behavior of the subclass. By doing so, you can ensure that your code is robust, reliable, and easy to maintain over time. |
 | Interface Segregation (ISP)  | Don't Make Huge Interface, Split the Big Interface into multiple small Interfaces |
 | Dependency Inversion (DIP)   | Dependency Inversion (DI) is a principle that states that high-level modules should not depend on low-level modules, but both should depend on abstractions. This means that instead of directly depending on concrete implementations of classes or modules, we should depend on interfaces or abstract classes that define the behavior we need. |
 | Dependency Injection | Dependency Injection (DI) is a technique used to implement Dependency Inversion. It involves passing dependencies into a class or module from an external source, rather than having the class or module create them internally. This allows us to change the behavior of a class or module by changing the dependencies passed to it, without having to modify its code. |
 | Keep it Simple Stupid (KISS) | KISS is an acronym that stands for "Keep It Simple, Stupid." It is a principle of software design that suggests that the simplest solution is often the best one. The KISS principle encourages developers to avoid overcomplicating things and to favor simple, straightforward designs over complex ones.  |
 | IOC Container | In software development, an IOC (Inversion of Control) container is a framework or tool that automates the process of dependency injection. An IOC container manages the dependencies of various objects or components in an application, and provides them with the required dependencies when they are needed.|
 
-
+### Liskov vs Open Closed Principal
+- The Liskov substitution principle is a concept in object-oriented programming that was introduced by Barbara Liskov in 1987. It states that if a program is designed to work with objects of a certain class, it should be able to work with objects of any subclass of that class without any problems.
+- The Liskov substitution principle is focused on ensuring that a program is designed in a way that allows objects of a subclass to be used in place of objects of the parent class without any issues. It is designed to ensure that a program is flexible and maintainable, by allowing new classes to be added to the program without affecting the existing code.
+- The Liskov substitution principle is based on the assumption that subclasses inherit all the characteristics and behavior of the parent class, and that any changes made to the subclass should not affect the functionality of the program. This allows you to use objects of any subclass of a class interchangeably with objects of the parent class, without any issues or unexpected behavior.
+- The Open/Closed principle, on the other hand, is focused on ensuring that a program is designed in a way that allows it to be easily extended without modifying the existing code. It is designed to ensure that a program is robust and reliable, by allowing new functionality to be added to the program without introducing new bugs or issues.
 
 ## OOP 
 | Heading | Defination |
