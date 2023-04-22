@@ -222,6 +222,14 @@ Learning Domain-Driven Design (DDD) can be a challenging task, but there are a f
 5. Time-series databases: Time-series databases are designed to handle large volumes of time-stamped data, such as sensor readings, stock prices, or server logs. They are optimized for querying and analyzing time-based data, and often use specialized storage and indexing techniques to improve performance. Examples of popular time-series databases include InfluxDB and TimescaleDB.
 6. Spatial databases: Spatial databases are designed to handle spatial data, such as maps, satellite imagery, or GPS data. They use specialized data structures and algorithms to store and query spatial data efficiently. Examples of popular spatial databases include PostGIS and Oracle Spatial.
 
+### Option Pattern 
+- The .NET Core Options pattern is a way of configuring an application using classes and objects in the form of options. This pattern is commonly used to provide configuration settings to an application, which can be used to customize its behavior.
+- *The Options pattern consists of the following components:*
+1. Options class: This class is used to define the configuration settings required by the application. It should have properties with default values that can be overridden by configuration providers.
+2. Configuration provider: This is used to provide configuration values to the application. It can be any source of configuration data, such as environment variables, JSON files, command-line arguments, or Azure Key Vault.
+3. Configuration builder: This is used to build the configuration providers and define the order in which they should be applied.
+4. Service registration: This is used to register the Options class with the dependency injection container, allowing it to be injected into the application's services.
+
 ### Database Design
 Here are some common database interview questions that you might encounter:
 
