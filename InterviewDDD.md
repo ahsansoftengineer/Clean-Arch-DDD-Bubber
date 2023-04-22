@@ -77,7 +77,6 @@ Learning Domain-Driven Design (DDD) can be a challenging task, but there are a f
 ### DDD
 | Heading | Defination |
 |:-------:|:---------- | 
-| Command Query Responsibility Segregation CQRS | is an architectural pattern that separates the read and write operations of an application into two separate models, called the command model and the query model. |
 | Model-View-Controller (MVC) | MVC is often used in web applications, where the model represents the database or other data source, the view represents the HTML pages and UI elements, and the controller represents the server-side logic that handles requests and updates the view and model accordingly. |
 | Model-View-View-Model (MVVM) | One of the key differences between MVVM and MVC is that MVVM uses data binding to connect the view and the ViewModel, rather than having the controller update the view directly. This allows for more flexibility and modularity in the design of the user interface, and can make it easier to write and test code. |
 | ASP .NET Core Web Form () | Web Forms relies heavily on postbacks and view state to maintain the state of the application, which can make it more difficult to build scalable and maintainable applications. |
