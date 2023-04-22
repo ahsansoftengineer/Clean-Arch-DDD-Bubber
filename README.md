@@ -172,6 +172,18 @@
 4. Anonymous methods and lambda expressions: C# provides syntax for creating anonymous methods and lambda expressions, which are essentially shorthand for creating delegate instances. These constructs make it easy to create delegate instances on the fly and pass them as arguments to methods or store them as variables.
 5. Func and Action delegates: C# provides two predefined delegate types, Func and Action, that are commonly used in functional programming. Func represents a method that returns a value, and takes up to 16 input parameters, while Action represents a method that returns void and takes up to 16 input parameters.
 
+### LINQ 
+- LINQ (Language-Integrated Query) is a feature of .NET that allows developers to write queries in a programming language, such as C# or VB.NET, instead of using SQL statements. LINQ provides a unified syntax for querying data from various sources, including databases, XML documents, and collections.
+1. LINQ to SQL: A LINQ provider that enables developers to query SQL Server databases using LINQ. It provides a mapping between database tables and C# classes, and allows developers to perform CRUD (create, read, update, delete) operations on the database.
+2. Entity Framework: A LINQ provider that provides an object-relational mapping (ORM) framework for .NET. It supports querying databases using LINQ, and also provides features such as change tracking, lazy loading, and database migrations.
+3. LINQ to XML: A LINQ provider that enables developers to query and manipulate XML documents using LINQ
+4. LINQ to Objects: A LINQ provider that provides query operators for querying in-memory collections such as arrays, lists, and dictionaries. It supports a wide range of operations, including filtering, sorting, grouping, joining, and aggregation.
+5. LINQ to SharePoint
+
+### Generics
+1. Generics is a feature in .NET that allows developers to write code that can work with a wide range of data types. Generics enable the creation of type-safe classes, methods, and structures that can be parameterized with one or more types. This allows code to be written once and reused with different data types, providing flexibility and reducing code duplication.
+2. In .NET Core, generics are used extensively throughout the framework, particularly in collections such as List<T>, Dictionary<TKey, TValue>, and HashSet<T>. Generics can also be used to create custom classes and methods that are specific to an application's needs.
+
 ### Reflection 
 - Reflection is a powerful feature of the .NET Core framework that allows you to inspect and manipulate metadata about types, objects, and assemblies at runtime. Here are some key points about reflection in .NET Core:
 1. Definition: Reflection is the ability of a program to inspect its own code at runtime. It allows you to examine the types, methods, properties, fields, and other members of an object, as well as to create new instances of types dynamically and invoke methods and properties.
