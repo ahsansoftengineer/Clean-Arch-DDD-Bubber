@@ -181,6 +181,8 @@ namespace Donation.Api.Controllers
 dotnet tool list --global
 dotnet tool install --global dotnet-ef
 Install-Package Microsoft.EntityFrameworkCore.Tools // Power Shell
+// Incase you have exception of Version
+dotnet tool update --global dotnet-ef --version 3.1.0
 // PM Package Manager Console
 Add-Migration NameOfMigration -Context DatabaseContextName
 // When you have One DBContext and One Project
