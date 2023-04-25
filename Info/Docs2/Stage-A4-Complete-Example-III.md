@@ -181,6 +181,8 @@ namespace Donation.Api.Controllers
 dotnet tool list --global
 dotnet tool install --global dotnet-ef
 Install-Package Microsoft.EntityFrameworkCore.Tools // Power Shell
+// Incase you have exception of Version
+dotnet tool update --global dotnet-ef --version 3.1.0
 // PM Package Manager Console
 Add-Migration NameOfMigration -Context DatabaseContextName
 // When you have One DBContext and One Project
@@ -188,6 +190,7 @@ dotnet ef migrations add NameOfMigration
 // When you have two or more Projects
 dotnet ef migrations add NameOfMigration -p Donation.Infrastructure -s Donation.Api
 // When you have Two or More DB Context
+dotnet ef migrations add NameOfMigration -p ProjectName.Infra -s ProjectName.Api --context DBCntxt
 dotnet ef migrations add NameOfMigration --context DatabaseContextName
 // docker pull mcr.microsoft.com/mssql/server:2022-latest
 // docker image ls
@@ -196,5 +199,6 @@ dotnet ef migrations add NameOfMigration --context DatabaseContextName
 // PM Package Manager Console
 UPDATE-DATABASE -Context DatabaseContext
 dotnet ef database update -p Donation.Infrastructure -s Donation.Api --connection "SERVER=.;DATABASE=Donation;USER=sa;PASSWORD=asdf1234;Encrypt=false"
-dotnet run --project Donation.Api
+dotnet ef database update -p ProjectName.Infra -s ProjectName.Api --connection "SERVER=.;DATABASE=Test;USER=sa;PASSWORD=asdf1234;Encrypt=false"
+dotnet run --project ProjectName.Api
 ```
