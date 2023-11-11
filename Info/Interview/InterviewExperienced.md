@@ -25,6 +25,21 @@
 1. SSO can be implemented using various technologies and protocols, such as SAML, OAuth, and OpenID Connect. In a typical SSO implementation, a user logs in to an identity provider (IdP) using their username and password. The IdP then generates a token, such as a JWT, that can be used to authenticate the user to other applications or services.
 2. When the user attempts to access a protected resource on an application or service, the application or service redirects the user to the IdP for authentication. The IdP then verifies the user's identity and generates a new token that is passed back to the application or service, which uses the token to authorize the user's access.
 
+#### Application Resilince
+- A resilient application is an application that is designed to remain highly available and responsive even when faced with unexpected events or disruptions. Resilience is achieved through a combination of strategies such as redundancy, fault tolerance, and graceful degradation.
+1. Redundancy refers to the provision of duplicate hardware or software components to ensure that if one fails, the application can still continue to function. For example, a resilient application might have multiple servers running the same application, with load balancers routing traffic to healthy servers in the event of a failure.
+2. Fault tolerance refers to the ability of an application to continue functioning despite the failure of individual components. This is achieved through mechanisms such as automated failover or self-healing processes that can detect and repair failures.
+3. Graceful degradation refers to the ability of an application to continue functioning at a reduced capacity when faced with high loads or degraded performance. For example, a resilient application might prioritize critical functionality and disable non-essential features during periods of high traffic or reduced resources.
+
+#### What is Polly?
+- Polly is a resilience framework for .NET available as a .NET Standard Library so it can run on your web services, desktop apps, mobile apps and inside your containers—anywhere .NET can run.
+1. To date, Polly has been downloaded over 265 million times, and it’s easy to see why. With only a few lines of code, Polly can retry failed requests, cache previous responses, protect your resources, prevent you from making requests to broken services, terminate requests that are taking too long and return a default value when all else fails. It’s also thread safe and works on sync and async calls. 
+2. Now that you understand why people are gravitating toward Polly, let’s run through the main features and how you can use them.
+
+
+
+#### What is Retry in Polly?
+As the name suggests, the Retry policy lets you retry a failed request due to an exception or an unexpected or bad result returned from the called code. It doesn’t wait before retrying, so be careful. If the problem that caused the request to fail is not likely to resolve itself almost immediately, retrying might not help; it might even make matters worse. The Retry policy lets you define how many retries should occur before it gives up.
 #### API Versioning 
 - There are several approaches to API versioning, including:
 1. URI Versioning: api/v1/users and api/v2/users.
@@ -107,3 +122,5 @@ Roslyn is a .NET Core compiler that compiles VB or C# code to the intermediate l
 
 22. What is meant by Razor Pages?
 - Razor Pages is a comparatively newer and more simplified web app development/ programming model. The Razor Pages follow a file-based routing approach thus simplifying the "Model-View-Controller" architectural model of ASP.NET. The code and the HTML are both in a single file which eliminates the need for separate view models, controllers, action methods, etc.
+
+
