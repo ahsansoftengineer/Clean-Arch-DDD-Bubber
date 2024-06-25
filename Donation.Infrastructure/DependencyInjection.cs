@@ -34,7 +34,7 @@ namespace Donation.Infrastructure
       Services.AddDbContext<DonationDbContext>(options =>
       {
         // TrustServerCertificate=true | Encrypt=false
-        options.UseSqlServer("SERVER=localhost;DATABASE=Donation;USER=sa;PASSWORD=asdf1234;Encrypt=false");
+        options.UseSqlServer("SERVER=localhost;DATABASE=Donation;USER=sa;PASSWORD=Asdf@1234;Encrypt=false");
       });
       Services.AddScoped<IUserRepository, UserRepository>();
       Services.AddScoped<IMenuRepository, MenuRepository>();
