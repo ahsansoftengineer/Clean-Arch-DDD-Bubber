@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
 
 using Donation.Application.Common.Interfaces.Authentication;
 using Donation.Application.Common.Services;
@@ -12,7 +13,6 @@ using Donation.Infrastructure.Authentication;
 using Donation.Infrastructure.Services;
 using Donation.Infrastructure.Persistence;
 using Donation.Infrastructure.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
 using Donation.Application.Common.Persistence.Hierarchy;
 using Donation.Infrastructure.Persistence.Repositories.Hierarchy;
 
